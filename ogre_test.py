@@ -128,8 +128,18 @@ class MainOgreApp(OgreBites.ApplicationContext, OgreBites.InputListener):
         self.highlight_mat = Ogre.MaterialManager.getSingleton().create("Highlight", self.RGN_THIS_APP)
         self.highlight_mat.getTechniques()[0].getPasses()[0].setEmissive(Ogre.ColourValue(1, 1, 0))
 
+        unit = 1.
+
+        axes_node = scn_mgr.getRootSceneNode().createChildSceneNode()
+        axes_node.getDebugRenderable()  # make sure Ogre/Debug/AxesMesh is created
+        self.axes = scn_mgr.createEntity("Ogre/Debug/AxesMesh")
+        axes_node.attachObject(self.axes)
+        axes_node.setScale(Ogre.Vector3(unit))
+        self.axes.setVisible(True)
+        self.axes.setQueryFlags(0) # exclude from picking
+
         self.cam = scn_mgr.createCamera("myCam")
-        self.cam.setNearClipDistance(0.01)
+        self.cam.setNearClipDistance(unit * 0.01)
         self.cam.setAutoAspectRatio(True)
         camnode = scn_mgr.getRootSceneNode().createChildSceneNode()
         camnode.attachObject(self.cam)
