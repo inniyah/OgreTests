@@ -9,6 +9,7 @@ import Ogre
 import Ogre.RTShader as OgreRTShader
 import Ogre.Bites as OgreBites
 import os.path
+import Ogretmxmap
 
 from Ogre.Overlay import *
 
@@ -20,6 +21,8 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         OgreBites.ApplicationContext.__init__(self, "Titulo de la ventana")
         OgreBites.InputListener.__init__(self)
         self.pos=Ogre.Vector3(0,20,80)
+        self.LINEAL_VEL=50
+        self.ANGULAR_VEL=1
         
     def frameStarted(self, evt):
         return True
@@ -113,46 +116,29 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         lightNode.setPosition(20, 80, 50)
         
         #manual object (y,z,x)
-        man=scn_mgr.createManualObject("test")
-        
-        #Para hacer el objeto dianico, por defecto False
-        man.estimateIndexCount(100) #Numero de tiles
-        man.estimateVertexCount(400) #Numero de vertices
-        INCTILE_X=20
-        INCTILE_Y=20
-        
-        man.begin("Examples/OgreLogo", Ogre.RenderOperation.OT_TRIANGLE_LIST)
-        tile=0
-        for tx in range (0,10):
-            for ty in range (0,10):
-                px=INCTILE_X*tx
-                py=INCTILE_Y*ty
-                man.position(py, 0, px)
-                man.normal(0, 1, 0)
-                man.textureCoord(0, 0)
-                man.position(py, 0, px+INCTILE_X)
-                man.normal(0, 1, 0)
-                man.textureCoord(0, 1)
-                man.position(py+INCTILE_Y, 0, px+INCTILE_X)
-                man.normal(0, 1, 0)
-                man.textureCoord(1, 1)
-                man.position(py+INCTILE_Y, 0, px)
-                man.normal(0, 1, 0)
-                man.textureCoord(1, 0)
-                man.quad(tile, tile+1, tile+2, tile+3)
-                tile+=4
-        
-        man.end()
+        mapa=Ogretmxmap.tmxmap()
+        mapa.load("Maps/mapa.tmx")
+        man=mapa.makefloor(scn_mgr,0)
+
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.setPosition(0,0,0)
-        mannode.attachObject(man)       
+        mannode.attachObject(man)   
+        
+        #lets set a fog
+        Fadecolor=Ogre.ColourValue(0.9,0.9,0.9)
+        vp.setBackgroundColour(Fadecolor)
+        scn_mgr.setFog(Ogre.Ogre.FOG_LINEAR,Fadecolor,0,600,900)
+        
 
     def frameStarted(self, evt):
         OgreBites.ApplicationContext.frameStarted(self, evt)
         #if not self.cam.getViewport().getOverlaysEnabled():
         #    return True
         #ImGuiOverlay.NewFrame(evt)
-        self.camNode.setPosition(self.pos)
+        #self.camNode.setPosition(self.pos)
+        self.time=evt.timeSinceLastFrame
+        self.vel=self.time*self.LINEAL_VEL
+        #print (evt.timeSinceLastFrame)
                         
         return True
         
@@ -162,16 +148,20 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
                 self.getRoot().queueEndRendering()
             
             if evt.keysym.sym == OgreBites.SDLK_DOWN:
-                self.pos=self.pos+Ogre.Vector3(0,0,1)*2
+                self.camNode.translate(0,0,self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
+                #self.pos=self.pos+Ogre.Vector3(0,0,1)*2
                 
             if evt.keysym.sym == OgreBites.SDLK_UP:
-                self.pos=self.pos+Ogre.Vector3(0,0,-1)*2
+                self.camNode.translate(0,0,-self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
+                #self.pos=self.pos+Ogre.Vector3(0,0,-1)*2
             
             if evt.keysym.sym == OgreBites.SDLK_LEFT:
-                self.pos=self.pos+Ogre.Vector3(-1,0,0)*2
+                self.camNode.yaw(Ogre.Ogre.Radian(self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+                #self.pos=self.pos+Ogre.Vector3(-1,0,0)*2
             
             if evt.keysym.sym == OgreBites.SDLK_RIGHT:
-                self.pos=self.pos+Ogre.Vector3(1,0,0)*2
+                self.camNode.yaw(Ogre.Ogre.Radian(-self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+                #self.pos=self.pos+Ogre.Vector3(1,0,0)*2
             
             return True
                 
