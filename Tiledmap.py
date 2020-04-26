@@ -20,7 +20,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
     def __init__(self):
         OgreBites.ApplicationContext.__init__(self, "Titulo de la ventana")
         OgreBites.InputListener.__init__(self)
-        self.pos=Ogre.Vector3(0,20,80)
+        self.pos=Ogre.Vector3(0,18,80) #altura 1.80m
         self.LINEAL_VEL=50
         self.ANGULAR_VEL=1
         
@@ -35,7 +35,6 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         
     def locateResources(self):
         
-        print("locate")
         self.rescfg= os.path.basename("./resources.cfg")
         self.meshdir = os.path.dirname("./resources.cfg")
         
@@ -87,15 +86,17 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         shadergen = OgreRTShader.ShaderGenerator.getSingleton()
         shadergen.addSceneManager(scn_mgr)
         
+        # Vamos a crear el nodo perteneciente al personaje
+        Playernode=scn_mgr.getRootSceneNode().createChildSceneNode()
+        Playernode.setPosition(self.pos)        
+        self.Playernode=Playernode
         
-        # -- tutorial section start --
         # Creamos la camara y la posicionamos en la escena
-        camNode = scn_mgr.getRootSceneNode().createChildSceneNode()
+        camNode = Playernode.createChildSceneNode()
         cam = scn_mgr.createCamera("MainCam")
         #camNode.setPosition(0, 0, 80)
-        camNode.setPosition(self.pos)
         camNode.lookAt(Ogre.Vector3(0, 0, -300), Ogre.Node.TS_WORLD)
-        cam.setNearClipDistance(5)
+        cam.setNearClipDistance(2)
         camNode.attachObject(cam)
         vp = self.getRenderWindow().addViewport(cam)
         vp.setBackgroundColour(Ogre.ColourValue(0, 0, 0))
@@ -104,10 +105,9 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         self.camNode=camNode
 
         # Setup the scene
-        print("setup")
-#        ogreEntity = scn_mgr.createEntity("ogrehead.mesh")
-#        ogreNode = scn_mgr.getRootSceneNode().createChildSceneNode()
-#        ogreNode.attachObject(ogreEntity)
+#        wall = scn_mgr.createEntity("simplewall.mesh")
+#        wallNode = scn_mgr.getRootSceneNode().createChildSceneNode()
+#        wallNode.attachObject(wall)
 
         scn_mgr.setAmbientLight(Ogre.ColourValue(.5, .5, .5))
         light=scn_mgr.createLight("MainLight")
@@ -118,14 +118,17 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         #manual object (y,z,x)
         mapa=Ogretmxmap.tmxmap()
         mapa.load("Maps/mapa.tmx")
-        man=mapa.makefloor(scn_mgr,0)
-
+        floor1=mapa.makefloor(scn_mgr,"Floor1",0)
+        ceil1=mapa.makeceil(scn_mgr,"Ceil1",20)
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.setPosition(0,0,0)
-        mannode.attachObject(man)   
+        mannode.attachObject(floor1)
+        mannode.attachObject(ceil1)
+        mapa.makewalls(scn_mgr,"Wall1",0)
+        
         
         #lets set a fog
-        Fadecolor=Ogre.ColourValue(0.9,0.9,0.9)
+        Fadecolor=Ogre.ColourValue(0,0,0)
         vp.setBackgroundColour(Fadecolor)
         scn_mgr.setFog(Ogre.Ogre.FOG_LINEAR,Fadecolor,0,600,900)
         
@@ -148,20 +151,27 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
                 self.getRoot().queueEndRendering()
             
             if evt.keysym.sym == OgreBites.SDLK_DOWN:
-                self.camNode.translate(0,0,self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
+                self.Playernode.translate(0,0,self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
                 #self.pos=self.pos+Ogre.Vector3(0,0,1)*2
                 
             if evt.keysym.sym == OgreBites.SDLK_UP:
-                self.camNode.translate(0,0,-self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
+                self.Playernode.translate(0,0,-self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
                 #self.pos=self.pos+Ogre.Vector3(0,0,-1)*2
             
             if evt.keysym.sym == OgreBites.SDLK_LEFT:
-                self.camNode.yaw(Ogre.Ogre.Radian(self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+                self.Playernode.yaw(Ogre.Ogre.Radian(self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
                 #self.pos=self.pos+Ogre.Vector3(-1,0,0)*2
             
             if evt.keysym.sym == OgreBites.SDLK_RIGHT:
-                self.camNode.yaw(Ogre.Ogre.Radian(-self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+                self.Playernode.yaw(Ogre.Ogre.Radian(-self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
                 #self.pos=self.pos+Ogre.Vector3(1,0,0)*2
+            
+            if evt.keysym.sym == OgreBites.SDLK_PAGEDOWN:
+                self.camNode.pitch(Ogre.Ogre.Radian(-self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+
+            if evt.keysym.sym == OgreBites.SDLK_PAGEUP:
+                self.camNode.pitch(Ogre.Ogre.Radian(self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+
             
             return True
                 
