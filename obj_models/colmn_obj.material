@@ -1,0 +1,20 @@
+
+
+material colmn.jpg
+{
+	technique
+	{
+		pass 
+		{
+			diffuse 0.74902 0.74902 0.74902 1
+			specular 0.74902 0.74902 0.74902 1 20
+
+			texture_unit
+			{
+				texture colmn.jpg
+			}
+		}
+
+	}
+
+}
