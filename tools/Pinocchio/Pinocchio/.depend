@@ -1,0 +1,47 @@
+attachment.o: attachment.cpp attachment.h mesh.h vector.h hashutils.h \
+ mathutils.h Pinocchio.h rect.h skeleton.h graphutils.h transform.h \
+ quatinterface.h transfo.h vec3.h mat3.h point3.h quat_cu.h \
+ dual_quat_cu.h vecutils.h lsqSolver.h
+discretization.o: discretization.cpp pinocchioApi.h mesh.h vector.h \
+ hashutils.h mathutils.h Pinocchio.h rect.h quaddisttree.h dtree.h \
+ indexer.h multilinear.h intersector.h vecutils.h pointprojector.h \
+ debugging.h attachment.h skeleton.h graphutils.h transform.h \
+ quatinterface.h transfo.h vec3.h mat3.h point3.h quat_cu.h \
+ dual_quat_cu.h deriv.h
+indexer.o: indexer.cpp indexer.h hashutils.h mathutils.h Pinocchio.h \
+ vector.h
+lsqSolver.o: lsqSolver.cpp lsqSolver.h mathutils.h Pinocchio.h \
+ hashutils.h debugging.h
+mesh.o: mesh.cpp mesh.h vector.h hashutils.h mathutils.h Pinocchio.h \
+ rect.h utils.h debugging.h
+graphutils.o: graphutils.cpp graphutils.h vector.h hashutils.h \
+ mathutils.h Pinocchio.h debugging.h
+intersector.o: intersector.cpp intersector.h mesh.h vector.h hashutils.h \
+ mathutils.h Pinocchio.h rect.h vecutils.h
+matrix.o: matrix.cpp matrix.h mathutils.h Pinocchio.h debugging.h
+skeleton.o: skeleton.cpp skeleton.h graphutils.h vector.h hashutils.h \
+ mathutils.h Pinocchio.h utils.h debugging.h
+embedding.o: embedding.cpp pinocchioApi.h mesh.h vector.h hashutils.h \
+ mathutils.h Pinocchio.h rect.h quaddisttree.h dtree.h indexer.h \
+ multilinear.h intersector.h vecutils.h pointprojector.h debugging.h \
+ attachment.h skeleton.h graphutils.h transform.h quatinterface.h \
+ transfo.h vec3.h mat3.h point3.h quat_cu.h dual_quat_cu.h
+pinocchioApi.o: pinocchioApi.cpp pinocchioApi.h mesh.h vector.h \
+ hashutils.h mathutils.h Pinocchio.h rect.h quaddisttree.h dtree.h \
+ indexer.h multilinear.h intersector.h vecutils.h pointprojector.h \
+ debugging.h attachment.h skeleton.h graphutils.h transform.h \
+ quatinterface.h transfo.h vec3.h mat3.h point3.h quat_cu.h \
+ dual_quat_cu.h PinnocchioCallback.h
+PinnocchioCallback.o: PinnocchioCallback.cpp PinnocchioCallback.h \
+ Pinocchio.h mesh.h vector.h hashutils.h mathutils.h rect.h attachment.h \
+ skeleton.h graphutils.h transform.h quatinterface.h transfo.h vec3.h \
+ mat3.h point3.h quat_cu.h dual_quat_cu.h
+refinement.o: refinement.cpp pinocchioApi.h mesh.h vector.h hashutils.h \
+ mathutils.h Pinocchio.h rect.h quaddisttree.h dtree.h indexer.h \
+ multilinear.h intersector.h vecutils.h pointprojector.h debugging.h \
+ attachment.h skeleton.h graphutils.h transform.h quatinterface.h \
+ transfo.h vec3.h mat3.h point3.h quat_cu.h dual_quat_cu.h deriv.h
+quatinterface.o: quatinterface.cpp quatinterface.h vector.h hashutils.h \
+ mathutils.h Pinocchio.h transfo.h vec3.h mat3.h point3.h transform.h \
+ quat_cu.h dual_quat_cu.h
+yaml.o: yaml.cpp yaml.h

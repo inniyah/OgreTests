@@ -1,0 +1,13 @@
+AttachWeights.o: AttachWeights.cpp stdafx.h ../Pinocchio/skeleton.h \
+ ../Pinocchio/graphutils.h ../Pinocchio/vector.h ../Pinocchio/hashutils.h \
+ ../Pinocchio/mathutils.h ../Pinocchio/Pinocchio.h ../Pinocchio/utils.h \
+ ../Pinocchio/debugging.h ../Pinocchio/attachment.h ../Pinocchio/mesh.h \
+ ../Pinocchio/rect.h ../Pinocchio/skeleton.h ../Pinocchio/transform.h \
+ ../Pinocchio/quatinterface.h ../Pinocchio/transfo.h ../Pinocchio/vec3.h \
+ ../Pinocchio/mat3.h ../Pinocchio/point3.h ../Pinocchio/quat_cu.h \
+ ../Pinocchio/dual_quat_cu.h ../Pinocchio/pinocchioApi.h \
+ ../Pinocchio/quaddisttree.h ../Pinocchio/dtree.h ../Pinocchio/indexer.h \
+ ../Pinocchio/multilinear.h ../Pinocchio/intersector.h \
+ ../Pinocchio/vecutils.h ../Pinocchio/pointprojector.h \
+ ../Pinocchio/debugging.h ../Pinocchio/attachment.h
+stdafx.o: stdafx.cpp stdafx.h
