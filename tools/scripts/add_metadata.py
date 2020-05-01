@@ -14,7 +14,7 @@ if __name__ == "__main__":
     parser.add_argument("-D", nargs=2, action='append')
     args = parser.parse_args()
 
-    if not args.db or not args.objfile or not args.type:
+    if not args.db or not args.objfile:
         print("Wrong arguments")
         sys.exit(-1)
 

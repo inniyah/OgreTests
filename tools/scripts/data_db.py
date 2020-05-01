@@ -18,6 +18,7 @@ def generate_obj_info(obj_filename):
     return obj_info
 
 def get_new_seq_id(obj_filename, obj_type, seq_info):
+    assert(obj_type)
     try:
         curr_seq_id = seq_info[obj_type]
     except KeyError:
@@ -58,6 +59,7 @@ def get_obj_info(json_db_filename, obj_filename, obj_type):
                 db_entry = generate_obj_info(obj_filename)
                 db_entry[":change_id"] = 0
 
+                assert(obj_type)
                 new_seq_id = get_new_seq_id(obj_filename, obj_type, seq_info)
                 db_entry[":seq_id"]  = new_seq_id
 
