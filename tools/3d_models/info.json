@@ -1,0 +1,46 @@
+{
+  "3d_models/caution.obj": {
+    ":change_id": 35,
+    ":seq_id": 3,
+    ":timestamp": "2020-05-01 (01:11:08) UTC",
+    "@3DMesh": "3d_models/caution.mesh",
+    "@3DModel": "3d_models/caution.obj",
+    "@IsoTile1": "3d_models/caution_1.iso.png",
+    "@IsoTile2": "3d_models/caution_2.iso.png",
+    "@IsoTile3": "3d_models/caution_3.iso.png",
+    "@IsoTile4": "3d_models/caution_4.iso.png"
+  },
+  "3d_models/colmn.obj": {
+    ":change_id": 35,
+    ":seq_id": 2,
+    ":timestamp": "2020-05-01 (01:11:08) UTC",
+    "@3DMesh": "3d_models/colmn.mesh",
+    "@3DModel": "3d_models/colmn.obj",
+    "@IsoTile1": "3d_models/colmn_1.iso.png",
+    "@IsoTile2": "3d_models/colmn_2.iso.png",
+    "@IsoTile3": "3d_models/colmn_3.iso.png",
+    "@IsoTile4": "3d_models/colmn_4.iso.png"
+  },
+  "3d_models/wall.obj": {
+    ":change_id": 35,
+    ":seq_id": 1,
+    ":timestamp": "2020-05-01 (01:11:08) UTC",
+    "@3DMesh": "3d_models/wall.mesh",
+    "@3DModel": "3d_models/wall.obj",
+    "@IsoTile1": "3d_models/wall_1.iso.png",
+    "@IsoTile2": "3d_models/wall_2.iso.png",
+    "@IsoTile3": "3d_models/wall_3.iso.png",
+    "@IsoTile4": "3d_models/wall_4.iso.png"
+  },
+  ":seq_info": {
+    "tile": 4
+  },
+  ":timestamp": "2020-05-01 (01:11:08) UTC",
+  ":type_lists": {
+    "tile": {
+      "1": "3d_models/wall.obj",
+      "2": "3d_models/colmn.obj",
+      "3": "3d_models/caution.obj"
+    }
+  }
+}
