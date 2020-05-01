@@ -3,7 +3,7 @@
 
 # Copyright (c) 2011, DR0ID
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
@@ -14,7 +14,7 @@
 #     * Neither the name of the <organization> nor the
 #       names of its contributors may be used to endorse or promote products
 #       derived from this software without specific prior written permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -85,15 +85,15 @@ import array
 #  -----------------------------------------------------------------------------
 class TileMap(object):
     """
-    {mapattr: value, 
-        layers: [{layerattr, data: [gid]}, 
+    {mapattr: value,
+        layers: [{layerattr, data: [gid]},
                  {objects: [{objectattr}]}
-                 ], 
+                 ],
         tilesets: [tileset]
         }
-    
-    
-    
+
+
+
     The TileMap holds all the map data.
 
     :Ivariables:
@@ -131,7 +131,7 @@ class TileMap(object):
     """
 
     def __init__(self):
-#        This is the top container for all data. The gid is the global id 
+#        This is the top container for all data. The gid is the global id
 #       (for a image).
 #        Before calling convert most of the values are strings. Some additional
 #        values are also calculated, see convert() for details. After calling
@@ -202,10 +202,10 @@ class TileMap(object):
             if not layer.is_object_group:
                 self._decode_layer(layer)
                 layer.generate_2D()
-                
+
     def _decode_layer(self, layer):
         """
-        Converts the contents in a list of integers which are the gid of the 
+        Converts the contents in a list of integers which are the gid of the
         used tiles. If necessary it decodes and uncompresses the contents.
         """
         layer.decoded_content = []
@@ -225,10 +225,10 @@ class TileMap(object):
                     raise Exception('unknown data encoding %s' % \
                                                                 (layer.encoding))
             else:
-                # in the case of xml the encoded_content already contains a 
+                # in the case of xml the encoded_content already contains a
                 # list of integers
                 self._fill_decoded_content(layer, list(map(int, layer.encoded_content)))
-                
+
                 content = ""
             if layer.compression:
                 if layer.compression == 'gzip':
@@ -243,17 +243,16 @@ class TileMap(object):
 
         if content:
             struc = struct.Struct("<" + "I" * layer.width * layer.height)
-            val = struc.unpack(content) 
+            val = struc.unpack(content)
             self._fill_decoded_content(layer, val)
 
     def _fill_decoded_content(self, layer, gid_list):
         layer.decoded_content = array.array('I')
         layer.decoded_content.extend(gid_list)# make Cell
-    
+
         # TODO: generate property grid here??
-        
-        
-                
+
+
 #  -----------------------------------------------------------------------------
 
 
@@ -315,7 +314,7 @@ class TileImage(object):
         encoding : string
             encoding of the content
         trans : tuple of (r,g,b)
-            the colorkey color, raw as hex, after calling convert just a 
+            the colorkey color, raw as hex, after calling convert just a
             (r,g,b) tuple
         properties : dict
             the propertis set in the editor, name-value pairs
@@ -451,7 +450,7 @@ class TileLayer(object):
 
     # def decode(self):
         # """
-        # Converts the contents in a list of integers which are the gid of the 
+        # Converts the contents in a list of integers which are the gid of the
         # used tiles. If necessairy it decodes and uncompresses the contents.
         # """
         # self.decoded_content = []
@@ -471,7 +470,7 @@ class TileLayer(object):
                     # raise Exception('unknown data encoding %s' % \
                                                                 # (self.encoding))
             # else:
-                # # in the case of xml the encoded_content already contains a 
+                # # in the case of xml the encoded_content already contains a
                 # # list of integers
                 # self.decoded_content = list(map(int, self.encoded_content))
                 # content = ""
@@ -492,15 +491,15 @@ class TileLayer(object):
         # # for idx in range(0, len(content), 4 * self.width):
             # # val = struc_unpack_from(content, idx)
             # # self_decoded_content_extend(val)
-# ####            
+# ####
         # struc = struct.Struct("<" + "I" * self.width * self.height)
         # val = struc.unpack(content) # make Cell
         # # self.decoded_content.extend(val)
-        
-        
+
+
         # self.decoded_content = array.array('I')
         # self.decoded_content.extend(val)
-        
+
 
         # # arr = array.array('I')
         # # arr.fromlist(self.decoded_content)
@@ -668,7 +667,7 @@ def decompress_gzip(in_str, string_encoding='latin-1'):
     :returns: uncompressed string
     """
     import gzip
-    
+
     if sys.version_info > (2, ):
         from io import BytesIO
         copmressed_stream = BytesIO(in_str)
@@ -937,7 +936,7 @@ class AbstractResourceLoader(object):
             filename : string
                 Path to the file to be loaded.
             colorkey : tuple
-                The (r, g, b) color that should be used as colorkey 
+                The (r, g, b) color that should be used as colorkey
                 (or magic color).
                 Default: None
 
@@ -954,7 +953,7 @@ class AbstractResourceLoader(object):
             file_like_obj : file
                 This is the file like object to load the image from.
             colorkey : tuple
-                The (r, g, b) color that should be used as colorkey 
+                The (r, g, b) color that should be used as colorkey
                 (or magic color).
                 Default: None
 
@@ -978,7 +977,7 @@ class AbstractResourceLoader(object):
             tileheight : int
                 The height of a single tile.
             colorkey : tuple
-                The (r, g, b) color that should be used as colorkey 
+                The (r, g, b) color that should be used as colorkey
                 (or magic color).
                 Default: None
 
