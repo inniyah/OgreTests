@@ -18,7 +18,7 @@ class tmxmap:
     INCTILE_X=1
     INCTILE_Y=1
     layerlist={}
-    
+        
     def __init__(self,file_name):
         self.load(file_name)
     
@@ -30,6 +30,15 @@ class tmxmap:
         print("loaded map:", self.world_map.map_file_name)
         print("tiles used:", self.world_map.width, self.world_map.height)
         print("found '", len(self.world_map.layers), "' layers on this map")
+    
+    def createmap(self,scn_mgr):
+        """ Crea el mapa sobre la escena"""
+        tipo = {'w':self.makewalls, 'c':self.makeceil, 'f':self.makefloor }
+
+        for layer in self.world_map.layers:
+            h=float(layer.properties['level'])*2
+            if layer.properties['tipo'] in tipo:
+                tipo[layer.properties['tipo']](scn_mgr,layer.name,h)
     
     def makewalls(self,scn_mgr,layername,h):
         layernumber=self.layerlist[layername]
@@ -81,7 +90,8 @@ class tmxmap:
                     man.end()
         man.setCastShadows(False)
         #man.convertToMesh("mapa")
-        return man
+        mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
+        mannode.attachObject(man)
     
     def makeceil (self,scn_mgr,layername,h):
         layernumber=self.layerlist[layername]
@@ -117,7 +127,8 @@ class tmxmap:
                     man.end()                
 
         #man.setCastShadows(False)
-        return man
+        mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
+        mannode.attachObject(man)
     
     def metadata(self,layername,x,y):
         layernumber=self.layerlist[layername]

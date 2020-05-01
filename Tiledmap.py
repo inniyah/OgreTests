@@ -140,14 +140,17 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         
         #manual object (y,z,x)
         mapa=Ogretmxmap.tmxmap("Maps/mapa.tmx")
-        #mapa.load("Maps/mapa.tmx")
-        floor1=mapa.makefloor(scn_mgr,"Floor1",0)
-        ceil1=mapa.makeceil(scn_mgr,"Ceil1",2)
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.setPosition(0,0,0)
-        mannode.attachObject(floor1)
-        mannode.attachObject(ceil1)
-        mapa.makewalls(scn_mgr,"Wall1",0)
+        mapa.createmap(scn_mgr)
+        #mapa.load("Maps/mapa.tmx")
+        #floor1=mapa.makefloor(scn_mgr,"Floor1",0)
+        #ceil1=mapa.makeceil(scn_mgr,"Ceil1",2)
+        #mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
+        #mannode.setPosition(0,0,0)
+        #mannode.attachObject(floor1)
+        #mannode.attachObject(ceil1)
+        #mapa.makewalls(scn_mgr,"Wall1",0)
         self.mapa=mapa
         
         
