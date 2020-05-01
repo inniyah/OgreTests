@@ -1,15 +1,10 @@
-// AttachWeights.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
+#include <Pinocchio/skeleton.h>
+#include <Pinocchio/utils.h>
+#include <Pinocchio/debugging.h>
+#include <Pinocchio/attachment.h>
+#include <Pinocchio/pinocchioApi.h>
 
 #include <fstream>
-
-#include "../Pinocchio/skeleton.h"
-#include "../Pinocchio/utils.h"
-#include "../Pinocchio/debugging.h"
-#include "../Pinocchio/attachment.h"
-#include "../Pinocchio/pinocchioApi.h"
 
 using namespace std;
 using namespace Pinocchio;
