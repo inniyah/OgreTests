@@ -34,29 +34,6 @@ It loads the \*.tmx files produced by Tiled.
 
 """
 
-# Versioning scheme based on: http://en.wikipedia.org/wiki/Versioning#Designating_development_stage
-#
-#   +-- api change, probably incompatible with older versions
-#   |     +-- enhancements but no api change
-#   |     |
-# major.minor[.build[.revision]]
-#                |
-#                +-|* 0 for alpha (status)
-#                  |* 1 for beta (status)
-#                  |* 2 for release candidate
-#                  |* 3 for (public) release
-#
-# For instance:
-#     * 1.2.0.1 instead of 1.2-a
-#     * 1.2.1.2 instead of 1.2-b2 (beta with some bug fixes)
-#     * 1.2.2.3 instead of 1.2-rc (release candidate)
-#     * 1.2.3.0 instead of 1.2-r (commercial distribution)
-#     * 1.2.3.5 instead of 1.2-r5 (commercial distribution with many bug fixes)
-
-# __revision__ = "$Rev: 131 $"
-# __version__ = "3.1.0." + __revision__[6:-2]
-# __author__ = 'DR0ID @ 2009-2011'
-
 # import logging
 # #the following few lines are needed to use logging if this module used without
 # # a previous call to logging.basicConfig()
@@ -66,6 +43,7 @@ It loads the \*.tmx files produced by Tiled.
 # _LOGGER = logging.getLogger('tiledtmxloader')
 # if __debug__:
     # _LOGGER.debug('%s loading ...' % (__name__))
+
 #  -----------------------------------------------------------------------------
 
 
@@ -247,7 +225,7 @@ class TileMap(object):
             self._fill_decoded_content(layer, val)
 
     def _fill_decoded_content(self, layer, gid_list):
-        layer.decoded_content = array.array('I')
+        layer.decoded_content = array.array('L')
         layer.decoded_content.extend(gid_list)# make Cell
 
         # TODO: generate property grid here??
