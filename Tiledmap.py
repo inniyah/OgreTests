@@ -10,8 +10,13 @@ import Ogre.RTShader as OgreRTShader
 import Ogre.Bites as OgreBites
 import os.path
 import Ogretmxmap
-
 from Ogre.Overlay import *
+import Player
+
+
+def gettilepos(vector):
+    return [vector.x,vector.z]
+    
 
 RGN_MESHVIEWER = "OgreMeshViewer"
 
@@ -20,8 +25,8 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
     def __init__(self):
         OgreBites.ApplicationContext.__init__(self, "Titulo de la ventana")
         OgreBites.InputListener.__init__(self)
-        self.pos=Ogre.Vector3(0,18,80) #altura 1.80m
-        self.LINEAL_VEL=50
+        self.pos=Ogre.Vector3(-1,1.5,0) #altura 1.80m
+        self.LINEAL_VEL=5
         self.ANGULAR_VEL=1
         
     def frameStarted(self, evt):
@@ -85,18 +90,23 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         # Creamos el Shader
         shadergen = OgreRTShader.ShaderGenerator.getSingleton()
         shadergen.addSceneManager(scn_mgr)
+        scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_MODULATIVE)
+        #scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_STENCIL_MODULATIVE)
         
         # Vamos a crear el nodo perteneciente al personaje
         Playernode=scn_mgr.getRootSceneNode().createChildSceneNode()
         Playernode.setPosition(self.pos)        
         self.Playernode=Playernode
+        # Creo el player y lo fusiono con su nodo
+        self.Player=Player.Player(Playernode)
         
-        # Creamos la camara y la posicionamos en la escena
+        # Creamos la camara y la posicionamos en el personaje
         camNode = Playernode.createChildSceneNode()
+        camNode.setPosition(0,1.5,0)
         cam = scn_mgr.createCamera("MainCam")
         #camNode.setPosition(0, 0, 80)
-        camNode.lookAt(Ogre.Vector3(0, 0, -300), Ogre.Node.TS_WORLD)
-        cam.setNearClipDistance(2)
+        camNode.lookAt(Ogre.Vector3(300, 1.5, 0), Ogre.Node.TS_WORLD)
+        cam.setNearClipDistance(.2)
         camNode.attachObject(cam)
         vp = self.getRenderWindow().addViewport(cam)
         vp.setBackgroundColour(Ogre.ColourValue(0, 0, 0))
@@ -105,26 +115,40 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         self.camNode=camNode
 
         # Setup the scene
-#        wall = scn_mgr.createEntity("simplewall.mesh")
-#        wallNode = scn_mgr.getRootSceneNode().createChildSceneNode()
-#        wallNode.attachObject(wall)
 
         scn_mgr.setAmbientLight(Ogre.ColourValue(.5, .5, .5))
         light=scn_mgr.createLight("MainLight")
-        lightNode = scn_mgr.getRootSceneNode().createChildSceneNode()
-        lightNode.attachObject(light)
-        lightNode.setPosition(20, 80, 50)
+        light.setType(Ogre.Light.LT_DIRECTIONAL);
+        light.setDiffuseColour(Ogre.ColourValue(.7, .0, .0));
+        light.setSpecularColour(Ogre.ColourValue(.3, .3, 0))
+        light.setDirection(1, -1, 0)
+        
+#        lightNode = scn_mgr.getRootSceneNode().createChildSceneNode()
+#        lightNode.attachObject(light)
+#        lightNode.setPosition(0, 3, 0)
+
+        pointLight = scn_mgr.createLight("PointLight")
+        pointLight.setType(Ogre.Light.LT_POINT)
+
+        pointLight.setDiffuseColour(0.3, 0.3, 0.3)
+        pointLight.setSpecularColour(0.3, 0.3, 0.3)
+        pointLightNode = scn_mgr.getRootSceneNode().createChildSceneNode()
+        pointLightNode.attachObject(pointLight)
+        #pointLightNode.setPosition(Ogre.Vector3(2, 2, 2))
+        pointLightNode.setPosition(2, 2, 2)
+
         
         #manual object (y,z,x)
-        mapa=Ogretmxmap.tmxmap()
-        mapa.load("Maps/mapa.tmx")
+        mapa=Ogretmxmap.tmxmap("Maps/mapa.tmx")
+        #mapa.load("Maps/mapa.tmx")
         floor1=mapa.makefloor(scn_mgr,"Floor1",0)
-        ceil1=mapa.makeceil(scn_mgr,"Ceil1",20)
+        ceil1=mapa.makeceil(scn_mgr,"Ceil1",2)
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.setPosition(0,0,0)
         mannode.attachObject(floor1)
         mannode.attachObject(ceil1)
         mapa.makewalls(scn_mgr,"Wall1",0)
+        self.mapa=mapa
         
         
         #lets set a fog
@@ -135,12 +159,11 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
 
     def frameStarted(self, evt):
         OgreBites.ApplicationContext.frameStarted(self, evt)
-        #if not self.cam.getViewport().getOverlaysEnabled():
-        #    return True
-        #ImGuiOverlay.NewFrame(evt)
-        #self.camNode.setPosition(self.pos)
+        
+        
         self.time=evt.timeSinceLastFrame
-        self.vel=self.time*self.LINEAL_VEL
+        self.Player.actualizanodo()
+        #self.vel=self.time*self.LINEAL_VEL
         #print (evt.timeSinceLastFrame)
                         
         return True
@@ -151,19 +174,27 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
                 self.getRoot().queueEndRendering()
             
             if evt.keysym.sym == OgreBites.SDLK_DOWN:
-                self.Playernode.translate(0,0,self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
+                self.Player.backward(self.time)
+                #self.Playernode.translate(0,0,self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
                 #self.pos=self.pos+Ogre.Vector3(0,0,1)*2
                 
             if evt.keysym.sym == OgreBites.SDLK_UP:
-                self.Playernode.translate(0,0,-self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
+                self.Player.fordward(self.time)
+                #self.Playernode.translate(0,0,-self.time*self.LINEAL_VEL,Ogre.Ogre.Node.TS_LOCAL)
+                #pos=self.Playernode.getPosition()
+                #print (gettilepos(pos))
+                #print (self.mapa.metadata("Meta1",int(pos.x),int(pos.z)))
+                #print(self.Playernode.convertLocalToWorldDirection(Ogre.Vector3(0,0,-self.time*self.LINEAL_VEL),False))
                 #self.pos=self.pos+Ogre.Vector3(0,0,-1)*2
             
             if evt.keysym.sym == OgreBites.SDLK_LEFT:
-                self.Playernode.yaw(Ogre.Ogre.Radian(self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+                self.Player.rotateleft(self.time)
+                #self.Playernode.yaw(Ogre.Ogre.Radian(self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
                 #self.pos=self.pos+Ogre.Vector3(-1,0,0)*2
             
             if evt.keysym.sym == OgreBites.SDLK_RIGHT:
-                self.Playernode.yaw(Ogre.Ogre.Radian(-self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+                self.Player.rotateright(self.time)
+                #self.Playernode.yaw(Ogre.Ogre.Radian(-self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
                 #self.pos=self.pos+Ogre.Vector3(1,0,0)*2
             
             if evt.keysym.sym == OgreBites.SDLK_PAGEDOWN:

@@ -13,10 +13,14 @@ import Ogre.Bites as OgreBites
 import os.path
 
 class tmxmap:
-    def __init__(self):
-        self.INCTILE_X=10
-        self.INCTILE_Y=10
-        self.layerlist={}
+    
+    world_map=None
+    INCTILE_X=1
+    INCTILE_Y=1
+    layerlist={}
+    
+    def __init__(self,file_name):
+        self.load(file_name)
     
     def load(self,file_name):
         self.world_map = tmxreader.TileMapParser().parse_decode(file_name)
@@ -60,17 +64,23 @@ class tmxmap:
                     man.position(py, h, px)
                     man.normal(0, 1, 0)
                     man.textureCoord(0, 0)
+                    
                     man.position(py, h, px+self.INCTILE_X)
                     man.normal(0, 1, 0)
                     man.textureCoord(0, 1)
+                    
                     man.position(py+self.INCTILE_Y, h, px+self.INCTILE_X)
                     man.normal(0, 1, 0)
                     man.textureCoord(1, 1)
+                    
                     man.position(py+self.INCTILE_Y, h, px)
                     man.normal(0, 1, 0)
                     man.textureCoord(1, 0)
+                    
                     man.quad(0, 1, 2, 3)
-                    man.end()                
+                    man.end()
+        man.setCastShadows(False)
+        #man.convertToMesh("mapa")
         return man
     
     def makeceil (self,scn_mgr,layername,h):
@@ -90,15 +100,31 @@ class tmxmap:
                     man.position(py, h, px)
                     man.normal(0, -1, 0)
                     man.textureCoord(0, 0)
+
                     man.position(py, h, px+self.INCTILE_X)
                     man.normal(0, -1, 0)
                     man.textureCoord(0, 1)
+
                     man.position(py+self.INCTILE_Y, h, px+self.INCTILE_X)
                     man.normal(0, -1, 0)
                     man.textureCoord(1, 1)
+
                     man.position(py+self.INCTILE_Y, h, px)
                     man.normal(0, -1, 0)
                     man.textureCoord(1, 0)
+                
                     man.quad(3, 2, 1, 0)
                     man.end()                
+
+        #man.setCastShadows(False)
         return man
+    
+    def metadata(self,layername,x,y):
+        layernumber=self.layerlist[layername]
+        gid=self.world_map.layers[layernumber].content2D [x][y]
+        if gid!=0:
+            ret=self.world_map.tiles[gid].properties['tipo']
+        else:
+            ret=0
+        
+        return ret
