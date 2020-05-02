@@ -652,8 +652,6 @@ int process(const std::vector<std::string> &args) {
 
 
 int main (int argc, const char * const * argv, const char * const * envp) {
-    auto skel = Skeletons::fromCsvFile("test.csv");
-
     std::vector<std::string> args;
     for(int i = 0; i < argc; ++i) {
         args.push_back(argv[i]);
