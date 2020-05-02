@@ -16,7 +16,7 @@ FLOOR_ISO_TILES = \
 	$(FLOOR_ISO_OBJS:.obj=_4.iso.png) \
 	$(FLOOR_ISO_OBJS:.obj=.mesh)
 
-all: tiles floors tiled/tiles.tsx
+all: tiles floors tiled/models.tsx
 
 tiles: $(ISO_TILES)
 
@@ -73,8 +73,8 @@ OgreAssimp/OgreAssimpConverter:
 	convert +append $+ $@
 	optipng $@
 
-tiled/tiles.tsx: metadata/info.json tiles floors
-	scripts/tsx_generator.py -d metadata/info.json -o $@
+tiled/models.tsx tiled/floors.tsx: metadata/info.json tiles floors
+	scripts/tsx_generator.py -d metadata/info.json -o tiled/
 
 clean:
 	@rm -rf tmp/

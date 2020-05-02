@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.3" orientation="isometric" renderorder="right-down" width="50" height="50" tilewidth="128" tileheight="74" infinite="0" nextlayerid="2" nextobjectid="1">
- <tileset firstgid="1" source="tiles.tsx"/>
+ <tileset firstgid="1" source="models.tsx"/>
+ <tileset firstgid="16" source="floors.tsx"/>
  <layer id="1" name="Capa de patrones 1" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt1skKgDAMRdHuqqCCw/9/qyuhSEdoTSL3QEE0ixcbpc4BAAAAAAAAADDOLh2g0iodYBAfLO2uippYL+GMLf3iDJfbE+k+tsi9OVGrdbYO6QCDaX3vvfjEepwSoQLvb/Tv+4HvtP67rMyelZwlPnFdqtVGc7YW9KHXlHlmud/c2cQiq/lrzoE3q10Bow==
+   eJzt1ssKgCAQhWFx04Wy93/bVkGEV3B0Jv4PBIlZnElRnQMAAAAAAAAAQM4xO0ClbXYAIf41tLsqamK9hNd86RdHXG5N1mEp4vbIt1RerXvrnB1AmNb/3otPjMfsu+V71vx9PTBO69llZe9ZyVniE/NSrTaas7WgD71yPVnuN/c2schq/lAucTcZnADH
   </data>
  </layer>
 </map>

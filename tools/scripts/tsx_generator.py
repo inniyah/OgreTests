@@ -3,6 +3,7 @@
 
 import argparse
 import sys
+import os
 
 from data_db import get_obj_info, update_obj_info, get_all_info
 from obj_loader import ObjLoader
@@ -13,30 +14,30 @@ def eprint(*args, **kwargs):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process obj 3d models")
     parser.add_argument("-d", "--db", help="path to the json db", default=None)
-    parser.add_argument("-o", "--output", help="output file", default=None)
+    parser.add_argument("-o", "--output", help="output directory", default=None)
     args = parser.parse_args()
+
+    all_info = get_all_info(args.db)
 
     if not args.db or not args.output:
         print("Wrong arguments")
         sys.exit(-1)
 
-    with open(args.output, 'w') as file_output:
-
-        all_info = get_all_info(args.db)
+    for (tiles_name, tiles_list, tile_id_base, tsx_filename) in [
+        ("models", all_info[":type_lists"]["3d_models"], 1, os.path.join(args.output, "models.tsx")),
+        ("floors", all_info[":type_lists"]["floors"],    1, os.path.join(args.output, "floors.tsx")),
+    ]:
 
         tiles_per_object = 4
         tile_id_multiplier = 5
 
-        num_of_objects = len(all_info[":type_lists"]["3d_models"]) + len(all_info[":type_lists"]["floors"])
+        num_of_objects = len(tiles_list)
 
-        print(f'<?xml version="1.0" encoding="UTF-8"?>', file=file_output)
-        print(f'<tileset version="1.2" tiledversion="1.3.3" name="tiles" tilewidth="128" tileheight="224" tilecount="{num_of_objects}" columns="0">', file=file_output)
-        print(f' <grid orientation="orthogonal" width="1" height="1"/>', file=file_output)
+        with open(tsx_filename, 'w') as file_output:
 
-        for (tiles_list, tile_id_base) in [
-            (all_info[":type_lists"]["3d_models"], 1),
-            (all_info[":type_lists"]["floors"],    1<<24 + 1),
-        ]:
+            print(f'<?xml version="1.0" encoding="UTF-8"?>', file=file_output)
+            print(f'<tileset version="1.2" tiledversion="1.3.3" name="{tiles_name}" tilewidth="128" tileheight="224" tilecount="{num_of_objects}" columns="0">', file=file_output)
+            print(f' <grid orientation="orthogonal" width="1" height="1"/>', file=file_output)
 
             for tile_id in sorted(tiles_list.keys()):
                 obj_filename = tiles_list[tile_id]
@@ -50,7 +51,7 @@ if __name__ == "__main__":
                     (3, "@IsoTile4", 270),
                 ]:
 
-                    print(f' <tile id="{tile_id_base + tile_id_multiplier * tile_id_num + tile_id_inc}">', file=file_output)
+                    print(f' <tile id="{tile_id_base + tile_id_multiplier * (tile_id_num - 1) + tile_id_inc}">', file=file_output)
                     print(f'  <properties>', file=file_output)
                     print(f'   <property name="3DModel" value="{tile_info["@3DModel"]}"/>', file=file_output)
                     print(f'   <property name="3DMesh" value="{tile_info["@3DMesh"]}"/>', file=file_output)
@@ -65,4 +66,4 @@ if __name__ == "__main__":
                     print(f'  <image source="../{tile_info[json_label]}" width="128" height="224"/>', file=file_output)
                     print(f' </tile>', file=file_output)
 
-        print(f'</tileset>', file=file_output)
+            print(f'</tileset>', file=file_output)
