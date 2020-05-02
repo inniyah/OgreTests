@@ -116,8 +116,7 @@ namespace Pinocchio {
 
         if(previous == std::string("")) {
             fPrevV.push_back(-1);
-        }                                                   // Add a bone
-        else {
+        } else { // Add a bone
             int prev = jointNames[previous];
             fGraphV.edges[cur].push_back(prev);
             fGraphV.edges[prev].push_back(cur);

@@ -82,9 +82,10 @@ clean:
 	$(RM) -fv */*.o */*.a */*~
 
 test: $(BINARY) AttachWeights
+	./$(BINARY) data/test.obj
 	./$(BINARY) data/test.obj -motion data/crossWalk.txt
 	./AttachWeights data/test.obj -skelOut skeleton.txt -weightOut weights.txt
 
 include .depend
 
-.PHONY: all depend clean distclean cleanall
+.PHONY: all depend clean
