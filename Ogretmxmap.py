@@ -17,19 +17,35 @@ class tmxmap:
     world_map=None
     INCTILE_X=1
     INCTILE_Y=1
+    INCTILE_Z=2
     layerlist={}
-        
+    instance=None
+    maxh=0
+    layerlist={}
+    meta=[]    
+    
     def __init__(self,file_name):
         self.load(file_name)
+        self.instance=self
     
     def load(self,file_name):
+        #Cargamos el mapa
         self.world_map = tmxreader.TileMapParser().parse_decode(file_name)
+        #Hacemos el listado de las capas y de las metadatas
         for layer in self.world_map.layers:
+            if self.maxh<int(layer.properties['level']):
+                self.maxh=int(layer.properties['level'])
             self.layerlist[layer.name]=int(layer.id)-1
+        #Hacemos el listado de las metadatas
+        self.metalayer=[None for i in range(0,self.maxh+1)]
+        for layer in self.world_map.layers:
+            if layer.properties['tipo']=='m':
+                self.metalayer[int(layer.properties['level'])]=layer
             
         print("loaded map:", self.world_map.map_file_name)
         print("tiles used:", self.world_map.width, self.world_map.height)
         print("found '", len(self.world_map.layers), "' layers on this map")
+        print("max height:",self.maxh)
     
     def createmap(self,scn_mgr):
         """ Crea el mapa sobre la escena"""
@@ -58,7 +74,7 @@ class tmxmap:
     
     def makefloor (self,scn_mgr,layername,h):
         layernumber=self.layerlist[layername]
-        man=scn_mgr.createManualObject(layername)
+        man=scn_mgr.createManualObject("floor")
         man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
         man.estimateVertexCount(self.world_map.width*self.world_map.height*4) #Numero de vertices
         
@@ -94,8 +110,9 @@ class tmxmap:
         mannode.attachObject(man)
     
     def makeceil (self,scn_mgr,layername,h):
+        h=h+self.INCTILE_Z
         layernumber=self.layerlist[layername]
-        man=scn_mgr.createManualObject(layername)
+        man=scn_mgr.createManualObject("ceil")
         man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
         man.estimateVertexCount(self.world_map.width*self.world_map.height*4) #Numero de vertices
         
@@ -130,12 +147,30 @@ class tmxmap:
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.attachObject(man)
     
-    def metadata(self,layername,x,y):
-        layernumber=self.layerlist[layername]
-        gid=self.world_map.layers[layernumber].content2D [x][y]
-        if gid!=0:
-            ret=self.world_map.tiles[gid].properties['tipo']
-        else:
-            ret=0
+    def collisiontile(self,x,y,z,offset):
+        """ Comprobamos si se puede estar en un tile"""
+        #primero vemos a ver cual es el layer que corresponde a esa altura
+        layer=self.metalayer[int(z//2)]
         
-        return ret
+        if (layer.content2D [int(y+0.5)] [int(x+0.5)]!=0 or
+            layer.content2D [int(y-0.5)] [int(x-0.5)]!=0 or
+            layer.content2D [int(y+0.5)] [int(x-0.5)]!=0 or
+            layer.content2D [int(y-0.5)] [int(x+0.5)]!=0):
+            return True
+        else:
+            return False
+        
+
+    
+    def metadata(self,layername,x,y):
+        # Comporbamos no pasarnos de los limites del mapa
+        if y>self.world_map.width-1 or x>self.world_map.height-1:
+            return 0
+        layernumber=self.layerlist[layername]
+        gid=self.world_map.layers[layernumber].content2D [y][x]
+#        if gid!=0:
+#            ret=self.world_map.tiles[gid].properties['tipo']
+#        else:
+#            ret=0
+        
+        return gid

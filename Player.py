@@ -16,17 +16,27 @@ class Player:
     #Define velocidades del personaje
     LINEAL_VEL=5
     ANGULAR_VEL=1
+    p1=np.array([1, 0], dtype='f')
+    p2=np.array([1, 1], dtype='f')
+    p3=np.array([0, 1], dtype='f')
+    #mapa=None
     
     def __init__(self,node):
         """set node as node attached to player"""
         self.node=node
-        self.mapa=Ogretmxmap.tmxmap.world_map
+        #self.mapa=Ogretmxmap.tmxmap.instance
         self.pos=np.array([node.getPosition().x, node.getPosition().z], dtype='f')
         self.z=np.double(0)  #Altura del personaje
         self.angle=np.double(0) #Angulo de direccion
         self.direccion=np.array([1, 0], dtype='f')
         self.actdireccion()
-        
+     
+    def setpos(self,x,y,z):
+        self.pos[0]=x
+        self.pos[1]=y
+        self.z=np.double(z)
+        self.actualizanodo()
+    
     def actdireccion(self):
         """ devuelve el vector de direccion correspondiente al angulo """
         if self.angle>2*np.pi:
@@ -35,9 +45,7 @@ class Player:
             self.angle+=2*np.pi
 
         self.direccion[0]=np.cos(self.angle)
-        self.direccion[1]=-np.sin(self.angle)
-        print(self.direccion)
-    
+        self.direccion[1]=-np.sin(self.angle) 
         
     def rotateright(self,t):
         self.angle-=t*self.ANGULAR_VEL
@@ -48,15 +56,49 @@ class Player:
         self.actdireccion()
 
     def fordward(self,t):
-        self.pos+=self.direccion*t*self.LINEAL_VEL
+        self.moveifcan(self.direccion*t*self.LINEAL_VEL)
+        #self.pos+=self.direccion*t*self.LINEAL_VEL
     
     def backward(self,t):
-        self.pos-=self.direccion*t*self.LINEAL_VEL
+        self.moveifcan(-self.direccion*t*self.LINEAL_VEL)
+        #self.pos-=self.direccion*t*self.LINEAL_VEL
     
     def actualizanodo(self):
         # Actualizo la posición y rotación del nodo
         self.node.resetOrientation()
         self.node.yaw(Ogre.Ogre.Radian(self.angle),Ogre.Ogre.Node.TS_LOCAL)
         self.node.setPosition(float(self.pos[0]), float(self.z), float(self.pos[1]))
+
+    def tilepos(self):
+        tp= (int(self.pos[0]),int(self.pos[1]))
+        return tp
+
+    def moveifcan(self,direccion):
+        """ Estudia si se puede mover en esa dirección"""
+        #primero voy a ver que longitud tiene la direccion
+        self.long=sum(direccion*direccion)
+        if self.long>2:
+            print ("vector muy grande, lo dividimos") #no hecho aun
+        
+        self.nextpos=self.pos+direccion
+        
+        if not self.collision(self.nextpos):
+            self.pos=self.nextpos
+        else:
+            self.nextpos=self.pos+np.array([direccion[0],0])
+            if not self.collision(self.nextpos):
+                self.pos=self.nextpos
+            else:
+                self.nextpos=self.pos+np.array([0,direccion[1]])
+                if not self.collision(self.nextpos):
+                    self.pos=self.nextpos    
+            
+            
+    def collision(self,pos):
+        """ Comprueba la colision en el mapa de una posicion"""
+        if self.mapa.collisiontile(pos[0],pos[1],self.z,0.5):
+                return True
+        else:
+            return False
 
         
