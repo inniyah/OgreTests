@@ -45,8 +45,9 @@ PINOCCHIO_SRCS= \
 
 PINOCCHIO_OBJS= $(subst .cpp,.o,$(PINOCCHIO_SRCS))
 
-BINARY= DemoUI
-BINARY_SRCS= DemoUI.cpp MyWindow.cpp defmesh.cpp processor.cpp motion.cpp filter.cpp
+BINARY= PinocchioDemo
+BINARY_SRCS= DemoUI/DemoUI.cpp DemoUI/MyWindow.cpp DemoUI/defmesh.cpp \
+	DemoUI/processor.cpp DemoUI/motion.cpp DemoUI/filter.cpp
 BINARY_OBJS= $(subst .cpp,.o,$(BINARY_SRCS))
 
 ATTACHWEIGHTS_SRCS= AttachWeights.cpp
