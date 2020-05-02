@@ -52,7 +52,7 @@ BINARY_OBJS= $(subst .cpp,.o,$(BINARY_SRCS))
 ATTACHWEIGHTS_SRCS= AttachWeights.cpp
 ATTACHWEIGHTS_OBJS= $(subst .cpp,.o,$(ATTACHWEIGHTS_SRCS))
 
-all: $(BINARY)
+all: $(BINARY) AttachWeights
 
 $(BINARY): $(PINOCCHIO_OBJS) $(BINARY_OBJS)
 	$(CXX) $(CPPSTD) $(CSTD) $(LDFLAGS) -o $@ $(BINARY_OBJS) $(PINOCCHIO_OBJS) $(LIBS)
@@ -81,8 +81,9 @@ clean:
 	$(RM) -fv *.o *.a *~
 	$(RM) -fv */*.o */*.a */*~
 
-test: $(BINARY)
+test: $(BINARY) AttachWeights
 	./$(BINARY) data/test.obj -motion data/crossWalk.txt
+	./AttachWeights data/test.obj -skelOut skeleton.txt -weightOut weights.txt
 
 include .depend
 
