@@ -24,6 +24,7 @@
 #include "skeleton.h"
 #include "utils.h"
 #include "debugging.h"
+
 #include <fstream>
 #include <unordered_map>
 
@@ -549,4 +550,4 @@ namespace Pinocchio {
         initCompressed();
     }
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio

@@ -106,5 +106,10 @@ namespace Pinocchio {
         FileSkeleton(const std::string &filename);
     };
 
-}                                                           // namespace Pinocchio
+    struct PINOCCHIO_API CsvFileSkeleton : public Skeleton {
+        CsvFileSkeleton(const std::string &filename);
+    };
+
+} // namespace Pinocchio
+
 #endif // SKELETON_H_BFCF2002_4190_11E9_AA8F_EFB66606E782

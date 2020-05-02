@@ -39,7 +39,7 @@ LIBS= \
 PINOCCHIO_SRCS= \
 	Pinocchio/attachment.cpp Pinocchio/discretization.cpp Pinocchio/indexer.cpp \
 	Pinocchio/lsqSolver.cpp Pinocchio/mesh.cpp Pinocchio/graphutils.cpp \
-	Pinocchio/intersector.cpp Pinocchio/matrix.cpp Pinocchio/skeleton.cpp \
+	Pinocchio/intersector.cpp Pinocchio/matrix.cpp Pinocchio/skeleton.cpp Pinocchio/skeleton_csv.cpp \
 	Pinocchio/embedding.cpp Pinocchio/pinocchioApi.cpp Pinocchio/PinnocchioCallback.cpp \
 	Pinocchio/refinement.cpp Pinocchio/quatinterface.cpp Pinocchio/yaml.cpp
 
