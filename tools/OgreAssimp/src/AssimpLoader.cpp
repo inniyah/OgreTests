@@ -1025,7 +1025,7 @@ Ogre::MaterialPtr AssimpLoader::createMaterialByScript(int index, const aiMateri
     // Create a material in code as using script inheritance variable substitution and other goodies
 
     Ogre::MaterialManager* matMgr = Ogre::MaterialManager::getSingletonPtr();
-    Ogre::String materialName = mBasename + "#" + Ogre::StringConverter::toString(index);
+    Ogre::String materialName = mBasename + + "_" + uuid::generate_uuid_v4() + "#" + Ogre::StringConverter::toString(index);
     if(matMgr->resourceExists(materialName))
     {
 #if (OGRE_VERSION < ((1 << 16) | (9 << 8) | 0))
