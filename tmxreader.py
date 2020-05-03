@@ -1071,7 +1071,10 @@ if __name__ == "__main__":
 			img = self._img_cache.get(filename, None)
 			if img is None:
 				print("~ Image: '{}'".format(filename))
-				img = Image.open(filename)
+				try:
+					img = Image.open(filename)
+				except FileNotFoundError:
+					img = None
 				self._img_cache[filename] = img
 			return img
 
@@ -1086,7 +1089,11 @@ if __name__ == "__main__":
 
 		def _load_image_parts(self, filename, margin, spacing, tile_width, tile_height, colorkey=None):
 			source_img = self._load_image(filename, colorkey)
-			width, height = source_img.size
+			if not source_img is None:
+				width, height = source_img.size
+			else:
+				width = 0
+				height = 0
 			tile_width_spacing = tile_width + spacing
 			width = (width // tile_width_spacing) * tile_width_spacing
 			tile_height_spacing = tile_height + spacing
