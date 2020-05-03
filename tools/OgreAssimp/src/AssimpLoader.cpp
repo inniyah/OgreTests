@@ -174,7 +174,7 @@ bool AssimpLoader::convert(const AssOptions options, Ogre::MeshPtr *meshPtr,  Og
 
     Ogre::String extension;
     Ogre::StringUtil::splitFullFilename(options.source, mBasename, extension, mPath);
-    mBasename = mBasename + options.nameSuffix;
+    mBasename = options.namePrefix + mBasename + options.nameSuffix;
 
     if(!options.dest.empty()) {
         mPath = options.dest + "/";

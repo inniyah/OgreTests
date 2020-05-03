@@ -49,3 +49,5 @@ clean:
 	@rm -fv *.o *.a *~
 	@rm -fv */*.o */*.a */*~
 	@rm -fv $(PROGRAM)
+
+cleanall: clean

@@ -78,6 +78,9 @@ void help(void)
     std::cout << "-f lodnumtris       = Fixed vertex reduction per LOD" << std::endl;
 #endif // DONT_USE_LOD
 
+    std::cout << "-prefix             = prefix to add to the output filename" << std::endl;
+    std::cout << "-suffix             = suffix to add to the output filename" << std::endl;
+
     std::cout << "sourcefile          = name of file to convert" << std::endl;
     std::cout << "destination         = optional name of directory to write to. If you don't" << std::endl;
     std::cout << "                      specify this the converter will use the same directory as the sourcefile."  << std::endl;
@@ -91,6 +94,7 @@ AssimpLoader::AssOptions parseArgs(int numArgs, char **args)
     opts.logFile = "ass.log";
     opts.customAnimationName = "";
     opts.dest = "";
+    opts.namePrefix = "";
     opts.nameSuffix = ""; //  "_" + extension;
     opts.animationSpeedModifier = 1.0;
 
@@ -117,6 +121,8 @@ AssimpLoader::AssOptions parseArgs(int numArgs, char **args)
     binOpt["-log"] = "ass.log";
     binOpt["-aniName"] = "";
     binOpt["-aniSpeedMod"] = "1.0";
+    binOpt["-prefix"] = "";
+    binOpt["-suffix"] = "";
 
 #ifndef DONT_USE_LOD
     binOpt["-l"] = "";
@@ -198,6 +204,17 @@ AssimpLoader::AssOptions parseArgs(int numArgs, char **args)
         opts.usePercent = false;
     }
 #endif // DONT_USE_LOD
+
+    bi = binOpt.find("-prefix");
+    if (!bi->second.empty())
+    {
+        opts.namePrefix = bi->second;
+    }
+    bi = binOpt.find("-suffix");
+    if (!bi->second.empty())
+    {
+        opts.nameSuffix = bi->second;
+    }
 
     // Source / dest
     if (numArgs > startIndex)

@@ -59,6 +59,7 @@ public:
     {
         Ogre::String source;
         Ogre::String dest;
+        Ogre::String namePrefix;
         Ogre::String nameSuffix;
         bool quietMode;
         Ogre::String logFile;

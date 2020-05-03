@@ -99,3 +99,7 @@ clean:
 	@rm -fv `find floors -name "*.material"`
 	@rm -fv `find floors -name "*.skeleton"`
 	@rm -fv `find floors -name "*.skeleton.xml"`
+
+cleanall: clean
+	$(MAKE) -C OgreAssimp cleanall
+	$(MAKE) -C TinyRenderer cleanall
