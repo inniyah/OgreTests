@@ -1116,12 +1116,12 @@ if __name__ == "__main__":
 					f.write(output.getvalue())
 
 
-	map_filename = os.path.join('Maps', 'mapa.tmx')
+	map_filename = os.path.join('tools', 'tiled', 'test.tmx')
 	print("~ Map: '{}'".format(map_filename))
 	map = TileMapParser().parse_decode(map_filename)
 	resources = MapResourceLoader()
 	resources.load(map)
-	assert map.orientation == "orthogonal"
+	print("~ Orientation: '{}'".format(map.orientation))
 	all_sprite_layers = []
 
 	map_tilewidth = map.tilewidth
@@ -1129,6 +1129,8 @@ if __name__ == "__main__":
 	map_num_tiles_x = map.width
 	map_num_tiles_y = map.height
 
+	for tileset in map.tile_sets:
+		print(f"Tile Set '{tileset.name}': {len(tileset.images)} images, starting at firstgid = {tileset.firstgid}")
 
 	for idx, layer in enumerate(resources.world_map.layers):
 			layer_name = layer.name
