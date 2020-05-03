@@ -426,6 +426,8 @@ int process(const std::vector<std::string> &args) {
         return EXIT_FAILURE;
     }
 
+    a.skeleton.dump();
+
     // output skeleton embedding
     for(i = 0; i < (int)o.embedding.size(); ++i) {
         o.embedding[i] = (o.embedding[i] - m.toAdd) / m.scale;

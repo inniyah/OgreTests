@@ -125,6 +125,32 @@ namespace Pinocchio {
         }
     }
 
+    struct reverse_finder {
+        const std::map<std::string, int>::mapped_type v;
+        reverse_finder(const std::map<std::string, int>::mapped_type & v) : v(v) {}
+        bool operator()(const std::map<std::string, int>::value_type & p) {
+            return p.second == v;
+        }
+    };
+
+    std::string Skeleton::getNameForJoint(int num) {
+        if (num < 0) return "";
+        const std::map<std::string, int>::value_type v = *find_if(jointNames.begin(), jointNames.end(), reverse_finder(num));
+        return v.first;
+    }
+
+    void Skeleton::dump() {
+
+        std::map<std::string, int>::iterator it = jointNames.begin();
+
+        while (it != jointNames.end()) {
+            std::string word = it->first;
+            int num = it->second;
+            std::cout << "Bone '" << word << "' (" << num << ") <- Parent: '" << getNameForJoint(fPrevV[num]) << "' (" << fPrevV[num] << ")" << std::endl;
+            it++;
+        }
+    }
+
     void Skeleton::makeSymmetric(const std::string &name1, const std::string &name2) {
         int i1 = jointNames[name1];
         int i2 = jointNames[name2];
@@ -531,7 +557,7 @@ namespace Pinocchio {
 
         while (!strm.eof()) {
             std::vector<std::string> line = readWords(strm);
-            if (line.size() < 5) {                          // Error
+            if (line.size() < 5) { // Error
                 continue;
             }
 

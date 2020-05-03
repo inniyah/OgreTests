@@ -47,6 +47,9 @@ namespace Pinocchio {
 
             void scale(double factor);
 
+            std::string getNameForJoint(int num);
+            void dump();
+
         protected:
             void initCompressed();
 
