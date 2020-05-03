@@ -1130,7 +1130,7 @@ if __name__ == "__main__":
 	map_num_tiles_y = map.height
 
 	for tileset in map.tile_sets:
-		print(f"Tile Set '{tileset.name}': {len(tileset.images)} images, starting at firstgid = {tileset.firstgid}")
+		print(f"Tile Set '{tileset.name}': {len(tileset.tiles)} images, starting at firstgid = {tileset.firstgid}")
 
 	for idx, layer in enumerate(resources.world_map.layers):
 			layer_name = layer.name
