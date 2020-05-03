@@ -64,7 +64,7 @@ OgreAssimp/OgreAssimpConverter:
 	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D IsoTile4 $@
 
 %.mesh: %.obj OgreAssimp/OgreAssimpConverter
-	OgreAssimp/OgreAssimpConverter $<
+	OgreAssimp/OgreAssimpConverter -uuid `echo '$<' | sha1sum | head -n1 | awk '{print $$1;}'` $<
 	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D 3DModel $< -D 3DMesh $@
 	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D Material \
 		`cat "$(dir $@)$(basename $(notdir $@)).material" | \
