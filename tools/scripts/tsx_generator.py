@@ -55,6 +55,7 @@ if __name__ == "__main__":
                     print(f'  <properties>', file=file_output)
                     print(f'   <property name="3DModel" value="{tile_info["@3DModel"]}"/>', file=file_output)
                     print(f'   <property name="3DMesh" value="{os.path.basename(tile_info["@3DMesh"])}"/>', file=file_output)
+                    print(f'   <property name="Material" value="{os.path.basename(tile_info["@Material"])}"/>', file=file_output)
                     print(f'   <property name="RotAngle" value="{rot_angle}"/>', file=file_output)
 
                     try:

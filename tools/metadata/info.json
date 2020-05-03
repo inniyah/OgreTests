@@ -1,47 +1,115 @@
 {
   "3d_models/caution.obj": {
-    ":change_id": 10,
+    ":change_id": 51,
     ":seq_id": 3,
-    ":timestamp": "2020-05-01 (16:36:35) UTC",
+    ":timestamp": "2020-05-03 (21:35:13) UTC",
     "@3DMesh": "3d_models/caution.mesh",
     "@3DModel": "3d_models/caution.obj",
     "@IsoTile1": "3d_models/caution_1.iso.png",
     "@IsoTile2": "3d_models/caution_2.iso.png",
     "@IsoTile3": "3d_models/caution_3.iso.png",
-    "@IsoTile4": "3d_models/caution_4.iso.png"
+    "@IsoTile4": "3d_models/caution_4.iso.png",
+    "@Material": "caution_diffuse_deb2b96d-bc1f-420d-b759-09cec42c3d59.png"
   },
   "3d_models/colmn.obj": {
-    ":change_id": 10,
+    ":change_id": 51,
     ":seq_id": 2,
-    ":timestamp": "2020-05-01 (16:36:34) UTC",
+    ":timestamp": "2020-05-03 (21:35:13) UTC",
     "@3DMesh": "3d_models/colmn.mesh",
     "@3DModel": "3d_models/colmn.obj",
     "@IsoTile1": "3d_models/colmn_1.iso.png",
     "@IsoTile2": "3d_models/colmn_2.iso.png",
     "@IsoTile3": "3d_models/colmn_3.iso.png",
-    "@IsoTile4": "3d_models/colmn_4.iso.png"
+    "@IsoTile4": "3d_models/colmn_4.iso.png",
+    "@Material": "colmn_4ae12df8-a423-43b9-b54e-c536687ccf4f.jpg"
+  },
+  "3d_models/hwall_corner.obj": {
+    ":change_id": 44,
+    ":seq_id": 4,
+    ":timestamp": "2020-05-03 (21:35:12) UTC",
+    "@3DMesh": "3d_models/hwall_corner.mesh",
+    "@3DModel": "3d_models/hwall_corner.obj",
+    "@IsoTile1": "3d_models/hwall_corner_1.iso.png",
+    "@IsoTile2": "3d_models/hwall_corner_2.iso.png",
+    "@IsoTile3": "3d_models/hwall_corner_3.iso.png",
+    "@IsoTile4": "3d_models/hwall_corner_4.iso.png",
+    "@Material": "hwall_086487f5-119f-4e91-9eaf-8e2468d0bb71.jpg"
+  },
+  "3d_models/hwall_cross.obj": {
+    ":change_id": 42,
+    ":seq_id": 5,
+    ":timestamp": "2020-05-03 (21:35:12) UTC",
+    "@3DMesh": "3d_models/hwall_cross.mesh",
+    "@3DModel": "3d_models/hwall_cross.obj",
+    "@IsoTile1": "3d_models/hwall_cross_1.iso.png",
+    "@IsoTile2": "3d_models/hwall_cross_2.iso.png",
+    "@IsoTile3": "3d_models/hwall_cross_3.iso.png",
+    "@IsoTile4": "3d_models/hwall_cross_4.iso.png",
+    "@Material": "hwall_a3160ad9-dab9-4bf8-b148-4f919a29295c.jpg"
+  },
+  "3d_models/hwall_fork.obj": {
+    ":change_id": 41,
+    ":seq_id": 7,
+    ":timestamp": "2020-05-03 (21:35:12) UTC",
+    "@3DMesh": "3d_models/hwall_fork.mesh",
+    "@3DModel": "3d_models/hwall_fork.obj",
+    "@IsoTile1": "3d_models/hwall_fork_1.iso.png",
+    "@IsoTile2": "3d_models/hwall_fork_2.iso.png",
+    "@IsoTile3": "3d_models/hwall_fork_3.iso.png",
+    "@IsoTile4": "3d_models/hwall_fork_4.iso.png",
+    "@Material": "hwall_7dcd20b7-dea8-4d75-8835-e40b7547601b.jpg"
+  },
+  "3d_models/hwall_solid.obj": {
+    ":change_id": 41,
+    ":seq_id": 6,
+    ":timestamp": "2020-05-03 (21:35:12) UTC",
+    "@3DMesh": "3d_models/hwall_solid.mesh",
+    "@3DModel": "3d_models/hwall_solid.obj",
+    "@IsoTile1": "3d_models/hwall_solid_1.iso.png",
+    "@IsoTile2": "3d_models/hwall_solid_2.iso.png",
+    "@IsoTile3": "3d_models/hwall_solid_3.iso.png",
+    "@IsoTile4": "3d_models/hwall_solid_4.iso.png",
+    "@Material": "hwall_0c304653-b2ee-47b8-b04a-0d243237ed46.jpg"
+  },
+  "3d_models/hwall_straight.obj": {
+    ":change_id": 41,
+    ":seq_id": 8,
+    ":timestamp": "2020-05-03 (21:35:13) UTC",
+    "@3DMesh": "3d_models/hwall_straight.mesh",
+    "@3DModel": "3d_models/hwall_straight.obj",
+    "@IsoTile1": "3d_models/hwall_straight_1.iso.png",
+    "@IsoTile2": "3d_models/hwall_straight_2.iso.png",
+    "@IsoTile3": "3d_models/hwall_straight_3.iso.png",
+    "@IsoTile4": "3d_models/hwall_straight_4.iso.png",
+    "@Material": "hwall_fff400ba-0756-4ad5-bd7a-3d1ae9d26277.jpg"
   },
   "3d_models/wall.obj": {
-    ":change_id": 10,
+    ":change_id": 51,
     ":seq_id": 1,
-    ":timestamp": "2020-05-01 (16:36:35) UTC",
+    ":timestamp": "2020-05-03 (21:35:13) UTC",
     "@3DMesh": "3d_models/wall.mesh",
     "@3DModel": "3d_models/wall.obj",
     "@IsoTile1": "3d_models/wall_1.iso.png",
     "@IsoTile2": "3d_models/wall_2.iso.png",
     "@IsoTile3": "3d_models/wall_3.iso.png",
-    "@IsoTile4": "3d_models/wall_4.iso.png"
+    "@IsoTile4": "3d_models/wall_4.iso.png",
+    "@Material": "wall_34ecc41c-b6ca-40e0-bdbe-2136510a3d52.jpg"
   },
   ":seq_info": {
-    "3d_models": 4,
+    "3d_models": 9,
     "floors": 6
   },
-  ":timestamp": "2020-05-01 (16:36:37) UTC",
+  ":timestamp": "2020-05-03 (21:35:15) UTC",
   ":type_lists": {
     "3d_models": {
       "1": "3d_models/wall.obj",
       "2": "3d_models/colmn.obj",
-      "3": "3d_models/caution.obj"
+      "3": "3d_models/caution.obj",
+      "4": "3d_models/hwall_corner.obj",
+      "5": "3d_models/hwall_cross.obj",
+      "6": "3d_models/hwall_solid.obj",
+      "7": "3d_models/hwall_fork.obj",
+      "8": "3d_models/hwall_straight.obj"
     },
     "floors": {
       "1": "floors/simplewall.obj",
@@ -52,63 +120,68 @@
     }
   },
   "floors/BeachStones.obj": {
-    ":change_id": 12,
+    ":change_id": 37,
     ":seq_id": 3,
-    ":timestamp": "2020-05-01 (16:36:37) UTC",
+    ":timestamp": "2020-05-03 (21:35:15) UTC",
     "@3DMesh": "floors/BeachStones.mesh",
     "@3DModel": "floors/BeachStones.obj",
     "@IsoTile1": "floors/BeachStones_1.iso.png",
     "@IsoTile2": "floors/BeachStones_2.iso.png",
     "@IsoTile3": "floors/BeachStones_3.iso.png",
     "@IsoTile4": "floors/BeachStones_4.iso.png",
+    "@Material": "BeachStones_3b191356-fff6-4747-a170-748210fef84a.png",
     "@Texture": "floors/BeachStones.png"
   },
   "floors/BumpyMetal.obj": {
-    ":change_id": 12,
+    ":change_id": 38,
     ":seq_id": 4,
-    ":timestamp": "2020-05-01 (16:36:37) UTC",
+    ":timestamp": "2020-05-03 (21:35:15) UTC",
     "@3DMesh": "floors/BumpyMetal.mesh",
     "@3DModel": "floors/BumpyMetal.obj",
     "@IsoTile1": "floors/BumpyMetal_1.iso.png",
     "@IsoTile2": "floors/BumpyMetal_2.iso.png",
     "@IsoTile3": "floors/BumpyMetal_3.iso.png",
     "@IsoTile4": "floors/BumpyMetal_4.iso.png",
+    "@Material": "BumpyMetal_9356b439-9395-45ab-8b54-18881a74269b.png",
     "@Texture": "floors/BumpyMetal.png"
   },
   "floors/MtlPlat2.obj": {
-    ":change_id": 12,
+    ":change_id": 37,
     ":seq_id": 5,
-    ":timestamp": "2020-05-01 (16:36:37) UTC",
+    ":timestamp": "2020-05-03 (21:35:15) UTC",
     "@3DMesh": "floors/MtlPlat2.mesh",
     "@3DModel": "floors/MtlPlat2.obj",
     "@IsoTile1": "floors/MtlPlat2_1.iso.png",
     "@IsoTile2": "floors/MtlPlat2_2.iso.png",
     "@IsoTile3": "floors/MtlPlat2_3.iso.png",
     "@IsoTile4": "floors/MtlPlat2_4.iso.png",
+    "@Material": "MtlPlat2_90f34a34-faca-45af-a7f3-310287d78175.png",
     "@Texture": "floors/MtlPlat2.png"
   },
   "floors/simplewall.obj": {
-    ":change_id": 12,
+    ":change_id": 37,
     ":seq_id": 1,
-    ":timestamp": "2020-05-01 (16:36:36) UTC",
+    ":timestamp": "2020-05-03 (21:35:15) UTC",
     "@3DMesh": "floors/simplewall.mesh",
     "@3DModel": "floors/simplewall.obj",
     "@IsoTile1": "floors/simplewall_1.iso.png",
     "@IsoTile2": "floors/simplewall_2.iso.png",
     "@IsoTile3": "floors/simplewall_3.iso.png",
     "@IsoTile4": "floors/simplewall_4.iso.png",
+    "@Material": "simplewall_97b952b1-67d1-4272-a0b8-6ce0bed0d7b5.png",
     "@Texture": "floors/simplewall.png"
   },
   "floors/terr_rock6.obj": {
-    ":change_id": 12,
+    ":change_id": 37,
     ":seq_id": 2,
-    ":timestamp": "2020-05-01 (16:36:37) UTC",
+    ":timestamp": "2020-05-03 (21:35:15) UTC",
     "@3DMesh": "floors/terr_rock6.mesh",
     "@3DModel": "floors/terr_rock6.obj",
     "@IsoTile1": "floors/terr_rock6_1.iso.png",
     "@IsoTile2": "floors/terr_rock6_2.iso.png",
     "@IsoTile3": "floors/terr_rock6_3.iso.png",
     "@IsoTile4": "floors/terr_rock6_4.iso.png",
+    "@Material": "terr_rock6_dddcf2ad-9690-4985-bd4c-a01a6d950fab.png",
     "@Texture": "floors/terr_rock6.png"
   }
 }

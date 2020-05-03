@@ -66,6 +66,10 @@ OgreAssimp/OgreAssimpConverter:
 %.mesh: %.obj OgreAssimp/OgreAssimpConverter
 	OgreAssimp/OgreAssimpConverter $<
 	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D 3DModel $< -D 3DMesh $@
+	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D Material \
+		`cat "$(dir $@)$(basename $(notdir $@)).material" | \
+			grep '^material[[:space:]]*' | \
+			sed -e 's|material[[:space:]]*||'`
 
 %.iso.png: %_1.iso.png %_2.iso.png %_3.iso.png %_4.iso.png
 	mkdir -p tmp
