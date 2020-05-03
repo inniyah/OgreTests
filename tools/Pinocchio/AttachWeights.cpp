@@ -233,7 +233,8 @@ struct ArgData {
     ArgData() :
     stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(true),
         skeleton(Skeletons::Human()), stiffness(1.),
-        skelOutName("skeleton.out"), weightOutName("attachment.out")
+        skelOutName("skeleton.out"), weightOutName("attachment.out"),
+        skinAlgorithm(Pinocchio::LBS), blendWeight(0.5)
     {
     }
 
@@ -248,6 +249,11 @@ struct ArgData {
     double stiffness;
     std::string skelOutName;
     std::string weightOutName;
+
+    // Indicates which skinning algorithm to use
+    Pinocchio::AlgoType skinAlgorithm;
+    // Indicates the blending weight for MIX algorithm
+    float blendWeight;
 };
 
 void printUsageAndExit() {
@@ -256,6 +262,7 @@ void printUsageAndExit() {
     std::cout << "              [-meshonly | -mo] [-circlesonly | -co]" << std::endl;
     std::cout << "              [-fit] [-stiffness s]" << std::endl;
     std::cout << "              [-skelOut skelOutFile] [-weightOut weightOutFile]" << std::endl;
+    std::cout << "              [-algo skinning_algorithm [blend_weight]]" << std::endl;
 
     exit(0);
 }
@@ -346,6 +353,30 @@ ArgData processArgs(const std::vector<std::string> &args) {
             continue;
         }
 
+        if (curStr == std::string("-algo")) {
+            /*  Option to use a different skinning algorithm than the
+             *  default LBS. Currently, options are LBS, DQS, and MIX */
+            std::string algo = args[cur++];
+            if (algo == std::string("LBS")) {
+                out.skinAlgorithm = Pinocchio::LBS;
+            } else if (algo == std::string("DQS")) {
+                out.skinAlgorithm = Pinocchio::DQS;
+            } else if (algo == std::string("MIX")) {
+                /*  Grab the desired blending weight for LBS, i.e
+                 *  how much of the result of LBS you want to see */
+                if(cur >= num) {
+                    std::cout << "No blending weight given; exiting." << std::endl;
+                    std::cout << args[cur] << std::endl;
+                    printUsageAndExit();
+                }
+                out.skinAlgorithm = Pinocchio::MIX;
+                sscanf(args[cur++].c_str(), "%f", &out.blendWeight);
+            } else {
+                std::cout << "Unrecognized skinning algorithm" << std::endl;
+                printUsageAndExit();
+            }
+        }
+
         if (curStr == std::string("-skelOut")) {
             if(cur == num) {
                 std::cout << "No skeleton output specified; ignoring." << std::endl;
@@ -379,7 +410,7 @@ int process(const std::vector<std::string> &args) {
 
     Debugging::setOutStream(std::cout);
 
-    Mesh m(a.filename);
+    Mesh m(a.filename, a.blendWeight);
 
     if (m.vertices.size() == 0) {
         std::cout << "Error reading file.  Aborting." << std::endl;
@@ -397,8 +428,7 @@ int process(const std::vector<std::string> &args) {
     Skeleton given = a.skeleton;
     given.scale(a.skelScale * 0.7);
 
-    // if early bailout
-    if (a.stopAtMesh) {
+    if (a.stopAtMesh) { // if early bailout
         return EXIT_FAILURE;
     }
 
@@ -411,7 +441,7 @@ int process(const std::vector<std::string> &args) {
         VisTester<TreeType> *tester = new VisTester<TreeType>(distanceField);
 
         o.embedding = a.skeleton.fGraph().verts;
-        for(int i = 0; i < (int)o.embedding.size(); ++i) {
+        for (int i = 0; i < (int)o.embedding.size(); ++i) {
             o.embedding[i] = m.toAdd + o.embedding[i] * m.scale;
         }
 
@@ -465,7 +495,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     //~ Pinocchio::CsvFileSkeleton("skeletons/human.csv");
 
     std::vector<std::string> args;
-    for(int i = 0; i < argc; ++i) {
+    for (int i = 0; i < argc; ++i) {
         args.push_back(argv[i]);
     }
     return process(args);
