@@ -35,6 +35,7 @@ THE SOFTWARE.
 */
 #include <iostream>
 #include <sys/stat.h>
+#include <random>
 
 #include <Ogre.h>
 #include <OgreString.h>
@@ -51,6 +52,40 @@ THE SOFTWARE.
 #endif // DONT_USE_XML
 
 #include "AssimpLoader.h"
+
+namespace uuid {
+    static std::random_device              rd;
+    static std::mt19937                    gen(rd());
+    static std::uniform_int_distribution<> dis(0, 15);
+    static std::uniform_int_distribution<> dis2(8, 11);
+
+    std::string generate_uuid_v4() {
+        std::stringstream ss;
+        int i;
+        ss << std::hex;
+        for (i = 0; i < 8; i++) {
+            ss << dis(gen);
+        }
+        ss << "-";
+        for (i = 0; i < 4; i++) {
+            ss << dis(gen);
+        }
+        ss << "-4";
+        for (i = 0; i < 3; i++) {
+            ss << dis(gen);
+        }
+        ss << "-";
+        ss << dis2(gen);
+        for (i = 0; i < 3; i++) {
+            ss << dis(gen);
+        }
+        ss << "-";
+        for (i = 0; i < 12; i++) {
+            ss << dis(gen);
+        };
+        return ss.str();
+    }
+}
 
 void help(void)
 {
@@ -80,6 +115,7 @@ void help(void)
 
     std::cout << "-prefix             = prefix to add to the output filename" << std::endl;
     std::cout << "-suffix             = suffix to add to the output filename" << std::endl;
+    std::cout << "-uuid               = uuid to use to make names unique" << std::endl;
 
     std::cout << "sourcefile          = name of file to convert" << std::endl;
     std::cout << "destination         = optional name of directory to write to. If you don't" << std::endl;
@@ -96,6 +132,7 @@ AssimpLoader::AssOptions parseArgs(int numArgs, char **args)
     opts.dest = "";
     opts.namePrefix = "";
     opts.nameSuffix = ""; //  "_" + extension;
+    opts.uuid = "";
     opts.animationSpeedModifier = 1.0;
 
 #ifndef DONT_USE_LOD
@@ -123,6 +160,7 @@ AssimpLoader::AssOptions parseArgs(int numArgs, char **args)
     binOpt["-aniSpeedMod"] = "1.0";
     binOpt["-prefix"] = "";
     binOpt["-suffix"] = "";
+    binOpt["-uuid"] = uuid::generate_uuid_v4();
 
 #ifndef DONT_USE_LOD
     binOpt["-l"] = "";
@@ -214,6 +252,11 @@ AssimpLoader::AssOptions parseArgs(int numArgs, char **args)
     if (!bi->second.empty())
     {
         opts.nameSuffix = bi->second;
+    }
+    bi = binOpt.find("-uuid");
+    if (!bi->second.empty())
+    {
+        opts.uuid = bi->second;
     }
 
     // Source / dest

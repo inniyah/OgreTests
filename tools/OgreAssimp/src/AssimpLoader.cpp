@@ -99,48 +99,14 @@ THE SOFTWARE.
 #include <iostream>
 #include <sstream>
 
-namespace uuid {
-    static std::random_device              rd;
-    static std::mt19937                    gen(rd());
-    static std::uniform_int_distribution<> dis(0, 15);
-    static std::uniform_int_distribution<> dis2(8, 11);
-
-    std::string generate_uuid_v4() {
-        std::stringstream ss;
-        int i;
-        ss << std::hex;
-        for (i = 0; i < 8; i++) {
-            ss << dis(gen);
-        }
-        ss << "-";
-        for (i = 0; i < 4; i++) {
-            ss << dis(gen);
-        }
-        ss << "-4";
-        for (i = 0; i < 3; i++) {
-            ss << dis(gen);
-        }
-        ss << "-";
-        ss << dis2(gen);
-        for (i = 0; i < 3; i++) {
-            ss << dis(gen);
-        }
-        ss << "-";
-        for (i = 0; i < 12; i++) {
-            ss << dis(gen);
-        };
-        return ss.str();
-    }
-}
-
-Ogre::String addUuidToFilename(Ogre::String filename) {
+Ogre::String addUuidToFilename(Ogre::String filename, const Ogre::String & uuid) {
     Ogre::String basename;
     Ogre::String extension;
     Ogre::StringUtil::splitBaseFilename(filename, basename, extension);
     if (extension.length())
-        return basename + "_" + uuid::generate_uuid_v4() + "." + extension;
+        return basename + "_" + uuid + "." + extension;
     else
-        return filename + "_" + uuid::generate_uuid_v4();
+        return filename + "_" + uuid;
 }
 
 Ogre::String toString(const aiColor4D& colour)
@@ -164,6 +130,8 @@ AssimpLoader::~AssimpLoader()
 
 bool AssimpLoader::convert(const AssOptions options, Ogre::MeshPtr *meshPtr,  Ogre::SkeletonPtr *skeletonPtr)
 {
+    uuid = options.uuid;
+
     mAnimationSpeedModifier = options.animationSpeedModifier;
     mLoaderParams = options.params;
     mQuietMode = ((mLoaderParams & LP_QUIET_MODE) == 0) ? false : true;
@@ -296,7 +264,7 @@ bool AssimpLoader::convert(const AssOptions options, Ogre::MeshPtr *meshPtr,  Og
             lodConfig.levels.clear();
 
             std::vector<Ogre::String> splitMeshName = Ogre::StringUtil::split(mMesh->getName(), "_", 2);
-            Ogre::String newName = splitMeshName[0] + "_" + uuid::generate_uuid_v4();
+            Ogre::String newName = splitMeshName[0] + "_" + uuid;
             std::cout << Ogre::String("Cloning ") + mMesh->getName() + " as " + newName + "\n";
 
             lodConfig.mesh = mMesh->clone(newName);
@@ -1120,7 +1088,7 @@ Ogre::MaterialPtr AssimpLoader::createMaterialByScript(int index, const aiMateri
         }
 
         //code += "\tset $diffuse_map " + texName + "\n";
-        code += "\n\t\t\ttexture_unit\n\t\t\t{\n\t\t\t\ttexture " + addUuidToFilename(texName) + "\n";
+        code += "\n\t\t\ttexture_unit\n\t\t\t{\n\t\t\t\ttexture " + addUuidToFilename(texName, uuid) + "\n";
 
         // no infomation on the alpha channel in the texture will have to load the texture and look at it
         code += "\t\t\t}\n";
@@ -1186,7 +1154,7 @@ Ogre::MaterialPtr AssimpLoader::createMaterial(int index, const aiMaterial* mat,
             Ogre::LogManager::getSingleton().logMessage("Didn't find any texture units...");
         }
         szPath = Ogre::String("dummyMat" +
-            Ogre::StringConverter::toString(dummyMatCount) + "_" + uuid::generate_uuid_v4()).c_str();
+            Ogre::StringConverter::toString(dummyMatCount) + "_" + uuid).c_str();
         dummyMatCount++;
     }
 
@@ -1198,7 +1166,8 @@ Ogre::MaterialPtr AssimpLoader::createMaterial(int index, const aiMaterial* mat,
         Ogre::LogManager::getSingleton().logMessage("Creating " + basename);
     }
 
-    Ogre::ResourceManager::ResourceCreateOrRetrieveResult status = omatMgr->createOrRetrieve(ReplaceSpaces(addUuidToFilename(basename)), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, true);
+    Ogre::ResourceManager::ResourceCreateOrRetrieveResult status =
+        omatMgr->createOrRetrieve(ReplaceSpaces(addUuidToFilename(basename, uuid)), Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, true);
 #if (OGRE_VERSION < ((1 << 16) | (9 << 8) | 0))
     Ogre::MaterialPtr omat = status.first;
 #else
@@ -1559,7 +1528,7 @@ void AssimpLoader::loadDataFromNode(const aiScene* mScene,  const aiNode *pNode,
             if(mMeshes.size() == 0)
             {
                 mesh = Ogre::MeshManager::getSingleton().createManual(
-                    Ogre::String("ROOTMesh") + "_" + uuid::generate_uuid_v4(),
+                    Ogre::String("ROOTMesh") + "_" + uuid,
                     Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
                 mMeshes.push_back(mesh);

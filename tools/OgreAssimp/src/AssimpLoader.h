@@ -61,6 +61,7 @@ public:
         Ogre::String dest;
         Ogre::String namePrefix;
         Ogre::String nameSuffix;
+        Ogre::String uuid;
         bool quietMode;
         Ogre::String logFile;
         Ogre::String customAnimationName;
@@ -169,6 +170,8 @@ private:
     bool mQuietMode;
     Ogre::Real mTicksPerSecond;
     Ogre::Real mAnimationSpeedModifier;
+
+    Ogre::String uuid;
 };
 
 #endif // __AssimpLoader_h__
