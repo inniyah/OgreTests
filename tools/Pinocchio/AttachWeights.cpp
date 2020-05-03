@@ -375,7 +375,6 @@ ArgData processArgs(const std::vector<std::string> &args) {
 
 
 int process(const std::vector<std::string> &args) {
-    int i;
     ArgData a = processArgs(args);
 
     Debugging::setOutStream(std::cout);
@@ -388,7 +387,7 @@ int process(const std::vector<std::string> &args) {
         return EXIT_FAILURE;
     }
 
-    for (i = 0; i < (int)m.vertices.size(); ++i) {
+    for (int i = 0; i < (int)m.vertices.size(); ++i) {
         m.vertices[i].pos = a.meshTransform * m.vertices[i].pos;
     }
 
@@ -412,8 +411,9 @@ int process(const std::vector<std::string> &args) {
         VisTester<TreeType> *tester = new VisTester<TreeType>(distanceField);
 
         o.embedding = a.skeleton.fGraph().verts;
-        for(i = 0; i < (int)o.embedding.size(); ++i)
+        for(int i = 0; i < (int)o.embedding.size(); ++i) {
             o.embedding[i] = m.toAdd + o.embedding[i] * m.scale;
+        }
 
         o.attachment = new Attachment(m, a.skeleton, o.embedding, tester, a.stiffness);
 
@@ -426,22 +426,28 @@ int process(const std::vector<std::string> &args) {
         return EXIT_FAILURE;
     }
 
-    a.skeleton.dump();
+    //~ a.skeleton.dump();
 
     // output skeleton embedding
-    for(i = 0; i < (int)o.embedding.size(); ++i) {
-        o.embedding[i] = (o.embedding[i] - m.toAdd) / m.scale;
+    for (int joint = 0; joint < (int)o.embedding.size(); ++joint) {
+        o.embedding[joint] = (o.embedding[joint] - m.toAdd) / m.scale;
     }
+
     std::ofstream os(a.skelOutName.c_str());
-    for(i = 0; i < (int)o.embedding.size(); ++i) {
-        os << i << " " << o.embedding[i][0] << " " << o.embedding[i][1] <<
-            " " << o.embedding[i][2] << " " << a.skeleton.fPrev()[i] << std::endl;
+    for (int joint = 0; joint < (int)o.embedding.size(); ++joint) {
+        int parent = a.skeleton.fPrev()[joint];
+        os << joint << " " << a.skeleton.getNameForJoint(joint)
+            << " " << parent << " " << a.skeleton.getNameForJoint(parent)
+            << " " << o.embedding[joint][0]
+            << " " << o.embedding[joint][1]
+            << " " << o.embedding[joint][2]
+            << " " << std::endl;
     }
 
     // output attachment
     std::ofstream astrm(a.weightOutName.c_str());
-    for (i = 0; i < (int)m.vertices.size(); ++i) {
-        Vector<double, -1> v = o.attachment->getWeights(i);
+    for (int vertex = 0; vertex < (int)m.vertices.size(); ++vertex) {
+        Vector<double, -1> v = o.attachment->getWeights(vertex);
         for (int j = 0; j < v.size(); ++j) {
             double d = floor(0.5 + v[j] * 10000.) / 10000.;
             astrm << d << " ";
