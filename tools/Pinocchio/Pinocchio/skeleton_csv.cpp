@@ -95,7 +95,7 @@ namespace Pinocchio {
 
     CsvFileSkeleton::CsvFileSkeleton(const std::string &filename) {
 
-            std::ifstream csv_file("test.csv");
+            std::ifstream csv_file(filename);
             std::vector<std::vector<std::string>> csv_data = readCSV(csv_file);
 
             std::vector<std::pair<std::string,std::string>> symmetries;
