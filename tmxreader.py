@@ -1192,3 +1192,14 @@ if __name__ == "__main__":
 
 	for gid, cell in map.tiles.items():
 		print(f"Tile {gid} (from Tile Set '{cell.tile_set.name}') -> {cell.properties}")
+
+	for layer in map.layers:
+		print(f"Layer '{layer.name}' ({layer.width}x{layer.height})")
+		contents = layer.decoded_content
+		histogram = {}
+		for gid in contents:
+			try:
+				histogram[gid] += 1
+			except KeyError:
+				histogram[gid] = 1
+		print(f"  - GID Histogram: {', '.join([f'{c} times tile {i}' for i,c in histogram.items()])}")
