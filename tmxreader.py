@@ -1129,9 +1129,6 @@ if __name__ == "__main__":
 	map_num_tiles_x = map.width
 	map_num_tiles_y = map.height
 
-	for tileset in map.tile_sets:
-		print(f"Tile Set '{tileset.name}': {len(tileset.tiles)} images, starting at firstgid = {tileset.firstgid}")
-
 	for idx, layer in enumerate(resources.world_map.layers):
 			layer_name = layer.name
 			layer_position_x = layer.x
@@ -1189,3 +1186,9 @@ if __name__ == "__main__":
 				#all_sprite_layers.append(sprite_layer)
 
 		#resources.save_tile_images('tmp')
+
+	for tileset in map.tile_sets:
+		print(f"Tile Set '{tileset.name}': {len(tileset.tiles)} tiles, starting at firstgid = {tileset.firstgid}")
+
+	for gid, cell in map.tiles.items():
+		print(f"Tile {gid} (from Tile Set '{cell.tile_set.name}') -> {cell.properties}")

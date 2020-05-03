@@ -4,7 +4,7 @@
  <tileset firstgid="41" source="floors.tsx"/>
  <layer id="2" name="Suelos" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztlktuhDAQRH0gr9mw4v6XymaQal6qwKPYJlG8KDEwBvfrr7dSyra0tLS0tLS0tLS09C9UX3rajh72V9EuetrGVg7eq/21vLMktie5EwOf77huso6cXPdbOFye7bIu2TwrNo5BfXlXM615NJqFPue+5KD/lesuLk9yKIM+3/GsJTYjWSquLRy0V+OR1oxkSbFgXqk0Fq7e3cz5pI6e4EgsLk5cP4sjsTjfn2uPl8jBPXtypH7r9mz1/VEyD7/ZKy6tHGoHOU5bq9heyzsL+/Vmfs/iYF6rnY6FUts1vszfkRyu5x7meqd0TvgpyyccuhfzX31Ou/k7zZiZHOxTzCv63zFrjqb6G8mR5sFVDrkefcfRo0Za+5XW7Pk/e5U7U6YzaI950sKxl+854e6v4kBbOYNGx4Q2uZgo12HeSbm5he+O5mBOcKZrzbAG3BxkrfSe7fztzg9X9aI9Vjncevet3ix351OXHy6PUjycL3pw0H5nb4pT4kj3rPOeDCk+zl9uNro4XnHo+yM5NuzvzkWcC59yMDaj4+Lin+KUZgj7tKuV0Ur7kq1ivevLro/P4lDbUi9g7FrmIeM5kyU9d35O9ZDemc3i5Gxr6btPcdyp5WzwFzgSV7pSX9KXDXA=
+   eJzt2CEOgDAQRNE9D0HgcKT3PxUaEhCkTbbLE9/Ps9MiokmSpEvrZHHkiiNiGxgHB0dOxzE4Dg6O+o7lFgcHBwcHBwcHBwcHB8c/HG9bejqq/HCzOjL15JC+tifY0MNQyXECJ38hJg==
   </data>
  </layer>
  <layer id="1" name="Objetos" width="50" height="50">
