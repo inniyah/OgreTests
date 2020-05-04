@@ -79,11 +79,11 @@ namespace Skeletons {
 
             makeJoint("lshoulder",  Vector3(-0.2, 0., 0.5),      "shoulders"); //11
             makeJoint("lfknee",     Vector3(-0.2, -0.4, 0.5),    "lshoulder"); //12
-            makeJoint("lffoot",      Vector3(-0.2, -0.8, 0.5),   "lfknee");    //13
+            makeJoint("lffoot",     Vector3(-0.2, -0.8, 0.5),   "lfknee");    //13
 
             makeJoint("rshoulder",  Vector3(0.2, 0.0, 0.5),      "shoulders"); //14
             makeJoint("rfknee",     Vector3(0.2, -0.4, 0.5),     "rshoulder"); //15
-            makeJoint("rffoot",      Vector3(0.2, -0.8, 0.5),    "rfknee");    //16
+            makeJoint("rffoot",     Vector3(0.2, -0.8, 0.5),    "rfknee");    //16
 
             makeJoint("tail",       Vector3(0., 0., -0.7),       "hips");      //17
 
@@ -130,11 +130,11 @@ namespace Skeletons {
 
             makeJoint("lshoulder",  Vector3(-0.2, 0., 0.5),      "shoulders"); //13
             makeJoint("lfknee",     Vector3(-0.2, -0.4, 0.5),    "lshoulder"); //14
-            makeJoint("lffoot",      Vector3(-0.2, -0.8, 0.5),   "lfknee");    //15
+            makeJoint("lffoot",     Vector3(-0.2, -0.8, 0.5),   "lfknee");    //15
 
             makeJoint("rshoulder",  Vector3(0.2, 0.0, 0.5),      "shoulders"); //16
             makeJoint("rfknee",     Vector3(0.2, -0.4, 0.5),     "rshoulder"); //17
-            makeJoint("rffoot",      Vector3(0.2, -0.8, 0.5),    "rfknee");    //18
+            makeJoint("rffoot",     Vector3(0.2, -0.8, 0.5),    "rfknee");    //18
 
             makeJoint("tail",       Vector3(0., 0., -0.7),       "hips");      //19
 
@@ -477,9 +477,9 @@ int process(const std::vector<std::string> &args) {
     // output attachment
     std::ofstream astrm(a.weightOutName.c_str());
     for (int vertex = 0; vertex < (int)m.vertices.size(); ++vertex) {
-        Vector<double, -1> v = o.attachment->getWeights(vertex);
-        for (int j = 0; j < v.size(); ++j) {
-            double d = floor(0.5 + v[j] * 10000.) / 10000.;
+        Vector<double, -1> weights = o.attachment->getWeights(vertex);
+        for (int j = 0; j < weights.size(); ++j) {
+            double d = floor(0.5 + weights[j] * 10000.) / 10000.;
             astrm << d << " ";
         }
         astrm << std::endl;
