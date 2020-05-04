@@ -37,7 +37,7 @@ struct ArgData {
     ArgData() :
     stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(false),
         skeleton(HumanSkeleton()), stiffness(1.),
-        skelOutName("skeleton.out"), weightOutName("attachment.out")
+        skelOutName(""), weightOutName(""), objOutName("")
     {
     }
 
@@ -52,6 +52,7 @@ struct ArgData {
     double stiffness;
     std::string skelOutName;
     std::string weightOutName;
+    std::string objOutName;
 };
 
 void printUsageAndExit() {
@@ -60,6 +61,7 @@ void printUsageAndExit() {
     std::cout << "              [-meshonly | -mo] [-circlesonly | -co]" << std::endl;
     std::cout << "              [-fit] [-stiffness s]" << std::endl;
     std::cout << "              [-skelOut skelOutFile] [-weightOut weightOutFile]" << std::endl;
+    std::cout << "              [-objOut objOutFile]" << std::endl;
 
     exit(0);
 }
@@ -241,26 +243,40 @@ int process(const std::vector<std::string> &args) {
         o.embedding[joint] = (o.embedding[joint] - m.toAdd) / m.scale;
     }
 
-    std::ofstream os(a.skelOutName.c_str());
-    for (int joint = 0; joint < (int)o.embedding.size(); ++joint) {
-        int parent = a.skeleton.fPrev()[joint];
-        os << joint << " " << a.skeleton.getNameForJoint(joint)
-            << " " << parent << " " << a.skeleton.getNameForJoint(parent)
-            << " " << o.embedding[joint][0]
-            << " " << o.embedding[joint][1]
-            << " " << o.embedding[joint][2]
-            << " " << std::endl;
+    if (a.skelOutName.length()) {
+        std::ofstream os(a.skelOutName.c_str());
+
+        os << "\"BoneNum\",\"Bone\",\"ParentNum\",\"Parent\",\"X\",\"Y\",\"Z\"" << std::endl;
+
+        for (int joint = 0; joint < (int)o.embedding.size(); ++joint) {
+            int parent = a.skeleton.fPrev()[joint];
+            os << joint << ",\"" << a.skeleton.getNameForJoint(joint) << "\","
+                << parent << ",\"" << a.skeleton.getNameForJoint(parent) << "\","
+                << o.embedding[joint][0] << ","
+                << o.embedding[joint][1] << ","
+                << o.embedding[joint][2] << std::endl;
+        }
     }
 
     // output attachment
-    std::ofstream astrm(a.weightOutName.c_str());
-    for (int vertex = 0; vertex < (int)m.vertices.size(); ++vertex) {
-        Vector<double, -1> weights = o.attachment->getWeights(vertex);
-        for (int j = 0; j < weights.size(); ++j) {
-            double d = floor(0.5 + weights[j] * 10000.) / 10000.;
-            astrm << d << " ";
+    if (a.weightOutName.length()) {
+        std::ofstream astrm(a.weightOutName.c_str());
+
+        for (int joint = 1; joint < (int)o.embedding.size(); ++joint) {
+            if (joint > 1) astrm << ",";
+            astrm << "\"" << a.skeleton.getNameForJoint(joint) << "\"";
         }
         astrm << std::endl;
+
+        for (int vertex = 0; vertex < (int)m.vertices.size(); ++vertex) {
+            Vector<double, -1> weights = o.attachment->getWeights(vertex);
+            for (int j = 0; j < weights.size(); ++j) {
+                if (j) astrm << ",";
+                double d = floor(0.5 + weights[j] * 10000.) / 10000.;
+                astrm << d;
+            }
+            astrm << std::endl;
+        }
     }
 
     delete o.attachment;
