@@ -85,7 +85,7 @@ clean:
 test: $(BINARY) AttachWeights
 	./$(BINARY) data/test.obj
 	./$(BINARY) data/test.obj -motion data/crossWalk.txt
-	./AttachWeights data/test.obj -skelOut skeleton.csv -weightOut weights.csv
+	./AttachWeights data/test.obj -skelOut skeleton.csv -weightOut weights.csv -objOut model.obj
 
 include .depend
 

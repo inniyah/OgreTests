@@ -422,22 +422,4 @@ namespace Pinocchio {
         return true;
     }
 
-    void Mesh::dump() {
-        for (int i = 0; i < (int)vertices.size(); ++i) {
-            std::cout << "v " << vertices[i].pos[0] << " " << vertices[i].pos[1] << " " << vertices[i].pos[2] << std::endl;
-        }
-
-        for(int i = 0; i < (int)normals.size(); ++i) {
-            std::cout << "vn " << normals[i].normal[0] << " " << normals[i].normal[1] << " " << normals[i].normal[2] << std::endl;
-        }
-
-        for(int i = 0; i < (int)texcoords.size(); ++i) {
-            std::cout << "vt " << texcoords[i].coords[0] << " " << texcoords[i].coords[1] << std::endl;
-        }
-
-        for (int i = 0; i < (int)edges.size(); i += 3) {
-            std::cout << "f " << edges[i].vertex + 1 << " " << edges[i + 1].vertex + 1 << " " << edges[i + 2].vertex + 1 << std::endl;
-        }
-    }
-
 } // namespace Pinocchio

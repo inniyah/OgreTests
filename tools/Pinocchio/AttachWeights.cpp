@@ -175,6 +175,16 @@ ArgData processArgs(const std::vector<std::string> &args) {
             continue;
         }
 
+        if (curStr == std::string("-objOut")) {
+            if (cur == num) {
+                std::cout << "No object output specified; ignoring." << std::endl;
+                continue;
+            }
+            curStr = args[cur++];
+            out.objOutName = curStr;
+            continue;
+        }
+
         std::cout << "Unrecognized option: " << curStr << std::endl;
         printUsageAndExit();
     }
@@ -196,7 +206,10 @@ int process(const std::vector<std::string> &args) {
         return EXIT_FAILURE;
     }
 
-    //~ m.dump();
+    // output model
+    if (a.objOutName.length()) {
+        m.writeObj(a.objOutName);
+    }
 
     for (int i = 0; i < (int)m.vertices.size(); ++i) {
         m.vertices[i].pos = a.meshTransform * m.vertices[i].pos;
