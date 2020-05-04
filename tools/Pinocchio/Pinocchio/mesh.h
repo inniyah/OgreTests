@@ -32,7 +32,7 @@ namespace Pinocchio {
 
         Vector3 pos;
         Vector3 normal;
-        Vector3 texture;
+        Vector2 texture;
         int edge;                                           // An edge such that edge->prev->vertex is this
     };
 
@@ -59,10 +59,6 @@ namespace Pinocchio {
 
         private:
             void readObj(std::istream &strm);
-            void readOff(std::istream &strm);
-            void readPly(std::istream &strm);
-            void readGts(std::istream &strm);
-            void readStl(std::istream &strm);
             void fixDupFaces();
             void sortEdges();                               // Sort edges so that triplets forming faces are adjacent
 
