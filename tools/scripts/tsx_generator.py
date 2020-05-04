@@ -48,9 +48,21 @@ if __name__ == "__main__":
                 if ":attrs_file" in tile_info.keys():
                     try:
                         with open(tile_info[":attrs_file"]) as json_file:
-                            attrs_data = json.load(json_file)[os.path.splitext(obj_filename)[0]]
-                    except KeyError:
-                        attrs_data = { }
+                            json_data = json.load(json_file)
+
+                            try:
+                                attrs_data = json_data[""]
+                            except KeyError:
+                                attrs_data = { }
+
+                            try:
+                                new_attrs_data = json_data[os.path.splitext(obj_filename)[0]]
+                            except KeyError:
+                                new_attrs_data = { }
+
+                            del json_data
+                            attrs_data.update(new_attrs_data)
+
                     except FileNotFoundError:
                         attrs_data = { }
 

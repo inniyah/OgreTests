@@ -1,6 +1,6 @@
 {
   "": {
-    "Type": "Floor"
+    "Type": "Model"
   },
   "floors/BeachStones": {
     "Friction": 0.8
