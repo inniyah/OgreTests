@@ -1,0 +1,8 @@
+{
+  "floors/BeachStones": {
+    "Friction": 0.8
+  },
+  "floors/BumpyMetal": {
+    "Friction": 0.3
+  }
+}
