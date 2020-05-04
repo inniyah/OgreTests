@@ -70,6 +70,8 @@ namespace Pinocchio {
             double scale;
             bool withTexture;
             float blendWeight;
+
+            void dump();
     };
 
 } // namespace Pinocchio

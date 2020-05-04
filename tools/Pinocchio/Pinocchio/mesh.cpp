@@ -225,22 +225,24 @@ namespace Pinocchio {
 
             std::vector<std::string> words = readWords(strm);
 
-            if(words.size() == 0)
+            if(words.size() == 0) { // empty line
                 continue;
+            }
 
-            if(words[0][0] == '#')                          //comment
+            if(words[0][0] == '#') { // comment
                 continue;
+            }
 
-            //deal with the line based on the first word
-            if (words[0] == "vt") {                         // texture coordinates
+            // deal with the line based on the first word
+
+            if (words[0] == "vt") { // texture coordinates
                 double tx, ty;
                 withTexture = true;
                 sscanf(words[1].c_str(), "%lf", &tx);
                 sscanf(words[2].c_str(), "%lf", &ty);
                 vertices.back().texture = Vector2(tx, ty);
 
-            }                                               // vertex normal
-            else if (words[0] == "vn") {
+            } else if (words[0] == "vn") { // vertex normal
                 if (words.size() != 4) {
                     Debugging::out() << "Error on line " << lineNum << std::endl;
                     OUT;
@@ -251,8 +253,7 @@ namespace Pinocchio {
                 sscanf(words[2].c_str(), "%lf", &ny);
                 sscanf(words[3].c_str(), "%lf", &nz);
 
-            }                                               // geometric vertices
-            else if(words[0][0] == 'v' && words[0].size() == 1) {
+            } else if(words[0][0] == 'v' && words[0].size() == 1) { // geometric vertices
                 if (words.size() != 4) {
                     Debugging::out() << "Error on line " << lineNum << std::endl;
                     OUT;
@@ -266,12 +267,11 @@ namespace Pinocchio {
                 vertices.resize(vertices.size() + 1);
                 vertices.back().pos = Vector3(x, y, z);
 
-            }                                               // unknown line
-            else if(words[0].size() != 1) {
+            } else if(words[0].size() != 1) { // unknown line
                 continue;
             }
 
-            if (words[0][0] == 'f') {                       // polygonal face element
+            if (words[0][0] == 'f') { // polygonal face element
                 if (words.size() < 4 || words.size() > 15) {
                     Debugging::out() << "Error on line " << lineNum << std::endl;
                     OUT;
@@ -406,6 +406,16 @@ namespace Pinocchio {
         }
 
         return true;
+    }
+
+    void Mesh::dump() {
+        for (int i = 0; i < (int)vertices.size(); ++i) {
+            std::cout << "v " << vertices[i].pos[0] << " " << vertices[i].pos[1] << " " << vertices[i].pos[2] << std::endl;
+        }
+
+        for (int i = 0; i < (int)edges.size(); i += 3) {
+            std::cout << "f " << edges[i].vertex + 1 << " " << edges[i + 1].vertex + 1 << " " << edges[i + 2].vertex + 1 << std::endl;
+        }
     }
 
 }                                                           // namespace Pinocchio
