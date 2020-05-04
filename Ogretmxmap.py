@@ -11,6 +11,7 @@ import Ogre
 import Ogre.RTShader as OgreRTShader
 import Ogre.Bites as OgreBites
 import os.path
+import numpy as np
 
 class tmxmap:
     
@@ -21,8 +22,10 @@ class tmxmap:
     layerlist={}
     instance=None
     maxh=0
-    layerlist={}
-    meta=[]    
+    meta=[]
+    MATERIAL_PROP='Material'
+    MESH_PROP='3DMesh'
+    ROT_PROP='RotAngle'
     
     def __init__(self,file_name):
         self.load(file_name)
@@ -35,7 +38,6 @@ class tmxmap:
         for layer in self.world_map.layers:
             if self.maxh<int(layer.properties['level']):
                 self.maxh=int(layer.properties['level'])
-            self.layerlist[layer.name]=int(layer.id)-1
         #Hacemos el listado de las metadatas
         self.metalayer=[None for i in range(0,self.maxh+1)]
         for layer in self.world_map.layers:
@@ -52,37 +54,43 @@ class tmxmap:
         tipo = {'w':self.makewalls, 'c':self.makeceil, 'f':self.makefloor }
 
         for layer in self.world_map.layers:
+            print ("creating layer:",layer.name)
             h=float(layer.properties['level'])*2
             if layer.properties['tipo'] in tipo:
                 tipo[layer.properties['tipo']](scn_mgr,layer.name,h)
     
     def makewalls(self,scn_mgr,layername,h):
-        layernumber=self.layerlist[layername]
+        layer=self.world_map.named_layers[layername]
         for tx in range (0,self.world_map.width):
             for ty in range (0,self.world_map.height):
-                gid=self.world_map.layers[layernumber].content2D [tx][ty]
+                gid=layer.content2D [tx][ty]
                 if gid!=0:
-                    mesh=self.world_map.tiles[gid].properties['mesh']
+                    mesh=self.world_map.tiles[gid].properties[self.MESH_PROP]
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
                     wall=scn_mgr.createEntity(mesh)
                     wallNode = scn_mgr.getRootSceneNode().createChildSceneNode()
                     wallNode.attachObject(wall)
+                    wallNode.yaw(Ogre.Ogre.Radian((float(self.world_map.tiles[gid].properties[self.ROT_PROP])+90)/180*np.pi),Ogre.Ogre.Node.TS_LOCAL)
                     wallNode.setPosition(py, h, px)
 
     
     
     def makefloor (self,scn_mgr,layername,h):
-        layernumber=self.layerlist[layername]
+        layer=self.world_map.named_layers[layername]
         man=scn_mgr.createManualObject("floor")
         man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
         man.estimateVertexCount(self.world_map.width*self.world_map.height*4) #Numero de vertices
         
         for tx in range (0,self.world_map.width):
             for ty in range (0,self.world_map.height):
-                gid=self.world_map.layers[layernumber].content2D [tx][ty]
+                gid=layer.content2D [tx][ty]
                 if gid!=0:
-                    mat_name=self.world_map.tiles[gid].properties['material']
+                    if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
+                        mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
+                    else:
+                        print (self.MATERIAL_PROP, " is not in tile ",tx,"-",ty,"(",gid,")")
+                        mat_name=""
                     man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
@@ -111,16 +119,16 @@ class tmxmap:
     
     def makeceil (self,scn_mgr,layername,h):
         h=h+self.INCTILE_Z
-        layernumber=self.layerlist[layername]
+        layer=self.world_map.named_layers[layername]
         man=scn_mgr.createManualObject("ceil")
         man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
         man.estimateVertexCount(self.world_map.width*self.world_map.height*4) #Numero de vertices
         
         for tx in range (0,self.world_map.width):
             for ty in range (0,self.world_map.height):
-                gid=self.world_map.layers[layernumber].content2D [tx][ty]
+                gid=layer.content2D [tx][ty]
                 if gid!=0:
-                    mat_name=self.world_map.tiles[gid].properties['material']
+                    mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
                     man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
@@ -150,8 +158,12 @@ class tmxmap:
     def collisiontile(self,x,y,z,offset):
         """ Comprobamos si se puede estar en un tile"""
         #primero vemos a ver cual es el layer que corresponde a esa altura
-        layer=self.metalayer[int(z//2)]
+        if y>self.world_map.width-0.5 or x>self.world_map.height-0.5:
+            return False
         
+        
+        
+        layer=self.metalayer[int(z//2)]
         if (layer.content2D [int(y+0.5)] [int(x+0.5)]!=0 or
             layer.content2D [int(y-0.5)] [int(x-0.5)]!=0 or
             layer.content2D [int(y+0.5)] [int(x-0.5)]!=0 or

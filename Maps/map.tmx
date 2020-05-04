@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.3" orientation="isometric" renderorder="right-down" width="50" height="50" tilewidth="128" tileheight="74" infinite="0" nextlayerid="6" nextobjectid="1">
+ <tileset firstgid="1" source="models.tsx"/>
+ <tileset firstgid="41" source="floors.tsx"/>
+ <layer id="2" name="Metadata nivel 1" width="50" height="50" visible="0">
+  <properties>
+   <property name="level" type="int" value="0"/>
+   <property name="tipo" value="m"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </data>
+ </layer>
+ <layer id="5" name="Flors nivel 1" width="50" height="50">
+  <properties>
+   <property name="level" type="int" value="0"/>
+   <property name="tipo" value="f"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKGL9P3TLcdAwVVTVVVVVVVVVVXV5w8vV9TQ
+  </data>
+ </layer>
+ <layer id="1" name="Walls nivel 1" width="50" height="50" visible="0">
+  <properties>
+   <property name="level" type="int" value="0"/>
+   <property name="tipo" value="w"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt1ssKgCAQhWFx04Wy93/bVkGEV3B0Jv4PBIlZnElRnQMAAAAAAAAAQM4xO0ClbXYAIf41tLsqamK9hNd86RdHXG5N1mEp4vbIt1RerXvrnB1AmNb/3otPjMfsu+V71vx9PTBO69llZe9ZyVniE/NSrTaas7WgD71yPVnuN/c2schq/lAucTcZnADH
+  </data>
+ </layer>
+ <layer id="4" name="ceils nivel 1 (no hay)" width="50" height="50" visible="0">
+  <properties>
+   <property name="level" type="int" value="0"/>
+   <property name="tipo" value="c"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </data>
+ </layer>
+</map>
