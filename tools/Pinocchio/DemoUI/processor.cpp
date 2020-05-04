@@ -59,7 +59,7 @@ struct ArgData {
 
 
 void printUsageAndExit() {
-  std::cout << "Usage: DemoUI filename.{obj | ply | off | gts | stl}" << std::endl;
+  std::cout << "Usage: DemoUI filename.obj" << std::endl;
   std::cout << "              [-skel skelname] [-rot x y z deg]* [-scale s]" << std::endl;
   std::cout << "              [-meshonly | -mo] [-circlesonly | -co]" << std::endl;
   std::cout << "              [-motion motionname] [-nofit]" << std::endl;

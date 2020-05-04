@@ -236,11 +236,13 @@ namespace Pinocchio {
             // deal with the line based on the first word
 
             if (words[0] == "vt") { // texture coordinates
-                double tx, ty;
+                double tu, tv;
                 withTexture = true;
-                sscanf(words[1].c_str(), "%lf", &tx);
-                sscanf(words[2].c_str(), "%lf", &ty);
-                vertices.back().texture = Vector2(tx, ty);
+                sscanf(words[1].c_str(), "%lf", &tu);
+                sscanf(words[2].c_str(), "%lf", &tv);
+
+                MeshTextureCoords t(tu, tv);
+                texcoords.push_back(t);
 
             } else if (words[0] == "vn") { // vertex normal
                 if (words.size() != 4) {
@@ -253,6 +255,9 @@ namespace Pinocchio {
                 sscanf(words[2].c_str(), "%lf", &ny);
                 sscanf(words[3].c_str(), "%lf", &nz);
 
+                MeshNormal n(nx, ny, nz);
+                normals.push_back(n);
+
             } else if(words[0][0] == 'v' && words[0].size() == 1) { // geometric vertices
                 if (words.size() != 4) {
                     Debugging::out() << "Error on line " << lineNum << std::endl;
@@ -264,8 +269,8 @@ namespace Pinocchio {
                 sscanf(words[2].c_str(), "%lf", &y);
                 sscanf(words[3].c_str(), "%lf", &z);
 
-                vertices.resize(vertices.size() + 1);
-                vertices.back().pos = Vector3(x, y, z);
+                MeshVertex v(x, y, z);
+                vertices.push_back(v);
 
             } else if(words[0].size() != 1) { // unknown line
                 continue;
@@ -305,14 +310,23 @@ namespace Pinocchio {
 
     void Mesh::writeObj(const std::string &filename) const
     {
-        int i;
         std::ofstream os(filename.c_str());
 
-        for(i = 0; i < (int)vertices.size(); ++i)
+        for(int i = 0; i < (int)vertices.size(); ++i) {
             os << "v " << vertices[i].pos[0] << " " << vertices[i].pos[1] << " " << vertices[i].pos[2] << std::endl;
+        }
 
-        for(i = 0; i < (int)edges.size(); i += 3)
+        for(int i = 0; i < (int)normals.size(); ++i) {
+            os << "vn " << normals[i].normal[0] << " " << normals[i].normal[1] << " " << normals[i].normal[2] << std::endl;
+        }
+
+        for(int i = 0; i < (int)texcoords.size(); ++i) {
+            os << "vt " << texcoords[i].coords[0] << " " << texcoords[i].coords[1] << std::endl;
+        }
+
+        for(int i = 0; i < (int)edges.size(); i += 3) {
             os << "f " << edges[i].vertex + 1 << " " << edges[i + 1].vertex + 1 << " " << edges[i + 2].vertex + 1 << std::endl;
+        }
     }
 
     bool Mesh::isConnected() const
@@ -413,9 +427,17 @@ namespace Pinocchio {
             std::cout << "v " << vertices[i].pos[0] << " " << vertices[i].pos[1] << " " << vertices[i].pos[2] << std::endl;
         }
 
+        for(int i = 0; i < (int)normals.size(); ++i) {
+            std::cout << "vn " << normals[i].normal[0] << " " << normals[i].normal[1] << " " << normals[i].normal[2] << std::endl;
+        }
+
+        for(int i = 0; i < (int)texcoords.size(); ++i) {
+            std::cout << "vt " << texcoords[i].coords[0] << " " << texcoords[i].coords[1] << std::endl;
+        }
+
         for (int i = 0; i < (int)edges.size(); i += 3) {
             std::cout << "f " << edges[i].vertex + 1 << " " << edges[i + 1].vertex + 1 << " " << edges[i + 2].vertex + 1 << std::endl;
         }
     }
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio

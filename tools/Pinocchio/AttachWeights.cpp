@@ -1,3 +1,25 @@
+/*
+Copyright (c) 2007 Ilya Baran
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+
 #include <Pinocchio/skeleton.h>
 #include <Pinocchio/utils.h>
 #include <Pinocchio/debugging.h>
@@ -11,230 +33,11 @@
 
 using namespace Pinocchio;
 
-namespace Skeletons {
-
-    struct Human : public ::Pinocchio::Skeleton {
-        Human() {
-            // Order of makeJoint calls is very important
-            makeJoint("shoulders",  Vector3(0., 0.5, 0.));                     //0
-            makeJoint("back",       Vector3(0., 0.15, 0.),      "shoulders");  //1
-            makeJoint("hips",       Vector3(0., 0., 0.),        "back");       //2
-            makeJoint("head",       Vector3(0., 0.7, 0.),       "shoulders");  //3
-
-            makeJoint("lthigh",     Vector3(-0.1, 0., 0.),      "hips");       //4
-            makeJoint("lknee",      Vector3(-0.15, -0.35, 0.),  "lthigh");     //5
-            makeJoint("lankle",     Vector3(-0.15, -0.8, 0.),   "lknee");      //6
-            makeJoint("lfoot",      Vector3(-0.15, -0.8, 0.1),  "lankle");     //7
-
-            makeJoint("rthigh",     Vector3(0.1, 0., 0.),       "hips");       //8
-            makeJoint("rknee",      Vector3(0.15, -0.35, 0.),   "rthigh");     //9
-            makeJoint("rankle",     Vector3(0.15, -0.8, 0.),    "rknee");      //10
-            makeJoint("rfoot",      Vector3(0.15, -0.8, 0.1),   "rankle");     //11
-
-            makeJoint("lshoulder",  Vector3(-0.2, 0.5, 0.),     "shoulders");  //12
-            makeJoint("lelbow",     Vector3(-0.4, 0.25, 0.075), "lshoulder");  //13
-            makeJoint("lhand",      Vector3(-0.6, 0.0, 0.15),   "lelbow");     //14
-
-            makeJoint("rshoulder",  Vector3(0.2, 0.5, 0.),      "shoulders");  //15
-            makeJoint("relbow",     Vector3(0.4, 0.25, 0.075),  "rshoulder");  //16
-            makeJoint("rhand",      Vector3(0.6, 0.0, 0.15),    "relbow");     //17
-
-            // Symmetry
-            makeSymmetric("lthigh", "rthigh");
-            makeSymmetric("lknee", "rknee");
-            makeSymmetric("lankle", "rankle");
-            makeSymmetric("lfoot", "rfoot");
-
-            makeSymmetric("lshoulder", "rshoulder");
-            makeSymmetric("lelbow", "relbow");
-            makeSymmetric("lhand", "rhand");
-
-            initCompressed();
-
-            setFoot("lfoot");
-            setFoot("rfoot");
-
-            setFat("hips");
-            setFat("shoulders");
-            setFat("head");
-        }
-    };
-
-    struct Quad : public ::Pinocchio::Skeleton {
-        Quad() {
-            // Order of makeJoint calls is very important
-            makeJoint("shoulders",  Vector3(0., 0., 0.5));                     //0
-            makeJoint("back",       Vector3(0., 0., 0.),         "shoulders"); //1
-            makeJoint("hips",       Vector3(0., 0., -0.5),       "back");      //2
-            makeJoint("neck",       Vector3(0., 0.2, 0.63),      "shoulders"); //3
-            makeJoint("head",       Vector3(0., 0.2, 0.9),       "neck");      //4
-
-            makeJoint("lthigh",     Vector3(-0.15, 0., -0.5),    "hips");      //5
-            makeJoint("lhknee",     Vector3(-0.2, -0.4, -0.5),   "lthigh");    //6
-            makeJoint("lhfoot",     Vector3(-0.2, -0.8, -0.5),   "lhknee");    //7
-
-            makeJoint("rthigh",     Vector3(0.15, 0., -0.5),     "hips");      //8
-            makeJoint("rhknee",     Vector3(0.2, -0.4, -0.5),    "rthigh");    //9
-            makeJoint("rhfoot",     Vector3(0.2, -0.8, -0.5),    "rhknee");    //10
-
-            makeJoint("lshoulder",  Vector3(-0.2, 0., 0.5),      "shoulders"); //11
-            makeJoint("lfknee",     Vector3(-0.2, -0.4, 0.5),    "lshoulder"); //12
-            makeJoint("lffoot",     Vector3(-0.2, -0.8, 0.5),   "lfknee");    //13
-
-            makeJoint("rshoulder",  Vector3(0.2, 0.0, 0.5),      "shoulders"); //14
-            makeJoint("rfknee",     Vector3(0.2, -0.4, 0.5),     "rshoulder"); //15
-            makeJoint("rffoot",     Vector3(0.2, -0.8, 0.5),    "rfknee");    //16
-
-            makeJoint("tail",       Vector3(0., 0., -0.7),       "hips");      //17
-
-            // Symmetry
-            makeSymmetric("lthigh", "rthigh");
-            makeSymmetric("lhknee", "rhknee");
-            makeSymmetric("lhfoot", "rhfoot");
-
-            makeSymmetric("lshoulder", "rshoulder");
-            makeSymmetric("lfknee", "rfknee");
-            makeSymmetric("lffoot", "rffoot");
-
-            initCompressed();
-
-            setFoot("lhfoot");
-            setFoot("rhfoot");
-            setFoot("lffoot");
-            setFoot("rffoot");
-
-            setFat("hips");
-            setFat("shoulders");
-            setFat("head");
-        }
-    };
-
-    struct Horse : public ::Pinocchio::Skeleton {
-        Horse() {
-            // Order of makeJoint calls is very important
-            makeJoint("shoulders",  Vector3(0., 0., 0.5));                     //0
-            makeJoint("back",       Vector3(0., 0., 0.),         "shoulders"); //1
-            makeJoint("hips",       Vector3(0., 0., -0.5),       "back");      //2
-            makeJoint("neck",       Vector3(0., 0.2, 0.63),      "shoulders"); //3
-            makeJoint("head",       Vector3(0., 0.2, 0.9),       "neck");      //4
-
-            makeJoint("lthigh",     Vector3(-0.15, 0., -0.5),    "hips");      //5
-            makeJoint("lhknee",     Vector3(-0.2, -0.2, -0.45),  "lthigh");    //6
-            makeJoint("lhheel",     Vector3(-0.2, -0.4, -0.5),   "lhknee");    //7
-            makeJoint("lhfoot",     Vector3(-0.2, -0.8, -0.5),   "lhheel");    //8
-
-            makeJoint("rthigh",     Vector3(0.15, 0., -0.5),     "hips");      //9
-            makeJoint("rhknee",     Vector3(0.2, -0.2, -0.45),   "rthigh");    //10
-            makeJoint("rhheel",     Vector3(0.2, -0.4, -0.5),    "rhknee");    //11
-            makeJoint("rhfoot",     Vector3(0.2, -0.8, -0.5),    "rhheel");    //12
-
-            makeJoint("lshoulder",  Vector3(-0.2, 0., 0.5),      "shoulders"); //13
-            makeJoint("lfknee",     Vector3(-0.2, -0.4, 0.5),    "lshoulder"); //14
-            makeJoint("lffoot",     Vector3(-0.2, -0.8, 0.5),   "lfknee");    //15
-
-            makeJoint("rshoulder",  Vector3(0.2, 0.0, 0.5),      "shoulders"); //16
-            makeJoint("rfknee",     Vector3(0.2, -0.4, 0.5),     "rshoulder"); //17
-            makeJoint("rffoot",     Vector3(0.2, -0.8, 0.5),    "rfknee");    //18
-
-            makeJoint("tail",       Vector3(0., 0., -0.7),       "hips");      //19
-
-            // Symmetry
-            makeSymmetric("lthigh", "rthigh");
-            makeSymmetric("lhknee", "rhknee");
-            makeSymmetric("lhheel", "rhheel");
-            makeSymmetric("lhfoot", "rhfoot");
-
-            makeSymmetric("lshoulder", "rshoulder");
-            makeSymmetric("lfknee", "rfknee");
-            makeSymmetric("lffoot", "rffoot");
-
-            initCompressed();
-
-            setFoot("lhfoot");
-            setFoot("rhfoot");
-            setFoot("lffoot");
-            setFoot("rffoot");
-
-            setFat("hips");
-            setFat("shoulders");
-            setFat("head");
-        }
-    };
-
-    struct Centaur : public ::Pinocchio::Skeleton {
-        Centaur() {
-            // Order of makeJoint calls is very important
-            makeJoint("shoulders",  Vector3(0., 0., 0.5));                     //0
-            makeJoint("back",       Vector3(0., 0., 0.),         "shoulders"); //1
-            makeJoint("hips",       Vector3(0., 0., -0.5),       "back");      //2
-
-            makeJoint("hback",      Vector3(0., 0.25, 0.5),      "shoulders"); //3
-            makeJoint("hshoulders", Vector3(0., 0.5, 0.5),       "hback");     //4
-            makeJoint("head",       Vector3(0., 0.7, 0.5),       "hshoulders");//5
-
-            makeJoint("lthigh",     Vector3(-0.15, 0., -0.5),    "hips");      //6
-            makeJoint("lhknee",     Vector3(-0.2, -0.4, -0.45),  "lthigh");    //7
-            makeJoint("lhfoot",     Vector3(-0.2, -0.8, -0.5),   "lhknee");    //8
-
-            makeJoint("rthigh",     Vector3(0.15, 0., -0.5),     "hips");      //9
-            makeJoint("rhknee",     Vector3(0.2, -0.4, -0.45),   "rthigh");    //10
-            makeJoint("rhfoot",     Vector3(0.2, -0.8, -0.5),    "rhknee");    //11
-
-            makeJoint("lshoulder",  Vector3(-0.2, 0., 0.5),      "shoulders"); //12
-            makeJoint("lfknee",     Vector3(-0.2, -0.4, 0.5),    "lshoulder"); //13
-            makeJoint("lffoot",     Vector3(-0.2, -0.8, 0.5),    "lfknee");    //14
-
-            makeJoint("rshoulder",  Vector3(0.2, 0.0, 0.5),      "shoulders"); //15
-            makeJoint("rfknee",     Vector3(0.2, -0.4, 0.5),     "rshoulder"); //16
-            makeJoint("rffoot",     Vector3(0.2, -0.8, 0.5),     "rfknee");    //17
-
-            makeJoint("hlshoulder", Vector3(-0.2, 0.5, 0.5),     "hshoulders");//18
-            makeJoint("lelbow",     Vector3(-0.4, 0.25, 0.575),  "hlshoulder");//19
-            makeJoint("lhand",      Vector3(-0.6, 0.0, 0.65),    "lelbow");    //20
-
-            makeJoint("hrshoulder", Vector3(0.2, 0.5, 0.5),      "hshoulders");//21
-            makeJoint("relbow",     Vector3(0.4, 0.25, 0.575),   "hrshoulder");//22
-            makeJoint("rhand",      Vector3(0.6, 0.0, 0.65),     "relbow");    //23
-
-            makeJoint("tail",       Vector3(0., 0., -0.7),       "hips");      //24
-
-            // Symmetry
-            makeSymmetric("lthigh", "rthigh");
-            makeSymmetric("lhknee", "rhknee");
-            makeSymmetric("lhheel", "rhheel");
-            makeSymmetric("lhfoot", "rhfoot");
-
-            makeSymmetric("lshoulder", "rshoulder");
-            makeSymmetric("lfknee", "rfknee");
-            makeSymmetric("lffoot", "rffoot");
-
-            makeSymmetric("hlshoulder", "hrshoulder");
-            makeSymmetric("lelbow", "relbow");
-            makeSymmetric("lhand", "rhand");
-
-            initCompressed();
-
-            setFoot("lhfoot");
-            setFoot("rhfoot");
-            setFoot("lffoot");
-            setFoot("rffoot");
-
-            setFat("hips");
-            setFat("shoulders");
-            setFat("hshoulders");
-            setFat("head");
-        }
-    };
-
-} // namespace Skeletons
-
-
 struct ArgData {
     ArgData() :
-    stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(true),
-        skeleton(Skeletons::Human()), stiffness(1.),
-        skelOutName("skeleton.out"), weightOutName("attachment.out"),
-        skinAlgorithm(Pinocchio::LBS), blendWeight(0.5)
+    stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(false),
+        skeleton(HumanSkeleton()), stiffness(1.),
+        skelOutName("skeleton.out"), weightOutName("attachment.out")
     {
     }
 
@@ -249,20 +52,14 @@ struct ArgData {
     double stiffness;
     std::string skelOutName;
     std::string weightOutName;
-
-    // Indicates which skinning algorithm to use
-    Pinocchio::AlgoType skinAlgorithm;
-    // Indicates the blending weight for MIX algorithm
-    float blendWeight;
 };
 
 void printUsageAndExit() {
-    std::cout << "Usage: attachWeights filename.{obj | ply | off | gts | stl}" << std::endl;
+    std::cout << "Usage: AttachWeights filename.obj" << std::endl;
     std::cout << "              [-skel skelname] [-rot x y z deg]* [-scale s]" << std::endl;
     std::cout << "              [-meshonly | -mo] [-circlesonly | -co]" << std::endl;
     std::cout << "              [-fit] [-stiffness s]" << std::endl;
     std::cout << "              [-skelOut skelOutFile] [-weightOut weightOutFile]" << std::endl;
-    std::cout << "              [-algo skinning_algorithm [blend_weight]]" << std::endl;
 
     exit(0);
 }
@@ -289,13 +86,13 @@ ArgData processArgs(const std::vector<std::string> &args) {
             curStr = args[cur++];
 
             if (curStr == std::string("human")) {
-                out.skeleton = Skeletons::Human();
+                out.skeleton = HumanSkeleton();
             } else if(curStr == std::string("horse")) {
-                out.skeleton = Skeletons::Horse();
+                out.skeleton = HorseSkeleton();
             } else if(curStr == std::string("quad")) {
-                out.skeleton = Skeletons::Quad();
+                out.skeleton = QuadSkeleton();
             } else if(curStr == std::string("centaur")) {
-                out.skeleton = Skeletons::Centaur();
+                out.skeleton = CentaurSkeleton();
             } else {
                 out.skeleton = Pinocchio::CsvFileSkeleton(curStr);
             }
@@ -342,6 +139,9 @@ ArgData processArgs(const std::vector<std::string> &args) {
         if (curStr == std::string("-fit")) {
             out.noFit = false;
             continue;
+        } else if (curStr == std::string("-nofit")) {
+            out.noFit = true;
+            continue;
         }
 
         if (curStr == std::string("-stiffness")) {
@@ -351,30 +151,6 @@ ArgData processArgs(const std::vector<std::string> &args) {
             }
             sscanf(args[cur++].c_str(), "%lf", &out.stiffness);
             continue;
-        }
-
-        if (curStr == std::string("-algo")) {
-            /*  Option to use a different skinning algorithm than the
-             *  default LBS. Currently, options are LBS, DQS, and MIX */
-            std::string algo = args[cur++];
-            if (algo == std::string("LBS")) {
-                out.skinAlgorithm = Pinocchio::LBS;
-            } else if (algo == std::string("DQS")) {
-                out.skinAlgorithm = Pinocchio::DQS;
-            } else if (algo == std::string("MIX")) {
-                /*  Grab the desired blending weight for LBS, i.e
-                 *  how much of the result of LBS you want to see */
-                if(cur >= num) {
-                    std::cout << "No blending weight given; exiting." << std::endl;
-                    std::cout << args[cur] << std::endl;
-                    printUsageAndExit();
-                }
-                out.skinAlgorithm = Pinocchio::MIX;
-                sscanf(args[cur++].c_str(), "%f", &out.blendWeight);
-            } else {
-                std::cout << "Unrecognized skinning algorithm" << std::endl;
-                printUsageAndExit();
-            }
         }
 
         if (curStr == std::string("-skelOut")) {
@@ -410,13 +186,15 @@ int process(const std::vector<std::string> &args) {
 
     Debugging::setOutStream(std::cout);
 
-    Mesh m(a.filename, a.blendWeight);
+    Mesh m(a.filename);
 
     if (m.vertices.size() == 0) {
         std::cout << "Error reading file.  Aborting." << std::endl;
         exit(0);
         return EXIT_FAILURE;
     }
+
+    //~ m.dump();
 
     for (int i = 0; i < (int)m.vertices.size(); ++i) {
         m.vertices[i].pos = a.meshTransform * m.vertices[i].pos;

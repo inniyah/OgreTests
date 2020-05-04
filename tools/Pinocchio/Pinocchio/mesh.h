@@ -28,16 +28,30 @@
 namespace Pinocchio {
 
     struct MeshVertex {
-        MeshVertex() : edge(-1) {}
+        inline MeshVertex() : edge(-1) {}
+        inline MeshVertex(double x, double y, double z) : pos(x, y, z), edge(-1) {}
 
         Vector3 pos;
         Vector3 normal;
-        Vector2 texture;
         int edge;                                           // An edge such that edge->prev->vertex is this
     };
 
+    struct MeshNormal {
+        inline MeshNormal() {}
+        inline MeshNormal(double nx, double ny, double nz) : normal(nx, ny, nz) {}
+
+        Vector3 normal;
+    };
+
+    struct MeshTextureCoords {
+        inline MeshTextureCoords() {}
+        inline MeshTextureCoords(double u, double v) : coords(u, v) {}
+
+        Vector2 coords;
+    };
+
     struct MeshEdge {
-        MeshEdge() : vertex(-1), prev(-1), twin(-1) {}
+        inline MeshEdge() : vertex(-1), prev(-1), twin(-1) {}
 
         int vertex;                                         // The vertex the edge points to--the start vertex is prev->vertex
         int tvertex;
@@ -64,6 +78,8 @@ namespace Pinocchio {
 
         public:
             std::vector<MeshVertex> vertices;
+            std::vector<MeshNormal> normals;
+            std::vector<MeshTextureCoords> texcoords;
             std::vector<MeshEdge> edges;                    // Half-Edges, really
 
             Vector3 toAdd;
