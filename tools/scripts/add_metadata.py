@@ -3,6 +3,7 @@
 
 import argparse
 import sys
+import os
 
 from data_db import get_obj_info, update_obj_info
 
@@ -11,6 +12,7 @@ if __name__ == "__main__":
     parser.add_argument("objfile", help="path to an .obj")
     parser.add_argument("-d", "--db", help="path to the json db", default=None)
     parser.add_argument("-t", "--type", help="type of file", default=None)
+    parser.add_argument("-J", "--json", help="JSON file with extra attributes", default=None)
     parser.add_argument("-D", nargs=2, action='append')
     args = parser.parse_args()
 
@@ -23,5 +25,8 @@ if __name__ == "__main__":
     if args.D:
         for (key, value) in args.D:
             obj_info[f"@{key}"] = value
+
+    if args.json:
+        obj_info[f":attrs_file"] = args.json
 
     update_obj_info(args.db, args.objfile, obj_info)

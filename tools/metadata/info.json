@@ -1,5 +1,6 @@
 {
   "3d_models/caution.obj": {
+    ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 3,
     "@3DMesh": "3d_models/caution.mesh",
     "@3DModel": "3d_models/caution.obj",
@@ -10,6 +11,7 @@
     "@Material": "caution_diffuse_e60835da6f1f27bf41b6536091656f556e742790.png"
   },
   "3d_models/colmn.obj": {
+    ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 2,
     "@3DMesh": "3d_models/colmn.mesh",
     "@3DModel": "3d_models/colmn.obj",
@@ -20,6 +22,7 @@
     "@Material": "colmn_a787577f39a565858cf333e9c0c721b92246a64c.jpg"
   },
   "3d_models/hwall_corner.obj": {
+    ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 4,
     "@3DMesh": "3d_models/hwall_corner.mesh",
     "@3DModel": "3d_models/hwall_corner.obj",
@@ -30,6 +33,7 @@
     "@Material": "hwall_dd10ce0193a3e1c70e0c5611d919394ae463b9b2.jpg"
   },
   "3d_models/hwall_cross.obj": {
+    ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 5,
     "@3DMesh": "3d_models/hwall_cross.mesh",
     "@3DModel": "3d_models/hwall_cross.obj",
@@ -40,6 +44,7 @@
     "@Material": "hwall_5ffa257353d6e2792f1b17a4277550c89ea0afb8.jpg"
   },
   "3d_models/hwall_fork.obj": {
+    ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 7,
     "@3DMesh": "3d_models/hwall_fork.mesh",
     "@3DModel": "3d_models/hwall_fork.obj",
@@ -50,6 +55,7 @@
     "@Material": "hwall_f01666d7dfc08c86893b6242b590d6b1d5a58e99.jpg"
   },
   "3d_models/hwall_solid.obj": {
+    ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 6,
     "@3DMesh": "3d_models/hwall_solid.mesh",
     "@3DModel": "3d_models/hwall_solid.obj",
@@ -60,6 +66,7 @@
     "@Material": "hwall_4af797d3215258da69160911d059fe00be54ae66.jpg"
   },
   "3d_models/hwall_straight.obj": {
+    ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 8,
     "@3DMesh": "3d_models/hwall_straight.mesh",
     "@3DModel": "3d_models/hwall_straight.obj",
@@ -70,6 +77,7 @@
     "@Material": "hwall_cd5c358ca391973affb2f0dde8b06acff63e8292.jpg"
   },
   "3d_models/wall.obj": {
+    ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 1,
     "@3DMesh": "3d_models/wall.mesh",
     "@3DModel": "3d_models/wall.obj",
@@ -103,6 +111,7 @@
     }
   },
   "floors/BeachStones.obj": {
+    ":attrs_file": "floors/attributes.json",
     ":seq_id": 3,
     "@3DMesh": "floors/BeachStones.mesh",
     "@3DModel": "floors/BeachStones.obj",
@@ -114,6 +123,7 @@
     "@Texture": "floors/BeachStones.png"
   },
   "floors/BumpyMetal.obj": {
+    ":attrs_file": "floors/attributes.json",
     ":seq_id": 4,
     "@3DMesh": "floors/BumpyMetal.mesh",
     "@3DModel": "floors/BumpyMetal.obj",
@@ -125,6 +135,7 @@
     "@Texture": "floors/BumpyMetal.png"
   },
   "floors/MtlPlat2.obj": {
+    ":attrs_file": "floors/attributes.json",
     ":seq_id": 5,
     "@3DMesh": "floors/MtlPlat2.mesh",
     "@3DModel": "floors/MtlPlat2.obj",
@@ -136,6 +147,7 @@
     "@Texture": "floors/MtlPlat2.png"
   },
   "floors/simplewall.obj": {
+    ":attrs_file": "floors/attributes.json",
     ":seq_id": 1,
     "@3DMesh": "floors/simplewall.mesh",
     "@3DModel": "floors/simplewall.obj",
@@ -147,6 +159,7 @@
     "@Texture": "floors/simplewall.png"
   },
   "floors/terr_rock6.obj": {
+    ":attrs_file": "floors/attributes.json",
     ":seq_id": 2,
     "@3DMesh": "floors/terr_rock6.mesh",
     "@3DModel": "floors/terr_rock6.obj",

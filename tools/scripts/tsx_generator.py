@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import argparse
+import json
 import sys
 import os
 
@@ -44,6 +45,15 @@ if __name__ == "__main__":
                 tile_id_num = int(tile_id)
                 tile_info = all_info[obj_filename]
 
+                if ":attrs_file" in tile_info.keys():
+                    try:
+                        with open(tile_info[":attrs_file"]) as json_file:
+                            attrs_data = json.load(json_file)[os.path.splitext(obj_filename)[0]]
+                    except KeyError:
+                        attrs_data = { }
+                    except FileNotFoundError:
+                        attrs_data = { }
+
                 for (tile_id_inc, json_label, rot_angle) in [
                     (0, "@IsoTile1", 0),
                     (1, "@IsoTile2", 90),
@@ -62,6 +72,9 @@ if __name__ == "__main__":
                         print(f'   <property name="Texture" value="{tile_info["@Texture"]}"/>', file=file_output)
                     except KeyError:
                         pass
+
+                    for pname, pvalue in attrs_data.items():
+                        print(f'   <property name="{pname}" value="{pvalue}"/>', file=file_output)
 
                     print(f'  </properties>', file=file_output)
                     print(f'  <image source="../{tile_info[json_label]}" width="128" height="224"/>', file=file_output)
