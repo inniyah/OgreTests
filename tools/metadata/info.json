@@ -1,8 +1,6 @@
 {
   "3d_models/caution.obj": {
-    ":change_id": 75,
     ":seq_id": 3,
-    ":timestamp": "2020-05-03 (22:52:11) UTC",
     "@3DMesh": "3d_models/caution.mesh",
     "@3DModel": "3d_models/caution.obj",
     "@IsoTile1": "3d_models/caution_1.iso.png",
@@ -12,9 +10,7 @@
     "@Material": "caution_diffuse_e60835da6f1f27bf41b6536091656f556e742790.png"
   },
   "3d_models/colmn.obj": {
-    ":change_id": 75,
     ":seq_id": 2,
-    ":timestamp": "2020-05-03 (22:52:11) UTC",
     "@3DMesh": "3d_models/colmn.mesh",
     "@3DModel": "3d_models/colmn.obj",
     "@IsoTile1": "3d_models/colmn_1.iso.png",
@@ -24,9 +20,7 @@
     "@Material": "colmn_a787577f39a565858cf333e9c0c721b92246a64c.jpg"
   },
   "3d_models/hwall_corner.obj": {
-    ":change_id": 72,
     ":seq_id": 4,
-    ":timestamp": "2020-05-03 (22:52:10) UTC",
     "@3DMesh": "3d_models/hwall_corner.mesh",
     "@3DModel": "3d_models/hwall_corner.obj",
     "@IsoTile1": "3d_models/hwall_corner_1.iso.png",
@@ -36,9 +30,7 @@
     "@Material": "hwall_dd10ce0193a3e1c70e0c5611d919394ae463b9b2.jpg"
   },
   "3d_models/hwall_cross.obj": {
-    ":change_id": 68,
     ":seq_id": 5,
-    ":timestamp": "2020-05-03 (22:52:10) UTC",
     "@3DMesh": "3d_models/hwall_cross.mesh",
     "@3DModel": "3d_models/hwall_cross.obj",
     "@IsoTile1": "3d_models/hwall_cross_1.iso.png",
@@ -48,9 +40,7 @@
     "@Material": "hwall_5ffa257353d6e2792f1b17a4277550c89ea0afb8.jpg"
   },
   "3d_models/hwall_fork.obj": {
-    ":change_id": 65,
     ":seq_id": 7,
-    ":timestamp": "2020-05-03 (22:52:10) UTC",
     "@3DMesh": "3d_models/hwall_fork.mesh",
     "@3DModel": "3d_models/hwall_fork.obj",
     "@IsoTile1": "3d_models/hwall_fork_1.iso.png",
@@ -60,9 +50,7 @@
     "@Material": "hwall_f01666d7dfc08c86893b6242b590d6b1d5a58e99.jpg"
   },
   "3d_models/hwall_solid.obj": {
-    ":change_id": 65,
     ":seq_id": 6,
-    ":timestamp": "2020-05-03 (22:52:10) UTC",
     "@3DMesh": "3d_models/hwall_solid.mesh",
     "@3DModel": "3d_models/hwall_solid.obj",
     "@IsoTile1": "3d_models/hwall_solid_1.iso.png",
@@ -72,9 +60,7 @@
     "@Material": "hwall_4af797d3215258da69160911d059fe00be54ae66.jpg"
   },
   "3d_models/hwall_straight.obj": {
-    ":change_id": 65,
     ":seq_id": 8,
-    ":timestamp": "2020-05-03 (22:52:11) UTC",
     "@3DMesh": "3d_models/hwall_straight.mesh",
     "@3DModel": "3d_models/hwall_straight.obj",
     "@IsoTile1": "3d_models/hwall_straight_1.iso.png",
@@ -84,9 +70,7 @@
     "@Material": "hwall_cd5c358ca391973affb2f0dde8b06acff63e8292.jpg"
   },
   "3d_models/wall.obj": {
-    ":change_id": 75,
     ":seq_id": 1,
-    ":timestamp": "2020-05-03 (22:52:11) UTC",
     "@3DMesh": "3d_models/wall.mesh",
     "@3DModel": "3d_models/wall.obj",
     "@IsoTile1": "3d_models/wall_1.iso.png",
@@ -99,7 +83,6 @@
     "3d_models": 9,
     "floors": 6
   },
-  ":timestamp": "2020-05-03 (22:52:14) UTC",
   ":type_lists": {
     "3d_models": {
       "1": "3d_models/wall.obj",
@@ -120,9 +103,7 @@
     }
   },
   "floors/BeachStones.obj": {
-    ":change_id": 51,
     ":seq_id": 3,
-    ":timestamp": "2020-05-03 (22:52:13) UTC",
     "@3DMesh": "floors/BeachStones.mesh",
     "@3DModel": "floors/BeachStones.obj",
     "@IsoTile1": "floors/BeachStones_1.iso.png",
@@ -133,9 +114,7 @@
     "@Texture": "floors/BeachStones.png"
   },
   "floors/BumpyMetal.obj": {
-    ":change_id": 52,
     ":seq_id": 4,
-    ":timestamp": "2020-05-03 (22:52:13) UTC",
     "@3DMesh": "floors/BumpyMetal.mesh",
     "@3DModel": "floors/BumpyMetal.obj",
     "@IsoTile1": "floors/BumpyMetal_1.iso.png",
@@ -146,9 +125,7 @@
     "@Texture": "floors/BumpyMetal.png"
   },
   "floors/MtlPlat2.obj": {
-    ":change_id": 51,
     ":seq_id": 5,
-    ":timestamp": "2020-05-03 (22:52:14) UTC",
     "@3DMesh": "floors/MtlPlat2.mesh",
     "@3DModel": "floors/MtlPlat2.obj",
     "@IsoTile1": "floors/MtlPlat2_1.iso.png",
@@ -159,9 +136,7 @@
     "@Texture": "floors/MtlPlat2.png"
   },
   "floors/simplewall.obj": {
-    ":change_id": 51,
     ":seq_id": 1,
-    ":timestamp": "2020-05-03 (22:52:13) UTC",
     "@3DMesh": "floors/simplewall.mesh",
     "@3DModel": "floors/simplewall.obj",
     "@IsoTile1": "floors/simplewall_1.iso.png",
@@ -172,9 +147,7 @@
     "@Texture": "floors/simplewall.png"
   },
   "floors/terr_rock6.obj": {
-    ":change_id": 51,
     ":seq_id": 2,
-    ":timestamp": "2020-05-03 (22:52:13) UTC",
     "@3DMesh": "floors/terr_rock6.mesh",
     "@3DModel": "floors/terr_rock6.obj",
     "@IsoTile1": "floors/terr_rock6_1.iso.png",

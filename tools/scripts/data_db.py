@@ -57,7 +57,7 @@ def get_obj_info(json_db_filename, obj_filename, obj_type):
                 db_entry = current_json[obj_filename]
             except KeyError:
                 db_entry = generate_obj_info(obj_filename)
-                db_entry[":change_id"] = 0
+                #~ db_entry[":change_id"] = 0
 
                 assert(obj_type)
                 new_seq_id = get_new_seq_id(obj_filename, obj_type, seq_info)
@@ -74,7 +74,7 @@ def get_obj_info(json_db_filename, obj_filename, obj_type):
                 current_json[obj_filename] = db_entry
 
             now = datetime.datetime.utcnow()
-            current_json[':timestamp'] = f"{now.strftime('%Y-%m-%d (%H:%M:%S) UTC')}"
+            #~ current_json[':timestamp'] = f"{now.strftime('%Y-%m-%d (%H:%M:%S) UTC')}"
 
             opened_file.seek(0)
             opened_file.truncate(0)
@@ -93,19 +93,19 @@ def update_obj_info(json_db_filename, obj_filename, db_entry):
             else:
                 current_json = json.loads(current_json)
 
-            try:
-                old_db_entry = current_json[obj_filename]
-                if (old_db_entry[":change_id"] == db_entry[":change_id"]):
-                    db_entry[":change_id"] += 1
-                else:
-                    print(f"Error, data mismatch for {obj_filename} in {json_db_filename}")
-                    return False
-            except KeyError:
-                pass
+            #~ try:
+            #~     old_db_entry = current_json[obj_filename]
+            #~     if (old_db_entry[":change_id"] == db_entry[":change_id"]):
+            #~         db_entry[":change_id"] += 1
+            #~     else:
+            #~         print(f"Error, data mismatch for {obj_filename} in {json_db_filename}")
+            #~         return False
+            #~ except KeyError:
+            #~     pass
 
             now = datetime.datetime.utcnow()
-            db_entry[':timestamp'] = f"{now.strftime('%Y-%m-%d (%H:%M:%S) UTC')}"
-            current_json[':timestamp'] = f"{now.strftime('%Y-%m-%d (%H:%M:%S) UTC')}"
+            #~ db_entry[':timestamp'] = f"{now.strftime('%Y-%m-%d (%H:%M:%S) UTC')}"
+            #~ current_json[':timestamp'] = f"{now.strftime('%Y-%m-%d (%H:%M:%S) UTC')}"
 
             current_json[obj_filename] = db_entry
 
