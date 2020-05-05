@@ -99,7 +99,7 @@ ArgData processArgs(const std::vector<std::string> &args) {
       } else if(curStr == std::string("centaur")) {
         out.skeleton = CentaurSkeleton();
       } else {
-        out.skeleton = FileSkeleton(curStr);
+        out.skeleton = CsvFileSkeleton(curStr);
       }
       out.skeletonname = curStr;
     } else if(curStr == std::string("-rot")) {
