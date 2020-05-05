@@ -276,8 +276,10 @@ void dumpMesh(std::string meshname, const Mesh & m, const Skeleton & skeleton, c
 
     skel_os << "	<bones>" << std::endl;
     for (int i = 0; i < (int)o.embedding.size(); ++i) {
+        Vector3 bone_pos = ( i ? o.embedding[i] - o.embedding[skeleton.fPrev()[i]] : o.embedding[i] );
+
         skel_os << "		<bone id=\"" << i << "\" name=\"" << skeleton.getNameForJoint(i) << "\">" << std::endl;
-        skel_os << "			<position x=\"" << o.embedding[i][0] << "\" y=\"" << o.embedding[i][1] << "\" z=\"" << o.embedding[i][2] << "\" />" << std::endl;
+        skel_os << "			<position x=\"" << bone_pos[0] << "\" y=\"" << bone_pos[1] << "\" z=\"" << bone_pos[2] << "\" />" << std::endl;
         skel_os << "			<rotation angle=\"0\">" << std::endl;
         skel_os << "				<axis x=\"1\" y=\"0\" z=\"0\" />" << std::endl;
         skel_os << "			</rotation>" << std::endl;
@@ -396,6 +398,7 @@ int process(const std::vector<std::string> &args) {
         TreeType *distanceField = constructDistanceField(m);
         VisTester<TreeType> *tester = new VisTester<TreeType>(distanceField);
 
+        // Add offset to skeleton
         o.embedding = a.skeleton.fGraph().verts;
         for (int i = 0; i < (int)o.embedding.size(); ++i) {
             o.embedding[i] = m.toAdd + o.embedding[i] * m.scale;
@@ -425,11 +428,12 @@ int process(const std::vector<std::string> &args) {
         dumpMesh(a.meshOutName, m, given, o);
     }
 
-    // output skeleton embedding
+    // Remove offset from skeleton
     for (int joint = 0; joint < (int)o.embedding.size(); ++joint) {
         o.embedding[joint] = (o.embedding[joint] - m.toAdd) / m.scale;
     }
 
+    // output skeleton embedding
     if (a.skelOutName.length()) {
         std::ofstream os(a.skelOutName.c_str());
 
