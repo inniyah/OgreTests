@@ -35,7 +35,7 @@ using namespace Pinocchio;
 
 struct ArgData {
     ArgData() :
-    stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(false),
+    stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(true),
         skeleton(HumanSkeleton()), stiffness(1.),
         skelOutName(""), weightOutName(""), objOutName("")
     {
@@ -206,11 +206,6 @@ int process(const std::vector<std::string> &args) {
         return EXIT_FAILURE;
     }
 
-    // output model
-    if (a.objOutName.length()) {
-        m.writeObj(a.objOutName);
-    }
-
     for (int i = 0; i < (int)m.vertices.size(); ++i) {
         m.vertices[i].pos = a.meshTransform * m.vertices[i].pos;
     }
@@ -250,6 +245,54 @@ int process(const std::vector<std::string> &args) {
     }
 
     //~ a.skeleton.dump();
+
+    // output model
+    if (a.objOutName.length()) {
+        //~ m.writeObj(a.objOutName);
+
+        std::ofstream os(a.objOutName.c_str());
+
+        int num = 1;
+        for (int i = 0; i < (int)m.edges.size(); ++i) {
+            int v = m.edges[i].vertex;
+            const Vector3 &p = m.vertices[v].pos;
+            const Vector3 &n = m.vertices[v].normal;
+
+            //~ if (!flatShading) {
+                //~ normal = m.vertices[v].normal;
+                //~ glNormal3d(normal[0], normal[1], normal[2]);
+            //~ } else if (i % 3 == 0) {
+                //~ const Vector3 &p2 = m.vertices[m.edges[i + 1].vertex].pos;
+                //~ const Vector3 &p3 = m.vertices[m.edges[i + 2].vertex].pos;
+
+                //~ normal = ((p2 - p) % (p3 - p)).normalize();
+                //~ glNormal3d(normal[0], normal[1], normal[2]);
+            //~ }
+
+            std::cout << "Mesh Point: " << p << " (Normal: " <<  n << ")" << std::endl;
+            os << "v " << p[0] << " " << p[1] << " " << p[2] << std::endl;
+            os << "vn " << n[0] << " " << n[1] << " " << n[2] << std::endl;
+            if (num % 3 == 0) {
+                os << "f " << (num-2) << "//" << (num-2)
+                   << " "  << (num-1) << "//" << (num-1)
+                   << " "  << (num)   << "//" << (num)   << std::endl;
+            }
+            num++;
+        }
+
+        for (int i = 1; i < (int)o.embedding.size(); ++i) {
+            const Vector3 & lf = o.embedding[given.fPrev()[i]];
+            const Vector3 & lt = o.embedding[i];
+            std::cout << "Skeleton Line Segment ("
+                << a.skeleton.getNameForJoint(i-1) << " - " << a.skeleton.getNameForJoint(i) << "): "
+                << lf << " - " << lt << std::endl;
+            os << "v " << lf[0] << " " << lf[1] << " " << lf[2] << std::endl;
+            os << "v " << lt[0] << " " << lt[1] << " " << lt[2] << std::endl;
+            os << "l " << (num) << " " << (num+1) << std::endl;
+            num+=2;
+        }
+
+    }
 
     // output skeleton embedding
     for (int joint = 0; joint < (int)o.embedding.size(); ++joint) {
