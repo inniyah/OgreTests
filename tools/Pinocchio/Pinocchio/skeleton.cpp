@@ -133,7 +133,7 @@ namespace Pinocchio {
         }
     };
 
-    std::string Skeleton::getNameForJoint(int num) {
+    std::string Skeleton::getNameForJoint(int num) const {
         if (num < 0) return "";
         const std::map<std::string, int>::value_type v = *find_if(jointNames.begin(), jointNames.end(), reverse_finder(num));
         return v.first;

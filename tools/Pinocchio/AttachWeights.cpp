@@ -37,7 +37,8 @@ struct ArgData {
     ArgData() :
     stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(true),
         skeleton(HumanSkeleton()), stiffness(1.),
-        skelOutName(""), weightOutName(""), objOutName("")
+        skelOutName(""), weightOutName(""),
+        objOutName(""), meshOutName("")
     {
     }
 
@@ -53,6 +54,7 @@ struct ArgData {
     std::string skelOutName;
     std::string weightOutName;
     std::string objOutName;
+    std::string meshOutName;
 };
 
 void printUsageAndExit() {
@@ -62,6 +64,7 @@ void printUsageAndExit() {
     std::cout << "              [-fit] [-stiffness s]" << std::endl;
     std::cout << "              [-skelOut skelOutFile] [-weightOut weightOutFile]" << std::endl;
     std::cout << "              [-objOut objOutFile]" << std::endl;
+    std::cout << "              [-meshOut meshOutFile]" << std::endl;
 
     exit(0);
 }
@@ -185,6 +188,16 @@ ArgData processArgs(const std::vector<std::string> &args) {
             continue;
         }
 
+        if (curStr == std::string("-meshOut")) {
+            if (cur == num) {
+                std::cout << "No object output specified; ignoring." << std::endl;
+                continue;
+            }
+            curStr = args[cur++];
+            out.meshOutName = curStr;
+            continue;
+        }
+
         std::cout << "Unrecognized option: " << curStr << std::endl;
         printUsageAndExit();
     }
@@ -192,6 +205,154 @@ ArgData processArgs(const std::vector<std::string> &args) {
     return out;
 }
 
+void dumpObj(std::string filename, const Mesh & m, const Skeleton & skeleton, const PinocchioOutput & o) {
+    std::ofstream os(filename.c_str());
+
+    int num = 1;
+    for (int i = 0; i < (int)m.edges.size(); ++i) {
+        int v_id = m.edges[i].vertex;
+        const Vector3 &v_pos = m.vertices[v_id].pos;
+        const Vector3 &v_normal = m.vertices[v_id].normal;
+
+        //~ const Vector3 &p2 = m.vertices[m.edges[i + 1].vertex].pos;
+        //~ const Vector3 &p3 = m.vertices[m.edges[i + 2].vertex].pos;
+        //~ Vector3 calc_normal = ((p2 - v_pos) % (p3 - v_pos)).normalize();
+
+        //~ std::cout << "Mesh Point: " << p << " (Normal: " <<  n << ")" << std::endl;
+
+        os << "v "  << v_pos[0] << " " << v_pos[1] << " " << v_pos[2] << std::endl;
+
+        int vt_id = m.edges[i].tvertex;
+        if (vt_id > 0) {
+            const Vector2 &vt = m.texcoords[vt_id].coords;
+            os << "vt " << vt[0] << " " << vt[1] << " " << std::endl;
+        }
+
+        int vn_id = m.edges[i].nvertex;
+        if (vn_id > 0) {
+            const Vector3 &vn = m.normals[vn_id].normal;
+            os << "vn " << vn[0] << " " << vn[1] << " " << vn[2] << std::endl;
+        } else {
+            os << "vn " << v_normal[0] << " " << v_normal[1] << " " << v_normal[2] << std::endl;
+        }
+
+        if (num % 3 == 0) {
+            os << "f " << (num-2) << "//" << (num-2)
+               << " "  << (num-1) << "//" << (num-1)
+               << " "  << (num)   << "//" << (num)   << std::endl;
+        }
+        num++;
+    }
+
+    for (int i = 1; i < (int)o.embedding.size(); ++i) {
+        const Vector3 & lf = o.embedding[skeleton.fPrev()[i]];
+        const Vector3 & lt = o.embedding[i];
+        std::cout << "Skeleton Line Segment ("
+            << skeleton.getNameForJoint(skeleton.fPrev()[i]) << " - " << skeleton.getNameForJoint(i) << "): "
+            << lf << " - " << lt << std::endl;
+        os << "v " << lf[0] << " " << lf[1] << " " << lf[2] << std::endl;
+        os << "v " << lt[0] << " " << lt[1] << " " << lt[2] << std::endl;
+        os << "l " << (num) << " " << (num+1) << std::endl;
+        num+=2;
+    }
+}
+
+void dumpMesh(std::string meshname, const Mesh & m, const Skeleton & skeleton, const PinocchioOutput & o) {
+    size_t lastindex = meshname.find_last_of("."); 
+    std::string rawname = meshname.substr(0, lastindex); 
+    if (lastindex == std::string::npos) meshname = meshname + ".mesh.xml";
+    std::string skelname = rawname + ".skeleton.xml"; 
+
+    // Save Skeleton
+
+    std::cout << "Skeleton: " << skelname << std::endl;
+    std::ofstream skel_os(skelname.c_str());
+
+    //int num_bones = o.embedding.size();
+
+    skel_os << "<?xml version=\"1.0\"?>" << std::endl;
+    skel_os << "<skeleton blendmode=\"average\">" << std::endl;
+
+    skel_os << "	<bones>" << std::endl;
+    for (int i = 0; i < (int)o.embedding.size(); ++i) {
+        skel_os << "		<bone id=\"" << i << "\" name=\"" << skeleton.getNameForJoint(i) << "\">" << std::endl;
+        skel_os << "			<position x=\"" << o.embedding[i][0] << "\" y=\"" << o.embedding[i][1] << "\" z=\"" << o.embedding[i][2] << "\" />" << std::endl;
+        skel_os << "			<rotation angle=\"0\">" << std::endl;
+        skel_os << "				<axis x=\"1\" y=\"0\" z=\"0\" />" << std::endl;
+        skel_os << "			</rotation>" << std::endl;
+        skel_os << "		</bone>" << std::endl;
+    }
+    skel_os << "	</bones>" << std::endl;
+
+    skel_os << "	<bonehierarchy>" << std::endl;
+    for (int i = 1; i < (int)o.embedding.size(); ++i) {
+        skel_os << "		<boneparent bone=\"" << skeleton.getNameForJoint(i) << "\" parent=\"" << skeleton.getNameForJoint(skeleton.fPrev()[i]) << "\" />" << std::endl;
+    }
+    skel_os << "	</bonehierarchy>" << std::endl;
+
+    skel_os << "	<animations>" << std::endl;
+    skel_os << "	</animations>" << std::endl;
+
+    skel_os << "</skeleton>" << std::endl;
+
+    // Save Mesh
+
+    std::cout << "Mesh: " << meshname << std::endl;
+    std::ofstream mesh_os(meshname.c_str());
+
+    mesh_os << "<?xml version=\"1.0\"?>" << std::endl;
+    mesh_os << "<mesh>" << std::endl;
+    mesh_os << "	<submeshes>" << std::endl;
+
+    mesh_os << "		<submesh material=\"" << "Example_/Ninja" << "\" usesharedvertices=\"false\" use32bitindexes=\"false\" operationtype=\"triangle_list\">" << std::endl;
+
+    int num_faces = m.edges.size() / 3;
+
+    mesh_os << "			<faces count=\"" << num_faces << "\">" << std::endl;
+    for (int i = 0; i < num_faces; i++) {
+        mesh_os << "				<face v1=\"" << 3*i << "\" v2=\"" << 3*i+1 << "\" v3=\"" << 3*i+2 << "\" />" << std::endl;
+    }
+    mesh_os << "			</faces>" << std::endl;
+
+    int num_vertex = m.edges.size();
+
+    mesh_os << "			<geometry vertexcount=\"" << num_vertex << "\">" << std::endl;
+
+    mesh_os << "				<vertexbuffer positions=\"true\" normals=\"true\">" << std::endl;
+    for (int i = 0; i < num_vertex; i++) {
+        int v_id = m.edges[i].vertex;
+        const Vector3 &v_pos = m.vertices[v_id].pos;
+        const Vector3 &v_normal = m.vertices[v_id].normal;
+
+        mesh_os << "					<vertex>" << std::endl;
+        mesh_os << "						<position x=\"" << v_pos[0] << "\" y=\"" << v_pos[1] << "\" z=\"" << v_pos[2] << "\" />" << std::endl;
+        mesh_os << "						<normal x=\"" << v_normal[0] << "\" y=\"" << v_normal[1] << "\" z=\"" << v_normal[2] << "\" />" << std::endl;
+        mesh_os << "					</vertex>" << std::endl;
+    }
+    mesh_os << "				</vertexbuffer>" << std::endl;
+
+    mesh_os << "				<vertexbuffer texture_coord_dimensions_0=\"float2\" texture_coords=\"1\">" << std::endl;
+    for (int i = 0; i < num_vertex; i++) {
+        int vt_id = m.edges[i].tvertex;
+        mesh_os << "					<vertex>" << std::endl;
+        if (vt_id > 0) {
+            const Vector2 &vt = m.texcoords[vt_id].coords;
+            mesh_os << "						<texcoord u=\"" << vt[0] << "\" v=\"" << vt[1] << "\" />" << std::endl;
+        } else {
+            mesh_os << "						<texcoord u=\"" << 0 << "\" v=\"" << 0 << "\" />" << std::endl;
+        }
+        mesh_os << "					</vertex>" << std::endl;
+    }
+    mesh_os << "				</vertexbuffer>" << std::endl;
+
+    mesh_os << "			</geometry>" << std::endl;
+
+    mesh_os << "		</submesh>" << std::endl;
+
+    mesh_os << "	</submeshes>" << std::endl;
+    mesh_os << "	<skeletonlink name=\"" << rawname << ".skeleton" << "\" />" << std::endl;
+    mesh_os << "</mesh>" << std::endl;
+}
 
 int process(const std::vector<std::string> &args) {
     ArgData a = processArgs(args);
@@ -249,57 +410,7 @@ int process(const std::vector<std::string> &args) {
     // output model
     if (a.objOutName.length()) {
         //~ m.writeObj(a.objOutName);
-
-        std::ofstream os(a.objOutName.c_str());
-
-        int num = 1;
-        for (int i = 0; i < (int)m.edges.size(); ++i) {
-            int v_id = m.edges[i].vertex;
-            const Vector3 &v_pos = m.vertices[v_id].pos;
-            const Vector3 &v_normal = m.vertices[v_id].normal;
-
-            //~ const Vector3 &p2 = m.vertices[m.edges[i + 1].vertex].pos;
-            //~ const Vector3 &p3 = m.vertices[m.edges[i + 2].vertex].pos;
-            //~ Vector3 calc_normal = ((p2 - v_pos) % (p3 - v_pos)).normalize();
-
-            //~ std::cout << "Mesh Point: " << p << " (Normal: " <<  n << ")" << std::endl;
-
-            os << "v "  << v_pos[0] << " " << v_pos[1] << " " << v_pos[2] << std::endl;
-
-            int vt_id = m.edges[i].tvertex;
-            if (vt_id > 0) {
-                const Vector2 &vt = m.texcoords[vt_id].coords;
-                os << "vt " << vt[0] << " " << vt[1] << " " << vt[2] << std::endl;
-            }
-
-            int vn_id = m.edges[i].nvertex;
-            if (vn_id > 0) {
-                const Vector3 &vn = m.normals[vn_id].normal;
-                os << "vn " << vn[0] << " " << vn[1] << " " << vn[2] << std::endl;
-            } else {
-                os << "vn " << v_normal[0] << " " << v_normal[1] << " " << v_normal[2] << std::endl;
-            }
-
-            if (num % 3 == 0) {
-                os << "f " << (num-2) << "//" << (num-2)
-                   << " "  << (num-1) << "//" << (num-1)
-                   << " "  << (num)   << "//" << (num)   << std::endl;
-            }
-            num++;
-        }
-
-        for (int i = 1; i < (int)o.embedding.size(); ++i) {
-            const Vector3 & lf = o.embedding[given.fPrev()[i]];
-            const Vector3 & lt = o.embedding[i];
-            //~ std::cout << "Skeleton Line Segment ("
-                //~ << a.skeleton.getNameForJoint(i-1) << " - " << a.skeleton.getNameForJoint(i) << "): "
-                //~ << lf << " - " << lt << std::endl;
-            os << "v " << lf[0] << " " << lf[1] << " " << lf[2] << std::endl;
-            os << "v " << lt[0] << " " << lt[1] << " " << lt[2] << std::endl;
-            os << "l " << (num) << " " << (num+1) << std::endl;
-            num+=2;
-        }
-
+        dumpObj(a.objOutName, m, given, o);
     }
 
     // output skeleton embedding
@@ -341,6 +452,11 @@ int process(const std::vector<std::string> &args) {
             }
             astrm << std::endl;
         }
+    }
+
+    if (a.meshOutName.length()) {
+        //~ m.writeObj(a.objOutName);
+        dumpMesh(a.meshOutName, m, given, o);
     }
 
     delete o.attachment;
