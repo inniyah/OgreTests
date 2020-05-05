@@ -254,24 +254,32 @@ int process(const std::vector<std::string> &args) {
 
         int num = 1;
         for (int i = 0; i < (int)m.edges.size(); ++i) {
-            int v = m.edges[i].vertex;
-            const Vector3 &p = m.vertices[v].pos;
-            const Vector3 &n = m.vertices[v].normal;
+            int v_id = m.edges[i].vertex;
+            const Vector3 &v_pos = m.vertices[v_id].pos;
+            const Vector3 &v_normal = m.vertices[v_id].normal;
 
-            //~ if (!flatShading) {
-                //~ normal = m.vertices[v].normal;
-                //~ glNormal3d(normal[0], normal[1], normal[2]);
-            //~ } else if (i % 3 == 0) {
-                //~ const Vector3 &p2 = m.vertices[m.edges[i + 1].vertex].pos;
-                //~ const Vector3 &p3 = m.vertices[m.edges[i + 2].vertex].pos;
+            //~ const Vector3 &p2 = m.vertices[m.edges[i + 1].vertex].pos;
+            //~ const Vector3 &p3 = m.vertices[m.edges[i + 2].vertex].pos;
+            //~ Vector3 calc_normal = ((p2 - v_pos) % (p3 - v_pos)).normalize();
 
-                //~ normal = ((p2 - p) % (p3 - p)).normalize();
-                //~ glNormal3d(normal[0], normal[1], normal[2]);
-            //~ }
+            //~ std::cout << "Mesh Point: " << p << " (Normal: " <<  n << ")" << std::endl;
 
-            std::cout << "Mesh Point: " << p << " (Normal: " <<  n << ")" << std::endl;
-            os << "v " << p[0] << " " << p[1] << " " << p[2] << std::endl;
-            os << "vn " << n[0] << " " << n[1] << " " << n[2] << std::endl;
+            os << "v "  << v_pos[0] << " " << v_pos[1] << " " << v_pos[2] << std::endl;
+
+            int vt_id = m.edges[i].tvertex;
+            if (vt_id > 0) {
+                const Vector2 &vt = m.texcoords[vt_id].coords;
+                os << "vt " << vt[0] << " " << vt[1] << " " << vt[2] << std::endl;
+            }
+
+            int vn_id = m.edges[i].nvertex;
+            if (vn_id > 0) {
+                const Vector3 &vn = m.normals[vn_id].normal;
+                os << "vn " << vn[0] << " " << vn[1] << " " << vn[2] << std::endl;
+            } else {
+                os << "vn " << v_normal[0] << " " << v_normal[1] << " " << v_normal[2] << std::endl;
+            }
+
             if (num % 3 == 0) {
                 os << "f " << (num-2) << "//" << (num-2)
                    << " "  << (num-1) << "//" << (num-1)
@@ -283,9 +291,9 @@ int process(const std::vector<std::string> &args) {
         for (int i = 1; i < (int)o.embedding.size(); ++i) {
             const Vector3 & lf = o.embedding[given.fPrev()[i]];
             const Vector3 & lt = o.embedding[i];
-            std::cout << "Skeleton Line Segment ("
-                << a.skeleton.getNameForJoint(i-1) << " - " << a.skeleton.getNameForJoint(i) << "): "
-                << lf << " - " << lt << std::endl;
+            //~ std::cout << "Skeleton Line Segment ("
+                //~ << a.skeleton.getNameForJoint(i-1) << " - " << a.skeleton.getNameForJoint(i) << "): "
+                //~ << lf << " - " << lt << std::endl;
             os << "v " << lf[0] << " " << lf[1] << " " << lf[2] << std::endl;
             os << "v " << lt[0] << " " << lt[1] << " " << lt[2] << std::endl;
             os << "l " << (num) << " " << (num+1) << std::endl;

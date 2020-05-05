@@ -20,12 +20,14 @@
 #include "hashutils.h"
 #include "utils.h"
 #include "debugging.h"
+
 #include <fstream>
 #include <sstream>
 #include <map>
 #include <set>
 #include <algorithm>
 #include <unordered_map>
+#include <cstring>
 
 namespace Pinocchio {
     Mesh::Mesh(const std::string &file, float weight)
@@ -141,10 +143,6 @@ namespace Pinocchio {
         scale *= cscale;
     }
 
-    void Mesh::sortEdges() {
-        //TODO: implement for when reading files other than obj
-    }
-
     struct MFace
     {
         MFace(int v1, int v2, int v3) {
@@ -218,7 +216,6 @@ namespace Pinocchio {
     }
 
     void Mesh::readObj(std::istream &strm) {
-        int i;
         int lineNum = 0;
         while (!strm.eof()) {
             ++lineNum;
@@ -282,15 +279,26 @@ namespace Pinocchio {
                     OUT;
                 }
 
-                int a[16];
-                int t[16];
-                for(i = 0; i < (int)words.size() - 1; ++i) {
-                    sscanf(words[i + 1].c_str(), "%d/%d", a + i, t + i);
+                int a[16]; memset(a, 0, sizeof(a));
+                int t[16]; memset(t, 0, sizeof(t));
+                int n[16]; memset(n, 0, sizeof(n));
+
+                for (int i = 0; i < (int)words.size() - 1; ++i) {
+                    //~ sscanf(words[i + 1].c_str(), "%d/%d", a + i, t + i);
+                    if (sscanf(words[i + 1].c_str(), "%d//%d", a + i, n + i) == 2) { /* std::cout << "Vertex + Normal" << std::endl; */ }
+                    else if (sscanf(words[i + 1].c_str(), "%d/%d/%d", a + i, t + i, n + i) == 3) { /* std::cout << "Vertex + Texture + Normal" << std::endl; */ }
+                    else if (sscanf(words[i + 1].c_str(), "%d/%d", a + i, t + i) == 2) { /* std::cout << "Vertex + Texture" << std::endl; */ }
+                    else if (sscanf(words[i + 1].c_str(), "%d/%d", a + i, t + i) == 1) { /* std::cout << "Vertex" << std::endl; */ }
+                    else { std::cout << "Unreadable vertex" << std::endl; }
                 }
+
+                //~ for (int i = 0; i < (int)words.size() - 1; ++i) {
+                //~     std::cout << " Face: " << a[i] << " / " << t[i] << " / " << n[i] << std::endl;
+                //~ }
 
                 //swap(a[1], a[2]); //TODO:remove
 
-                for(int j = 2; j < (int)words.size() - 1; ++j) {
+                for (int j = 2; j < (int)words.size() - 1; ++j) {
                     int first = edges.size();
                     edges.resize(edges.size() + 3);
                     edges[first].vertex = a[0] - 1;
@@ -300,11 +308,15 @@ namespace Pinocchio {
                     edges[first].tvertex = t[0] - 1;
                     edges[first + 1].tvertex = t[j - 1] - 1;
                     edges[first + 2].tvertex = t[j] - 1;
+
+                    edges[first].nvertex = n[0] - 1;
+                    edges[first + 1].nvertex = n[j - 1] - 1;
+                    edges[first + 2].nvertex = n[j] - 1;
                 }
 
             }
 
-            //otherwise continue -- unrecognized line
+            // otherwise continue -- unrecognized line
         }
     }
 
@@ -343,8 +355,7 @@ namespace Pinocchio {
         while(inTodo < (int)todo.size()) {
             int startEdge = vertices[todo[inTodo++]].edge;
             int curEdge = startEdge;
-            do {
-                //walk around
+            do { // walk around
                 curEdge = edges[edges[curEdge].prev].twin;
                 int vtx = edges[curEdge].vertex;
                 if(!reached[vtx]) {
@@ -398,7 +409,7 @@ namespace Pinocchio {
             CHECK(edges[edges[i].twin].vertex == edges[edges[i].prev].vertex);
         }
 
-        for(i = 0; i < vs; ++i) {                           // make sure the edge pointer is correct
+        for(i = 0; i < vs; ++i) { // make sure the edge pointer is correct
             CHECK(edges[edges[vertices[i].edge].prev].vertex == i);
         }
 
@@ -412,7 +423,7 @@ namespace Pinocchio {
             int startEdge = vertices[i].edge;
             int curEdge = startEdge;
             int count = 0;
-            do {                                            // walk around
+            do { // walk around
                 curEdge = edges[edges[curEdge].prev].twin;
                 ++count;
             } while(curEdge != startEdge && count <= edgeCount[i]);

@@ -33,7 +33,7 @@ namespace Pinocchio {
 
         Vector3 pos;
         Vector3 normal;
-        int edge;                                           // An edge such that edge->prev->vertex is this
+        int edge; // An edge such that edge->prev->vertex is this
     };
 
     struct MeshNormal {
@@ -53,9 +53,10 @@ namespace Pinocchio {
     struct MeshEdge {
         inline MeshEdge() : vertex(-1), prev(-1), twin(-1) {}
 
-        int vertex;                                         // The vertex the edge points to--the start vertex is prev->vertex
+        int vertex; // The vertex the edge points to--the start vertex is prev->vertex
         int tvertex;
-        int prev;                                           // CCW, next is prev->prev
+        int nvertex;
+        int prev; // CCW, next is prev->prev
         int twin;
     };
 
@@ -65,7 +66,7 @@ namespace Pinocchio {
             Mesh(const std::string &file, float weight=1.);
 
             bool integrityCheck() const;
-            bool isConnected() const;                       // Returns true if the mesh consists of a single connected component
+            bool isConnected() const; // Returns true if the mesh consists of a single connected component
             void computeVertexNormals();
             void normalizeBoundingBox();
             void computeTopology();
@@ -74,13 +75,12 @@ namespace Pinocchio {
         private:
             void readObj(std::istream &strm);
             void fixDupFaces();
-            void sortEdges();                               // Sort edges so that triplets forming faces are adjacent
 
         public:
             std::vector<MeshVertex> vertices;
             std::vector<MeshNormal> normals;
             std::vector<MeshTextureCoords> texcoords;
-            std::vector<MeshEdge> edges;                    // Half-Edges, really
+            std::vector<MeshEdge> edges; // Half-Edges, really. Sorted so that triplets forming faces are adjacent
 
             Vector3 toAdd;
             double scale;
