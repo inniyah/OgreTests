@@ -35,7 +35,7 @@ using namespace Pinocchio;
 
 struct ArgData {
     ArgData() :
-    stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(true),
+    stopAtMesh(false), stopAfterCircles(false), skelScale(1.), noFit(false),
         skeleton(HumanSkeleton()), stiffness(1.),
         skelOutName(""), weightOutName(""),
         objOutName(""), meshOutName("")
@@ -61,7 +61,7 @@ void printUsageAndExit() {
     std::cout << "Usage: AttachWeights filename.obj" << std::endl;
     std::cout << "              [-skel skelname] [-rot x y z deg]* [-scale s]" << std::endl;
     std::cout << "              [-meshonly | -mo] [-circlesonly | -co]" << std::endl;
-    std::cout << "              [-fit] [-stiffness s]" << std::endl;
+    std::cout << "              [-fit] [-nofit] [-stiffness s]" << std::endl;
     std::cout << "              [-skelOut skelOutFile] [-weightOut weightOutFile]" << std::endl;
     std::cout << "              [-objOut objOutFile]" << std::endl;
     std::cout << "              [-meshOut meshOutFile]" << std::endl;
@@ -209,6 +209,7 @@ void dumpObj(std::string filename, const Mesh & m, const Skeleton & skeleton, co
     std::ofstream os(filename.c_str());
 
     int num = 1;
+
     for (int i = 0; i < (int)m.edges.size(); ++i) {
         int v_id = m.edges[i].vertex;
         const Vector3 &v_pos = m.vertices[v_id].pos;
@@ -218,7 +219,7 @@ void dumpObj(std::string filename, const Mesh & m, const Skeleton & skeleton, co
         //~ const Vector3 &p3 = m.vertices[m.edges[i + 2].vertex].pos;
         //~ Vector3 calc_normal = ((p2 - v_pos) % (p3 - v_pos)).normalize();
 
-        //~ std::cout << "Mesh Point: " << p << " (Normal: " <<  n << ")" << std::endl;
+        //~ std::cout << "Mesh Point: " << v_pos << " (Normal: " <<  v_normal << ")" << std::endl;
 
         os << "v "  << v_pos[0] << " " << v_pos[1] << " " << v_pos[2] << std::endl;
 
