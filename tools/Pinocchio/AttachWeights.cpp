@@ -237,9 +237,9 @@ void dumpObj(std::string filename, const Mesh & m, const Skeleton & skeleton, co
         }
 
         if (num % 3 == 0) {
-            os << "f " << (num-2) << "//" << (num-2)
-               << " "  << (num-1) << "//" << (num-1)
-               << " "  << (num)   << "//" << (num)   << std::endl;
+            //~ os << "f " << (num-2) << "//" << (num-2)
+            //~    << " "  << (num-1) << "//" << (num-1)
+            //~    << " "  << (num)   << "//" << (num)   << std::endl;
         }
         num++;
     }
@@ -347,6 +347,12 @@ void dumpMesh(std::string meshname, const Mesh & m, const Skeleton & skeleton, c
 
     mesh_os << "			</geometry>" << std::endl;
 
+    mesh_os << "			<boneassignments>" << std::endl;
+    for (int i = 0; i < num_vertex; i++) {
+        mesh_os << "				<vertexboneassignment vertexindex=\"" << i << "\" boneindex=\"" << 1 << "\" weight=\"" << 1 << "\" />" << std::endl;
+    }
+    mesh_os << "			</boneassignments>" << std::endl;
+
     mesh_os << "		</submesh>" << std::endl;
 
     mesh_os << "	</submeshes>" << std::endl;
@@ -413,6 +419,11 @@ int process(const std::vector<std::string> &args) {
         dumpObj(a.objOutName, m, given, o);
     }
 
+    if (a.meshOutName.length()) {
+        //~ m.writeObj(a.objOutName);
+        dumpMesh(a.meshOutName, m, given, o);
+    }
+
     // output skeleton embedding
     for (int joint = 0; joint < (int)o.embedding.size(); ++joint) {
         o.embedding[joint] = (o.embedding[joint] - m.toAdd) / m.scale;
@@ -452,11 +463,6 @@ int process(const std::vector<std::string> &args) {
             }
             astrm << std::endl;
         }
-    }
-
-    if (a.meshOutName.length()) {
-        //~ m.writeObj(a.objOutName);
-        dumpMesh(a.meshOutName, m, given, o);
     }
 
     delete o.attachment;
