@@ -366,16 +366,16 @@ namespace Pinocchio {
         int vs = vertices.size();
         int es = edges.size();
 
-        //if there are no vertices, shouldn't be any edges either
+        // if there are no vertices, shouldn't be any edges either
         if(vs == 0) {
             CHECK(es == 0);
             return true;
         }
 
-        //otherwise, there should be edges
+        // otherwise, there should be edges
         CHECK(es > 0);
 
-        //check index range validity
+        // check index range validity
         for(i = 0; i < vs; ++i) {
             CHECK(vertices[i].edge >= 0);
             CHECK(vertices[i].edge < es);
@@ -387,23 +387,23 @@ namespace Pinocchio {
             CHECK(edges[i].twin >= 0 && edges[i].twin < es);
         }
 
-        //check basic edge and vertex relationships
+        // check basic edge and vertex relationships
         for(i = 0; i < es; ++i) {
-            CHECK(edges[i].prev != i);                      //no loops
-            CHECK(edges[edges[edges[i].prev].prev].prev == i);//we have only triangles
-            CHECK(edges[i].twin != i);                      //no self twins
-            CHECK(edges[edges[i].twin].twin == i);          //twins are valid
+            CHECK(edges[i].prev != i);                         // no loops
+            CHECK(edges[edges[edges[i].prev].prev].prev == i); // we have only triangles
+            CHECK(edges[i].twin != i);                         // no self twins
+            CHECK(edges[edges[i].twin].twin == i);             // twins are valid
 
             //twin's vertex and prev's vertex should be the same
             CHECK(edges[edges[i].twin].vertex == edges[edges[i].prev].vertex);
         }
 
-        for(i = 0; i < vs; ++i) {                           //make sure the edge pointer is correct
+        for(i = 0; i < vs; ++i) {                           // make sure the edge pointer is correct
             CHECK(edges[edges[vertices[i].edge].prev].vertex == i);
         }
 
-        //check that the edges around a vertex form a cycle -- by counting
-        //how many edges adjacent to each vertex
+        // check that the edges around a vertex form a cycle -- by counting
+        // how many edges adjacent to each vertex
         std::vector<int> edgeCount(vs, 0);
         for(i = 0; i < es; ++i)
             edgeCount[edges[i].vertex] += 1;
@@ -412,7 +412,7 @@ namespace Pinocchio {
             int startEdge = vertices[i].edge;
             int curEdge = startEdge;
             int count = 0;
-            do {                                            //walk around
+            do {                                            // walk around
                 curEdge = edges[edges[curEdge].prev].twin;
                 ++count;
             } while(curEdge != startEdge && count <= edgeCount[i]);

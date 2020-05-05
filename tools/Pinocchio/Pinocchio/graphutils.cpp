@@ -75,4 +75,4 @@ namespace Pinocchio {
         }
     }
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio

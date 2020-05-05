@@ -209,4 +209,4 @@ namespace Pinocchio {
         return fineEmbedding;
     }
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio

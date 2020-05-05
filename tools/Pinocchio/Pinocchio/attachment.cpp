@@ -431,4 +431,4 @@ namespace Pinocchio {
         return aprivate->getAllWeights();
     }
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio

@@ -398,5 +398,5 @@ namespace Pinocchio {
         return true;
     }
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio
 #endif

@@ -54,4 +54,4 @@ namespace Pinocchio {
 
     static LookupTable3 lt3;
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio

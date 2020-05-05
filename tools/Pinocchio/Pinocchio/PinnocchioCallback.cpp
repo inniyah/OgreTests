@@ -62,4 +62,4 @@ namespace Pinocchio {
     PinnocchioCallBackManager::~PinnocchioCallBackManager() {
     }
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio

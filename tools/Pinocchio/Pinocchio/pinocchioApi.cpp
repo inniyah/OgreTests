@@ -277,4 +277,4 @@ namespace Pinocchio {
         return out;
     }
 
-}                                                           // namespace Pinocchio
+} // namespace Pinocchio
