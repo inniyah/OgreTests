@@ -28,8 +28,10 @@ THE SOFTWARE.
 
 #include <fstream>
 #include <istream>
+#include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace Pinocchio;
 
@@ -238,9 +240,9 @@ void dumpObj(std::string filename, const Mesh & m, const Skeleton & skeleton, co
         }
 
         if (num % 3 == 0) {
-            //~ os << "f " << (num-2) << "//" << (num-2)
-            //~    << " "  << (num-1) << "//" << (num-1)
-            //~    << " "  << (num)   << "//" << (num)   << std::endl;
+            os << "f " << (num-2) << "//" << (num-2)
+               << " "  << (num-1) << "//" << (num-1)
+               << " "  << (num)   << "//" << (num)   << std::endl;
         }
         num++;
     }
@@ -350,9 +352,36 @@ void dumpMesh(std::string meshname, const Mesh & m, const Skeleton & skeleton, c
 
     mesh_os << "			</geometry>" << std::endl;
 
+
     mesh_os << "			<boneassignments>" << std::endl;
-    for (int i = 0; i < num_vertex; i++) {
-        mesh_os << "				<vertexboneassignment vertexindex=\"" << i << "\" boneindex=\"" << 1 << "\" weight=\"" << 1 << "\" />" << std::endl;
+    for (int vertex = 0; vertex < (int)m.vertices.size(); ++vertex) {
+        std::vector<std::pair<double, int>> list;
+
+        Vector<double, -1> weights = o.attachment->getWeights(vertex);
+
+        for (int j = 0; j < weights.size(); ++j) {
+            double d = floor(0.5 + weights[j] * 10000.) / 10000.;
+            if (d >= 0.02) {
+                list.push_back( std::pair<double, int>(d, j));
+            }
+        }
+
+        std::sort(list.rbegin(), list.rend());
+
+        double sum = 0;
+        unsigned int count = 0;
+        for (unsigned int i = 0; i < list.size() && count < 4; i++) {
+            if (list[i].first > sum * 0.08) {
+                sum += list[i].first;
+                count++;
+            }
+        }
+
+        for (unsigned int i = 0; i < count; i++) {
+            int bone_index = 1 + list[i].second ;
+            double weight = list[i].first / sum;
+            mesh_os << "				<vertexboneassignment vertexindex=\"" << vertex << "\" boneindex=\"" << bone_index << "\" weight=\"" << weight << "\" />" << std::endl;
+        }
     }
     mesh_os << "			</boneassignments>" << std::endl;
 
