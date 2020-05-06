@@ -7,5 +7,11 @@
   },
   "floors/BumpyMetal": {
     "Friction": 0.3
+  },
+  "3d_models/caution": {
+  "Collision": "S"
+  },
+  "3d_models/colmn": {
+  "Collision": "S"
   }
 }

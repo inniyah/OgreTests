@@ -89,7 +89,7 @@
   },
   ":seq_info": {
     "3d_models": 9,
-    "floors": 6
+    "floors": 7
   },
   ":type_lists": {
     "3d_models": {
@@ -107,7 +107,8 @@
       "2": "floors/terr_rock6.obj",
       "3": "floors/BeachStones.obj",
       "4": "floors/BumpyMetal.obj",
-      "5": "floors/MtlPlat2.obj"
+      "5": "floors/MtlPlat2.obj",
+      "6": "floors/prueba.obj"
     }
   },
   "floors/BeachStones.obj": {
@@ -145,6 +146,18 @@
     "@IsoTile4": "floors/MtlPlat2_4.iso.png",
     "@Material": "MtlPlat2_586188d9bcd9e5b964142956490f87d7a32c6bd3.png",
     "@Texture": "floors/MtlPlat2.png"
+  },
+  "floors/prueba.obj": {
+    ":attrs_file": "floors/attributes.json",
+    ":seq_id": 6,
+    "@3DMesh": "floors/prueba.mesh",
+    "@3DModel": "floors/prueba.obj",
+    "@IsoTile1": "floors/prueba_1.iso.png",
+    "@IsoTile2": "floors/prueba_2.iso.png",
+    "@IsoTile3": "floors/prueba_3.iso.png",
+    "@IsoTile4": "floors/prueba_4.iso.png",
+    "@Material": "prueba_76d537e43a209572955fe583edc7cebca3afeede.png",
+    "@Texture": "floors/prueba.png"
   },
   "floors/simplewall.obj": {
     ":attrs_file": "floors/attributes.json",

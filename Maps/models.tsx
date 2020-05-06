@@ -7,6 +7,7 @@
    <property name="3DMesh" value="wall.mesh"/>
    <property name="Material" value="wall_e6f4517a0091a9afedfc69cf7499b809b05b495c.jpg"/>
    <property name="RotAngle" value="0"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/wall_1.iso.png" width="128" height="224"/>
  </tile>
@@ -16,6 +17,7 @@
    <property name="3DMesh" value="wall.mesh"/>
    <property name="Material" value="wall_e6f4517a0091a9afedfc69cf7499b809b05b495c.jpg"/>
    <property name="RotAngle" value="90"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/wall_2.iso.png" width="128" height="224"/>
  </tile>
@@ -25,6 +27,7 @@
    <property name="3DMesh" value="wall.mesh"/>
    <property name="Material" value="wall_e6f4517a0091a9afedfc69cf7499b809b05b495c.jpg"/>
    <property name="RotAngle" value="180"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/wall_3.iso.png" width="128" height="224"/>
  </tile>
@@ -34,6 +37,7 @@
    <property name="3DMesh" value="wall.mesh"/>
    <property name="Material" value="wall_e6f4517a0091a9afedfc69cf7499b809b05b495c.jpg"/>
    <property name="RotAngle" value="270"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/wall_4.iso.png" width="128" height="224"/>
  </tile>
@@ -43,6 +47,8 @@
    <property name="3DMesh" value="colmn.mesh"/>
    <property name="Material" value="colmn_a787577f39a565858cf333e9c0c721b92246a64c.jpg"/>
    <property name="RotAngle" value="0"/>
+   <property name="Type" value="Model"/>
+   <property name="Collision" value="S"/>
   </properties>
   <image source="../3d_models/colmn_1.iso.png" width="128" height="224"/>
  </tile>
@@ -52,6 +58,8 @@
    <property name="3DMesh" value="colmn.mesh"/>
    <property name="Material" value="colmn_a787577f39a565858cf333e9c0c721b92246a64c.jpg"/>
    <property name="RotAngle" value="90"/>
+   <property name="Type" value="Model"/>
+   <property name="Collision" value="S"/>
   </properties>
   <image source="../3d_models/colmn_2.iso.png" width="128" height="224"/>
  </tile>
@@ -61,6 +69,8 @@
    <property name="3DMesh" value="colmn.mesh"/>
    <property name="Material" value="colmn_a787577f39a565858cf333e9c0c721b92246a64c.jpg"/>
    <property name="RotAngle" value="180"/>
+   <property name="Type" value="Model"/>
+   <property name="Collision" value="S"/>
   </properties>
   <image source="../3d_models/colmn_3.iso.png" width="128" height="224"/>
  </tile>
@@ -70,6 +80,8 @@
    <property name="3DMesh" value="colmn.mesh"/>
    <property name="Material" value="colmn_a787577f39a565858cf333e9c0c721b92246a64c.jpg"/>
    <property name="RotAngle" value="270"/>
+   <property name="Type" value="Model"/>
+   <property name="Collision" value="S"/>
   </properties>
   <image source="../3d_models/colmn_4.iso.png" width="128" height="224"/>
  </tile>
@@ -79,6 +91,8 @@
    <property name="3DMesh" value="caution.mesh"/>
    <property name="Material" value="caution_diffuse_e60835da6f1f27bf41b6536091656f556e742790.png"/>
    <property name="RotAngle" value="0"/>
+   <property name="Type" value="Model"/>
+   <property name="Collision" value="S"/>
   </properties>
   <image source="../3d_models/caution_1.iso.png" width="128" height="224"/>
  </tile>
@@ -88,6 +102,8 @@
    <property name="3DMesh" value="caution.mesh"/>
    <property name="Material" value="caution_diffuse_e60835da6f1f27bf41b6536091656f556e742790.png"/>
    <property name="RotAngle" value="90"/>
+   <property name="Type" value="Model"/>
+   <property name="Collision" value="S"/>
   </properties>
   <image source="../3d_models/caution_2.iso.png" width="128" height="224"/>
  </tile>
@@ -97,6 +113,8 @@
    <property name="3DMesh" value="caution.mesh"/>
    <property name="Material" value="caution_diffuse_e60835da6f1f27bf41b6536091656f556e742790.png"/>
    <property name="RotAngle" value="180"/>
+   <property name="Type" value="Model"/>
+   <property name="Collision" value="S"/>
   </properties>
   <image source="../3d_models/caution_3.iso.png" width="128" height="224"/>
  </tile>
@@ -106,6 +124,8 @@
    <property name="3DMesh" value="caution.mesh"/>
    <property name="Material" value="caution_diffuse_e60835da6f1f27bf41b6536091656f556e742790.png"/>
    <property name="RotAngle" value="270"/>
+   <property name="Type" value="Model"/>
+   <property name="Collision" value="S"/>
   </properties>
   <image source="../3d_models/caution_4.iso.png" width="128" height="224"/>
  </tile>
@@ -115,6 +135,7 @@
    <property name="3DMesh" value="hwall_corner.mesh"/>
    <property name="Material" value="hwall_dd10ce0193a3e1c70e0c5611d919394ae463b9b2.jpg"/>
    <property name="RotAngle" value="0"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_corner_1.iso.png" width="128" height="224"/>
  </tile>
@@ -124,6 +145,7 @@
    <property name="3DMesh" value="hwall_corner.mesh"/>
    <property name="Material" value="hwall_dd10ce0193a3e1c70e0c5611d919394ae463b9b2.jpg"/>
    <property name="RotAngle" value="90"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_corner_2.iso.png" width="128" height="224"/>
  </tile>
@@ -133,6 +155,7 @@
    <property name="3DMesh" value="hwall_corner.mesh"/>
    <property name="Material" value="hwall_dd10ce0193a3e1c70e0c5611d919394ae463b9b2.jpg"/>
    <property name="RotAngle" value="180"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_corner_3.iso.png" width="128" height="224"/>
  </tile>
@@ -142,6 +165,7 @@
    <property name="3DMesh" value="hwall_corner.mesh"/>
    <property name="Material" value="hwall_dd10ce0193a3e1c70e0c5611d919394ae463b9b2.jpg"/>
    <property name="RotAngle" value="270"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_corner_4.iso.png" width="128" height="224"/>
  </tile>
@@ -151,6 +175,7 @@
    <property name="3DMesh" value="hwall_cross.mesh"/>
    <property name="Material" value="hwall_5ffa257353d6e2792f1b17a4277550c89ea0afb8.jpg"/>
    <property name="RotAngle" value="0"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_cross_1.iso.png" width="128" height="224"/>
  </tile>
@@ -160,6 +185,7 @@
    <property name="3DMesh" value="hwall_cross.mesh"/>
    <property name="Material" value="hwall_5ffa257353d6e2792f1b17a4277550c89ea0afb8.jpg"/>
    <property name="RotAngle" value="90"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_cross_2.iso.png" width="128" height="224"/>
  </tile>
@@ -169,6 +195,7 @@
    <property name="3DMesh" value="hwall_cross.mesh"/>
    <property name="Material" value="hwall_5ffa257353d6e2792f1b17a4277550c89ea0afb8.jpg"/>
    <property name="RotAngle" value="180"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_cross_3.iso.png" width="128" height="224"/>
  </tile>
@@ -178,6 +205,7 @@
    <property name="3DMesh" value="hwall_cross.mesh"/>
    <property name="Material" value="hwall_5ffa257353d6e2792f1b17a4277550c89ea0afb8.jpg"/>
    <property name="RotAngle" value="270"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_cross_4.iso.png" width="128" height="224"/>
  </tile>
@@ -187,6 +215,7 @@
    <property name="3DMesh" value="hwall_solid.mesh"/>
    <property name="Material" value="hwall_4af797d3215258da69160911d059fe00be54ae66.jpg"/>
    <property name="RotAngle" value="0"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_solid_1.iso.png" width="128" height="224"/>
  </tile>
@@ -196,6 +225,7 @@
    <property name="3DMesh" value="hwall_solid.mesh"/>
    <property name="Material" value="hwall_4af797d3215258da69160911d059fe00be54ae66.jpg"/>
    <property name="RotAngle" value="90"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_solid_2.iso.png" width="128" height="224"/>
  </tile>
@@ -205,6 +235,7 @@
    <property name="3DMesh" value="hwall_solid.mesh"/>
    <property name="Material" value="hwall_4af797d3215258da69160911d059fe00be54ae66.jpg"/>
    <property name="RotAngle" value="180"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_solid_3.iso.png" width="128" height="224"/>
  </tile>
@@ -214,6 +245,7 @@
    <property name="3DMesh" value="hwall_solid.mesh"/>
    <property name="Material" value="hwall_4af797d3215258da69160911d059fe00be54ae66.jpg"/>
    <property name="RotAngle" value="270"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_solid_4.iso.png" width="128" height="224"/>
  </tile>
@@ -223,6 +255,7 @@
    <property name="3DMesh" value="hwall_fork.mesh"/>
    <property name="Material" value="hwall_f01666d7dfc08c86893b6242b590d6b1d5a58e99.jpg"/>
    <property name="RotAngle" value="0"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_fork_1.iso.png" width="128" height="224"/>
  </tile>
@@ -232,6 +265,7 @@
    <property name="3DMesh" value="hwall_fork.mesh"/>
    <property name="Material" value="hwall_f01666d7dfc08c86893b6242b590d6b1d5a58e99.jpg"/>
    <property name="RotAngle" value="90"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_fork_2.iso.png" width="128" height="224"/>
  </tile>
@@ -241,6 +275,7 @@
    <property name="3DMesh" value="hwall_fork.mesh"/>
    <property name="Material" value="hwall_f01666d7dfc08c86893b6242b590d6b1d5a58e99.jpg"/>
    <property name="RotAngle" value="180"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_fork_3.iso.png" width="128" height="224"/>
  </tile>
@@ -250,6 +285,7 @@
    <property name="3DMesh" value="hwall_fork.mesh"/>
    <property name="Material" value="hwall_f01666d7dfc08c86893b6242b590d6b1d5a58e99.jpg"/>
    <property name="RotAngle" value="270"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_fork_4.iso.png" width="128" height="224"/>
  </tile>
@@ -259,6 +295,7 @@
    <property name="3DMesh" value="hwall_straight.mesh"/>
    <property name="Material" value="hwall_cd5c358ca391973affb2f0dde8b06acff63e8292.jpg"/>
    <property name="RotAngle" value="0"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_straight_1.iso.png" width="128" height="224"/>
  </tile>
@@ -268,6 +305,7 @@
    <property name="3DMesh" value="hwall_straight.mesh"/>
    <property name="Material" value="hwall_cd5c358ca391973affb2f0dde8b06acff63e8292.jpg"/>
    <property name="RotAngle" value="90"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_straight_2.iso.png" width="128" height="224"/>
  </tile>
@@ -277,6 +315,7 @@
    <property name="3DMesh" value="hwall_straight.mesh"/>
    <property name="Material" value="hwall_cd5c358ca391973affb2f0dde8b06acff63e8292.jpg"/>
    <property name="RotAngle" value="180"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_straight_3.iso.png" width="128" height="224"/>
  </tile>
@@ -286,6 +325,7 @@
    <property name="3DMesh" value="hwall_straight.mesh"/>
    <property name="Material" value="hwall_cd5c358ca391973affb2f0dde8b06acff63e8292.jpg"/>
    <property name="RotAngle" value="270"/>
+   <property name="Type" value="Model"/>
   </properties>
   <image source="../3d_models/hwall_straight_4.iso.png" width="128" height="224"/>
  </tile>

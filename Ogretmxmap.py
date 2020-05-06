@@ -8,9 +8,9 @@ Created on Sat Apr 25 16:38:18 2020
 
 import tmxreader
 import Ogre
-import Ogre.RTShader as OgreRTShader
-import Ogre.Bites as OgreBites
-import os.path
+#import Ogre.RTShader as OgreRTShader
+#import Ogre.Bites as OgreBites
+#import os.path
 import numpy as np
 
 class tmxmap:
@@ -26,6 +26,11 @@ class tmxmap:
     MATERIAL_PROP='Material'
     MESH_PROP='3DMesh'
     ROT_PROP='RotAngle'
+    FLOOR_ROT={'0':[(1.0,0.0),(0.0,0.0),(0.0,1.0),(1.0,1.0)],
+    '270':[(0.0,0.0),(0.0,1.0),(1.0,1.0),(1.0,0.0)],
+    '180':[(0.0,1.0),(1.0,1.0),(1.0,0.0),(0.0,0.0)],
+    '90':[(1.0,1.0),(1.0,0.0),(0.0,0.0),(0.0,1.0)]}
+    wall_layers={}
     
     def __init__(self,file_name):
         self.load(file_name)
@@ -38,11 +43,6 @@ class tmxmap:
         for layer in self.world_map.layers:
             if self.maxh<int(layer.properties['level']):
                 self.maxh=int(layer.properties['level'])
-        #Hacemos el listado de las metadatas
-        self.metalayer=[None for i in range(0,self.maxh+1)]
-        for layer in self.world_map.layers:
-            if layer.properties['tipo']=='m':
-                self.metalayer[int(layer.properties['level'])]=layer
             
         print("loaded map:", self.world_map.map_file_name)
         print("tiles used:", self.world_map.width, self.world_map.height)
@@ -58,6 +58,14 @@ class tmxmap:
             h=float(layer.properties['level'])*2
             if layer.properties['tipo'] in tipo:
                 tipo[layer.properties['tipo']](scn_mgr,layer.name,h)
+        # vamos a registrar las layers necesarias
+        for layer in self.world_map.layers:
+            if layer.properties['tipo']=='w':
+                self.wall_layers[int(layer.properties['level'])]=layer
+        
+        print (self.wall_layers)
+        
+        
     
     def makewalls(self,scn_mgr,layername,h):
         layer=self.world_map.named_layers[layername]
@@ -69,11 +77,13 @@ class tmxmap:
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
                     wall=scn_mgr.createEntity(mesh)
-                    wallNode = scn_mgr.getRootSceneNode().createChildSceneNode()
-                    wallNode.attachObject(wall)
-                    wallNode.yaw(Ogre.Ogre.Radian((float(self.world_map.tiles[gid].properties[self.ROT_PROP])+90)/180*np.pi),Ogre.Ogre.Node.TS_LOCAL)
-                    wallNode.setPosition(py, h, px)
-
+                    wallNode1 = scn_mgr.getRootSceneNode().createChildSceneNode()
+                    wallNode2=wallNode1.createChildSceneNode()
+                    wallNode2.translate(-.5,0,-.5)
+                    wallNode1.yaw(Ogre.Ogre.Radian((float(self.world_map.tiles[gid].properties[self.ROT_PROP])+90)/180*np.pi),Ogre.Node.TS_WORLD)
+                    #wallNode.translate(py+0.5, h, px+0.5)
+                    wallNode1.setPosition(py+0.5, h, px+0.5)
+                    wallNode2.attachObject(wall)
     
     
     def makefloor (self,scn_mgr,layername,h):
@@ -91,24 +101,29 @@ class tmxmap:
                     else:
                         print (self.MATERIAL_PROP, " is not in tile ",tx,"-",ty,"(",gid,")")
                         mat_name=""
+                    rot=self.FLOOR_ROT[self.world_map.tiles[gid].properties[self.ROT_PROP]]
                     man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
                     man.position(py, h, px)
                     man.normal(0, 1, 0)
-                    man.textureCoord(0, 0)
+                    #man.textureCoord(0, 0)
+                    man.textureCoord(rot[0][0],rot[0][1])
                     
                     man.position(py, h, px+self.INCTILE_X)
                     man.normal(0, 1, 0)
-                    man.textureCoord(0, 1)
+                    #man.textureCoord(0, 1)
+                    man.textureCoord(rot[1][0],rot[1][1])
                     
                     man.position(py+self.INCTILE_Y, h, px+self.INCTILE_X)
                     man.normal(0, 1, 0)
-                    man.textureCoord(1, 1)
+                    #man.textureCoord(1, 1)
+                    man.textureCoord(rot[2][0],rot[2][1])
                     
                     man.position(py+self.INCTILE_Y, h, px)
                     man.normal(0, 1, 0)
-                    man.textureCoord(1, 0)
+                    #man.textureCoord(1, 0)
+                    man.textureCoord(rot[3][0],rot[3][1])
                     
                     man.quad(0, 1, 2, 3)
                     man.end()
@@ -155,22 +170,41 @@ class tmxmap:
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.attachObject(man)
     
+    def collisionwall(self,layer,x,y):
+        tile=layer.content2D [y] [x]
+        if tile==0:
+            return ""
+        else:
+            prop=self.world_map.tiles[tile].properties
+        if "Collision" in prop:
+            return prop['Collision']
+        else:
+            return ""
+        
+        
+ 
     def collisiontile(self,x,y,z,offset):
         """ Comprobamos si se puede estar en un tile"""
         #primero vemos a ver cual es el layer que corresponde a esa altura
-        if y>self.world_map.width-0.5 or x>self.world_map.height-0.5:
+        if y>self.world_map.width-offset or x>self.world_map.height-offset:
             return False
+        #calculamos el nivel de altura correspondiente
+        level=int(z)//2
         
-        
-        
-        layer=self.metalayer[int(z//2)]
-        if (layer.content2D [int(y+0.5)] [int(x+0.5)]!=0 or
-            layer.content2D [int(y-0.5)] [int(x-0.5)]!=0 or
-            layer.content2D [int(y+0.5)] [int(x-0.5)]!=0 or
-            layer.content2D [int(y-0.5)] [int(x+0.5)]!=0):
-            return True
+        #Empezamos comprobando las colisiones con los walls
+        if level in self.wall_layers:
+            layer=self.wall_layers[level]
+            if (self.collisionwall(layer,int(x+offset),int(y+offset))=="S" or
+                self.collisionwall(layer,int(x-offset),int(y-offset))=="S" or
+                self.collisionwall(layer,int(x-offset),int(y+offset))=="S" or
+                self.collisionwall(layer,int(x+offset),int(y-offset))=="S"):
+                print("colision")
+                return True
+            else:
+                return False
         else:
             return False
+        
         
 
     

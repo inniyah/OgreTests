@@ -17,10 +17,10 @@
    <property name="tipo" value="f"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztwwEJAAAMBKGL9P3TLcdAwVVTVVVVVVVVVVXV5w8vV9TQ
+   eJzt06EBwCAUQ8GMxA603X8kLApZ6O+J83kiLUkDAAAAgE3uAzb8ueOZfLmjsmuyewtJP2CDjnVHlb9U6QAAAHjbAJCW1hY=
   </data>
  </layer>
- <layer id="1" name="Walls nivel 1" width="50" height="50" visible="0">
+ <layer id="1" name="Walls nivel 1" width="50" height="50">
   <properties>
    <property name="level" type="int" value="0"/>
    <property name="tipo" value="w"/>

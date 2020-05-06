@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.3" name="floors" tilewidth="128" tileheight="224" tilecount="5" columns="0">
+<tileset version="1.2" tiledversion="1.3.3" name="floors" tilewidth="128" tileheight="224" tilecount="6" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1">
   <properties>
@@ -8,6 +8,7 @@
    <property name="Material" value="simplewall_cb440ca9dd1bf8a43a2b772fde590286a2b302b1.png"/>
    <property name="RotAngle" value="0"/>
    <property name="Texture" value="floors/simplewall.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/simplewall_1.iso.png" width="128" height="224"/>
  </tile>
@@ -18,6 +19,7 @@
    <property name="Material" value="simplewall_cb440ca9dd1bf8a43a2b772fde590286a2b302b1.png"/>
    <property name="RotAngle" value="90"/>
    <property name="Texture" value="floors/simplewall.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/simplewall_2.iso.png" width="128" height="224"/>
  </tile>
@@ -28,6 +30,7 @@
    <property name="Material" value="simplewall_cb440ca9dd1bf8a43a2b772fde590286a2b302b1.png"/>
    <property name="RotAngle" value="180"/>
    <property name="Texture" value="floors/simplewall.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/simplewall_3.iso.png" width="128" height="224"/>
  </tile>
@@ -38,6 +41,7 @@
    <property name="Material" value="simplewall_cb440ca9dd1bf8a43a2b772fde590286a2b302b1.png"/>
    <property name="RotAngle" value="270"/>
    <property name="Texture" value="floors/simplewall.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/simplewall_4.iso.png" width="128" height="224"/>
  </tile>
@@ -48,6 +52,7 @@
    <property name="Material" value="terr_rock6_640e6056342216ae18553f8ba4a1c1b52124c32c.png"/>
    <property name="RotAngle" value="0"/>
    <property name="Texture" value="floors/terr_rock6.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/terr_rock6_1.iso.png" width="128" height="224"/>
  </tile>
@@ -58,6 +63,7 @@
    <property name="Material" value="terr_rock6_640e6056342216ae18553f8ba4a1c1b52124c32c.png"/>
    <property name="RotAngle" value="90"/>
    <property name="Texture" value="floors/terr_rock6.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/terr_rock6_2.iso.png" width="128" height="224"/>
  </tile>
@@ -68,6 +74,7 @@
    <property name="Material" value="terr_rock6_640e6056342216ae18553f8ba4a1c1b52124c32c.png"/>
    <property name="RotAngle" value="180"/>
    <property name="Texture" value="floors/terr_rock6.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/terr_rock6_3.iso.png" width="128" height="224"/>
  </tile>
@@ -78,6 +85,7 @@
    <property name="Material" value="terr_rock6_640e6056342216ae18553f8ba4a1c1b52124c32c.png"/>
    <property name="RotAngle" value="270"/>
    <property name="Texture" value="floors/terr_rock6.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/terr_rock6_4.iso.png" width="128" height="224"/>
  </tile>
@@ -88,6 +96,8 @@
    <property name="Material" value="BeachStones_d1e564fad14626caad2dc21a8d440e65bba718be.png"/>
    <property name="RotAngle" value="0"/>
    <property name="Texture" value="floors/BeachStones.png"/>
+   <property name="Type" value="Floor"/>
+   <property name="Friction" value="0.8"/>
   </properties>
   <image source="../floors/BeachStones_1.iso.png" width="128" height="224"/>
  </tile>
@@ -98,6 +108,8 @@
    <property name="Material" value="BeachStones_d1e564fad14626caad2dc21a8d440e65bba718be.png"/>
    <property name="RotAngle" value="90"/>
    <property name="Texture" value="floors/BeachStones.png"/>
+   <property name="Type" value="Floor"/>
+   <property name="Friction" value="0.8"/>
   </properties>
   <image source="../floors/BeachStones_2.iso.png" width="128" height="224"/>
  </tile>
@@ -108,6 +120,8 @@
    <property name="Material" value="BeachStones_d1e564fad14626caad2dc21a8d440e65bba718be.png"/>
    <property name="RotAngle" value="180"/>
    <property name="Texture" value="floors/BeachStones.png"/>
+   <property name="Type" value="Floor"/>
+   <property name="Friction" value="0.8"/>
   </properties>
   <image source="../floors/BeachStones_3.iso.png" width="128" height="224"/>
  </tile>
@@ -118,6 +132,8 @@
    <property name="Material" value="BeachStones_d1e564fad14626caad2dc21a8d440e65bba718be.png"/>
    <property name="RotAngle" value="270"/>
    <property name="Texture" value="floors/BeachStones.png"/>
+   <property name="Type" value="Floor"/>
+   <property name="Friction" value="0.8"/>
   </properties>
   <image source="../floors/BeachStones_4.iso.png" width="128" height="224"/>
  </tile>
@@ -128,6 +144,8 @@
    <property name="Material" value="BumpyMetal_dc3319293428be8372001c62ca1cfff26afd39e2.png"/>
    <property name="RotAngle" value="0"/>
    <property name="Texture" value="floors/BumpyMetal.png"/>
+   <property name="Type" value="Floor"/>
+   <property name="Friction" value="0.3"/>
   </properties>
   <image source="../floors/BumpyMetal_1.iso.png" width="128" height="224"/>
  </tile>
@@ -138,6 +156,8 @@
    <property name="Material" value="BumpyMetal_dc3319293428be8372001c62ca1cfff26afd39e2.png"/>
    <property name="RotAngle" value="90"/>
    <property name="Texture" value="floors/BumpyMetal.png"/>
+   <property name="Type" value="Floor"/>
+   <property name="Friction" value="0.3"/>
   </properties>
   <image source="../floors/BumpyMetal_2.iso.png" width="128" height="224"/>
  </tile>
@@ -148,6 +168,8 @@
    <property name="Material" value="BumpyMetal_dc3319293428be8372001c62ca1cfff26afd39e2.png"/>
    <property name="RotAngle" value="180"/>
    <property name="Texture" value="floors/BumpyMetal.png"/>
+   <property name="Type" value="Floor"/>
+   <property name="Friction" value="0.3"/>
   </properties>
   <image source="../floors/BumpyMetal_3.iso.png" width="128" height="224"/>
  </tile>
@@ -158,6 +180,8 @@
    <property name="Material" value="BumpyMetal_dc3319293428be8372001c62ca1cfff26afd39e2.png"/>
    <property name="RotAngle" value="270"/>
    <property name="Texture" value="floors/BumpyMetal.png"/>
+   <property name="Type" value="Floor"/>
+   <property name="Friction" value="0.3"/>
   </properties>
   <image source="../floors/BumpyMetal_4.iso.png" width="128" height="224"/>
  </tile>
@@ -168,6 +192,7 @@
    <property name="Material" value="MtlPlat2_586188d9bcd9e5b964142956490f87d7a32c6bd3.png"/>
    <property name="RotAngle" value="0"/>
    <property name="Texture" value="floors/MtlPlat2.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/MtlPlat2_1.iso.png" width="128" height="224"/>
  </tile>
@@ -178,6 +203,7 @@
    <property name="Material" value="MtlPlat2_586188d9bcd9e5b964142956490f87d7a32c6bd3.png"/>
    <property name="RotAngle" value="90"/>
    <property name="Texture" value="floors/MtlPlat2.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/MtlPlat2_2.iso.png" width="128" height="224"/>
  </tile>
@@ -188,6 +214,7 @@
    <property name="Material" value="MtlPlat2_586188d9bcd9e5b964142956490f87d7a32c6bd3.png"/>
    <property name="RotAngle" value="180"/>
    <property name="Texture" value="floors/MtlPlat2.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/MtlPlat2_3.iso.png" width="128" height="224"/>
  </tile>
@@ -198,7 +225,52 @@
    <property name="Material" value="MtlPlat2_586188d9bcd9e5b964142956490f87d7a32c6bd3.png"/>
    <property name="RotAngle" value="270"/>
    <property name="Texture" value="floors/MtlPlat2.png"/>
+   <property name="Type" value="Floor"/>
   </properties>
   <image source="../floors/MtlPlat2_4.iso.png" width="128" height="224"/>
+ </tile>
+ <tile id="26">
+  <properties>
+   <property name="3DModel" value="floors/prueba.obj"/>
+   <property name="3DMesh" value="prueba.mesh"/>
+   <property name="Material" value="prueba_76d537e43a209572955fe583edc7cebca3afeede.png"/>
+   <property name="RotAngle" value="0"/>
+   <property name="Texture" value="floors/prueba.png"/>
+   <property name="Type" value="Floor"/>
+  </properties>
+  <image source="../floors/prueba_1.iso.png" width="128" height="224"/>
+ </tile>
+ <tile id="27">
+  <properties>
+   <property name="3DModel" value="floors/prueba.obj"/>
+   <property name="3DMesh" value="prueba.mesh"/>
+   <property name="Material" value="prueba_76d537e43a209572955fe583edc7cebca3afeede.png"/>
+   <property name="RotAngle" value="90"/>
+   <property name="Texture" value="floors/prueba.png"/>
+   <property name="Type" value="Floor"/>
+  </properties>
+  <image source="../floors/prueba_2.iso.png" width="128" height="224"/>
+ </tile>
+ <tile id="28">
+  <properties>
+   <property name="3DModel" value="floors/prueba.obj"/>
+   <property name="3DMesh" value="prueba.mesh"/>
+   <property name="Material" value="prueba_76d537e43a209572955fe583edc7cebca3afeede.png"/>
+   <property name="RotAngle" value="180"/>
+   <property name="Texture" value="floors/prueba.png"/>
+   <property name="Type" value="Floor"/>
+  </properties>
+  <image source="../floors/prueba_3.iso.png" width="128" height="224"/>
+ </tile>
+ <tile id="29">
+  <properties>
+   <property name="3DModel" value="floors/prueba.obj"/>
+   <property name="3DMesh" value="prueba.mesh"/>
+   <property name="Material" value="prueba_76d537e43a209572955fe583edc7cebca3afeede.png"/>
+   <property name="RotAngle" value="270"/>
+   <property name="Texture" value="floors/prueba.png"/>
+   <property name="Type" value="Floor"/>
+  </properties>
+  <image source="../floors/prueba_4.iso.png" width="128" height="224"/>
  </tile>
 </tileset>
