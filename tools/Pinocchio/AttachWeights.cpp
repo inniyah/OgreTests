@@ -296,6 +296,32 @@ void dumpMesh(std::string meshname, const Mesh & m, const Skeleton & skeleton, c
     skel_os << "	</bonehierarchy>" << std::endl;
 
     skel_os << "	<animations>" << std::endl;
+    skel_os << "		<animation name=\"Test\" length=\"1\">" << std::endl;
+    skel_os << "			<tracks>" << std::endl;
+
+    for (int i = 0; i < (int)o.embedding.size(); ++i) {
+        const std::string & bone_name = skeleton.getNameForJoint(i);
+
+        skel_os << "				<track bone=\"" << bone_name << "\">" << std::endl;
+        skel_os << "					<keyframes>" << std::endl;
+        skel_os << "						<keyframe time=\"0\">" << std::endl;
+        skel_os << "							<translate x=\"0\" y=\"0\" z=\"0\" />" << std::endl;
+        skel_os << "							<rotate angle=\"0\">" << std::endl;
+        skel_os << "								<axis x=\"1\" y=\"0\" z=\"0\" />" << std::endl;
+        skel_os << "							</rotate>" << std::endl;
+        skel_os << "						</keyframe>" << std::endl;
+        skel_os << "						<keyframe time=\"1\">" << std::endl;
+        skel_os << "							<translate x=\"0.1\" y=\"0.1\" z=\"0.1\" />" << std::endl;
+        skel_os << "							<rotate angle=\"0\">" << std::endl;
+        skel_os << "								<axis x=\"1\" y=\"0\" z=\"0\" />" << std::endl;
+        skel_os << "							</rotate>" << std::endl;
+        skel_os << "						</keyframe>" << std::endl;
+        skel_os << "					</keyframes>" << std::endl;
+        skel_os << "				</track>" << std::endl;
+    }
+
+    skel_os << "			</tracks>" << std::endl;
+    skel_os << "		</animation>" << std::endl;
     skel_os << "	</animations>" << std::endl;
 
     skel_os << "</skeleton>" << std::endl;
