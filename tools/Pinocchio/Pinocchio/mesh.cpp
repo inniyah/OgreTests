@@ -55,13 +55,13 @@ namespace Pinocchio {
             return;
         }
 
-        //reconstruct the rest of the information
+        // reconstruct the rest of the information
         int verts = vertices.size();
 
         if(verts == 0)
             return;
 
-        for(i = 0; i < (int)edges.size(); ++i) {            //make sure all vertex indices are valid
+        for(i = 0; i < (int)edges.size(); ++i) { // make sure all vertex indices are valid
             if(edges[i].vertex < 0 || edges[i].vertex >= verts) {
                 Debugging::out() << "Error: invalid vertex index " << edges[i].vertex << std::endl;
                 OUT;
@@ -93,7 +93,7 @@ namespace Pinocchio {
             int v1 = edges[i].vertex;
             int v2 = edges[edges[i].prev].vertex;
 
-            vertices[v1].edge = edges[edges[i].prev].prev;  //assign the vertex' edge
+            vertices[v1].edge = edges[edges[i].prev].prev; // assign the vertex' edge
 
             if(halfEdgeMap[v1].count(v2)) {
                 Debugging::out() << "Error: duplicate edge detected: " << v1 << " to " << v2 << std::endl;

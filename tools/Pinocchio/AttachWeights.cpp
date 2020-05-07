@@ -335,23 +335,24 @@ void dumpMesh(std::string meshname, const Mesh & m, const Skeleton & skeleton, c
     mesh_os << "<mesh>" << std::endl;
     mesh_os << "	<submeshes>" << std::endl;
 
-    mesh_os << "		<submesh material=\"" << "Example_/Ninja" << "\" usesharedvertices=\"false\" use32bitindexes=\"false\" operationtype=\"triangle_list\">" << std::endl;
+    mesh_os << "		<submesh material=\"" << "Material" << "\" usesharedvertices=\"false\" use32bitindexes=\"false\" operationtype=\"triangle_list\">" << std::endl;
 
     int num_faces = m.edges.size() / 3;
 
     mesh_os << "			<faces count=\"" << num_faces << "\">" << std::endl;
-    for (int i = 0; i < num_faces; i++) {
-        mesh_os << "				<face v1=\"" << 3*i << "\" v2=\"" << 3*i+1 << "\" v3=\"" << 3*i+2 << "\" />" << std::endl;
+    for (int f_id = 0; f_id < num_faces; f_id++) {
+        mesh_os << "				<face v1=\"" << m.edges[3*f_id].vertex
+                                   << "\" v2=\"" << m.edges[3*f_id + 1].vertex
+                                   << "\" v3=\"" << m.edges[3*f_id + 2].vertex << "\" />" << std::endl;
     }
     mesh_os << "			</faces>" << std::endl;
 
-    int num_vertex = m.edges.size();
+    int num_vertex = m.vertices.size();
 
     mesh_os << "			<geometry vertexcount=\"" << num_vertex << "\">" << std::endl;
 
     mesh_os << "				<vertexbuffer positions=\"true\" normals=\"true\">" << std::endl;
-    for (int i = 0; i < num_vertex; i++) {
-        int v_id = m.edges[i].vertex;
+    for (int v_id = 0; v_id < num_vertex; v_id++) {
         const Vector3 &v_pos = m.vertices[v_id].pos;
         const Vector3 &v_normal = m.vertices[v_id].normal;
 
