@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.2" tiledversion="1.3.3" orientation="isometric" renderorder="right-down" width="50" height="50" tilewidth="128" tileheight="74" infinite="0" nextlayerid="6" nextobjectid="1">
  <tileset firstgid="1" source="models.tsx"/>
- <tileset firstgid="41" source="floors.tsx"/>
+ <tileset firstgid="61" source="floors.tsx"/>
  <layer id="2" name="Metadata nivel 1" width="50" height="50" visible="0">
   <properties>
    <property name="level" type="int" value="0"/>
@@ -17,7 +17,7 @@
    <property name="tipo" value="f"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt06EBwCAUQ8GMxA603X8kLApZ6O+J83kiLUkDAAAAgE3uAzb8ueOZfLmjsmuyewtJP2CDjnVHlb9U6QAAAHjbAJCW1hY=
+   eJzt06EBwCAUQ8EMxw603X8QLApZ6O+J83kiLUkDAAAAgE3uAzb8ueOZfLmjsmuyewtJP2CDjnVHlb9U6QAAAHjbAKldmXU=
   </data>
  </layer>
  <layer id="1" name="Walls nivel 1" width="50" height="50">
@@ -26,7 +26,7 @@
    <property name="tipo" value="w"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1ssKgCAQhWFx04Wy93/bVkGEV3B0Jv4PBIlZnElRnQMAAAAAAAAAQM4xO0ClbXYAIf41tLsqamK9hNd86RdHXG5N1mEp4vbIt1RerXvrnB1AmNb/3otPjMfsu+V71vx9PTBO69llZe9ZyVniE/NSrTaas7WgD71yPVnuN/c2schq/lAucTcZnADH
+   eJzt1k0OwiAQhmHCxp/Yeg9bF27ceP97daNJQxiKBjoz5n0SUiAsvimENgQAAAAAAAAAAPq5aAeodNIO0ElcNeuuFWtytYyr/qFdnO5Ke3LcLUXeOTMn5bV6tgbtAJ1Zfe+tRKF9aH9b0rvG4368tAM08tAO0Mjz/fz27rJ29mZh3lrOX0Whv7V2b/dkPCXjf9wPD27CvLc6apRq8lxv6d/EI6/5x+0lYQGrbAIX
   </data>
  </layer>
  <layer id="4" name="ceils nivel 1 (no hay)" width="50" height="50" visible="0">

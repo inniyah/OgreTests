@@ -9,9 +9,24 @@
     "Friction": 0.3
   },
   "3d_models/caution": {
-  "Collision": "S"
+  "Collision": "NP"
   },
   "3d_models/colmn": {
-  "Collision": "S"
+  "Collision": "NP"
+  },
+  "3d_models/escalera01": {
+  "Collision": "E1"
+  },
+    "3d_models/escalera02": {
+  "Collision": "E2"
+  },
+    "3d_models/escalera03": {
+  "Collision": "E3"
+  },
+    "3d_models/escalera04": {
+  "Collision": "E4"
+  },
+  "3d_models/hwall_solid": {
+  "Collision": "NP"
   }
 }

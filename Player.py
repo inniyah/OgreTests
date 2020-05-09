@@ -16,26 +16,35 @@ class Player:
     #Define velocidades del personaje
     LINEAL_VEL=5
     ANGULAR_VEL=1
-    p1=np.array([1, 0], dtype='f')
-    p2=np.array([1, 1], dtype='f')
-    p3=np.array([0, 1], dtype='f')
+    V0=np.array([0, 0], dtype='f')
     #mapa=None
     
     def __init__(self,node):
         """set node as node attached to player"""
         self.node=node
         #self.mapa=Ogretmxmap.tmxmap.instance
-        self.pos=np.array([node.getPosition().x, node.getPosition().z], dtype='f')
+        #self.pos=np.array([node.getPosition().x, node.getPosition().z], dtype='f')
+        self.pos=np.array([0,0], dtype='f')
         self.z=np.double(0)  #Altura del personaje
+        self.hsuelo=self.z
+        self.velz=0.0
         self.angle=np.double(0) #Angulo de direccion
         self.direccion=np.array([1, 0], dtype='f')
         self.actdireccion()
+        self.keyright=False
+        self.keyleft=False
+        self.keyup=False
+        self.keydown=False
+        self.keyjump=False
+        self.setpos(0,0,0)
+
      
     def setpos(self,x,y,z):
         self.pos[0]=x
         self.pos[1]=y
         self.z=np.double(z)
         self.actualizanodo()
+        print (self.pos)
     
     def actdireccion(self):
         """ devuelve el vector de direccion correspondiente al angulo """
@@ -47,21 +56,59 @@ class Player:
         self.direccion[0]=np.cos(self.angle)
         self.direccion[1]=-np.sin(self.angle) 
         
-    def rotateright(self,t):
-        self.angle-=t*self.ANGULAR_VEL
-        self.actdireccion()
+    def rotateright(self):
+        self.keyright=True
 
-    def rotateleft(self,t):
-        self.angle+=t*self.ANGULAR_VEL
-        self.actdireccion()
+    def rotateleft(self):
+        self.keyleft=True
 
-    def fordward(self,t):
-        self.moveifcan(self.direccion*t*self.LINEAL_VEL)
-        #self.pos+=self.direccion*t*self.LINEAL_VEL
+    def fordward(self):
+        self.keyup=True
+        
+    def backward(self):
+        self.keydown=True
     
-    def backward(self,t):
-        self.moveifcan(-self.direccion*t*self.LINEAL_VEL)
-        #self.pos-=self.direccion*t*self.LINEAL_VEL
+    def jump(self):
+        self.keyjump=True
+        
+    def actualiza(self,t):
+        #Actualiza la posición
+        
+        if self.keyright:
+            self.angle-=t*self.ANGULAR_VEL
+            self.keyright=False
+            self.actdireccion()
+        if self.keyleft:
+            self.angle+=t*self.ANGULAR_VEL
+            self.keyleft=False
+            self.actdireccion()
+        if self.keyup:
+            self.moveifcan(self.direccion*t*self.LINEAL_VEL)
+            self.keyup=False
+        if self.keydown:
+            self.moveifcan(-self.direccion*t*self.LINEAL_VEL)
+            self.keydown=False
+        if self.keyjump:
+            self.keyjump=False
+            if self.z==self.hsuelo:
+                self.velz=10.0
+
+        #miramos si tenemos que caer
+        if self.hsuelo<self.z or self.velz>0:
+            self.z+=t*self.velz-0.5*9.81*t
+            self.velz-=9.81*t
+        if self.hsuelo>self.z:
+            self.velz=0
+            self.z=self.hsuelo
+        else:
+            #miro a ver si tenemos que caer
+            self.moveifcan(self.V0)
+
+
+        
+        
+        #Actualiza el nodo
+        self.actualizanodo()
     
     def actualizanodo(self):
         # Actualizo la posición y rotación del nodo
@@ -74,6 +121,7 @@ class Player:
         return tp
 
     def moveifcan(self,direccion):
+        
         """ Estudia si se puede mover en esa dirección"""
         #primero voy a ver que longitud tiene la direccion
         self.long=sum(direccion*direccion)
@@ -95,10 +143,13 @@ class Player:
             
             
     def collision(self,pos):
-        """ Comprueba la colision en el mapa de una posicion"""
-        if self.mapa.collisiontile(pos[0],pos[1],self.z,0.5):
-                return True
+        """ Comprueba la colision en el mapa de una posicion
+            True no se puede mover a la posición indicada"""
+        h=self.mapa.collisiontile(self,pos[0],pos[1],self.z,0.25)
+        if h-self.z>0.5:
+            return True
         else:
+            self.hsuelo=h
             return False
 
         

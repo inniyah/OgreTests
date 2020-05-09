@@ -21,6 +21,50 @@
     "@IsoTile4": "3d_models/colmn_4.iso.png",
     "@Material": "colmn_a787577f39a565858cf333e9c0c721b92246a64c.jpg"
   },
+  "3d_models/escalera01.obj": {
+    ":attrs_file": "3d_models/attributes.json",
+    ":seq_id": 9,
+    "@3DMesh": "3d_models/escalera01.mesh",
+    "@3DModel": "3d_models/escalera01.obj",
+    "@IsoTile1": "3d_models/escalera01_1.iso.png",
+    "@IsoTile2": "3d_models/escalera01_2.iso.png",
+    "@IsoTile3": "3d_models/escalera01_3.iso.png",
+    "@IsoTile4": "3d_models/escalera01_4.iso.png",
+    "@Material": "dummyMat0_e51549a95f88f635af33e957694f1d9d2eea0e5b_e51549a95f88f635af33e957694f1d9d2eea0e5b"
+  },
+  "3d_models/escalera02.obj": {
+    ":attrs_file": "3d_models/attributes.json",
+    ":seq_id": 11,
+    "@3DMesh": "3d_models/escalera02.mesh",
+    "@3DModel": "3d_models/escalera02.obj",
+    "@IsoTile1": "3d_models/escalera02_1.iso.png",
+    "@IsoTile2": "3d_models/escalera02_2.iso.png",
+    "@IsoTile3": "3d_models/escalera02_3.iso.png",
+    "@IsoTile4": "3d_models/escalera02_4.iso.png",
+    "@Material": "dummyMat0_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6"
+  },
+  "3d_models/escalera03.obj": {
+    ":attrs_file": "3d_models/attributes.json",
+    ":seq_id": 10,
+    "@3DMesh": "3d_models/escalera03.mesh",
+    "@3DModel": "3d_models/escalera03.obj",
+    "@IsoTile1": "3d_models/escalera03_1.iso.png",
+    "@IsoTile2": "3d_models/escalera03_2.iso.png",
+    "@IsoTile3": "3d_models/escalera03_3.iso.png",
+    "@IsoTile4": "3d_models/escalera03_4.iso.png",
+    "@Material": "dummyMat0_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2"
+  },
+  "3d_models/escalera04.obj": {
+    ":attrs_file": "3d_models/attributes.json",
+    ":seq_id": 12,
+    "@3DMesh": "3d_models/escalera04.mesh",
+    "@3DModel": "3d_models/escalera04.obj",
+    "@IsoTile1": "3d_models/escalera04_1.iso.png",
+    "@IsoTile2": "3d_models/escalera04_2.iso.png",
+    "@IsoTile3": "3d_models/escalera04_3.iso.png",
+    "@IsoTile4": "3d_models/escalera04_4.iso.png",
+    "@Material": "dummyMat0_c4d6ef71de74bb945ac6218ded997c50c4e7395d_c4d6ef71de74bb945ac6218ded997c50c4e7395d"
+  },
   "3d_models/hwall_corner.obj": {
     ":attrs_file": "3d_models/attributes.json",
     ":seq_id": 4,
@@ -88,19 +132,23 @@
     "@Material": "wall_e6f4517a0091a9afedfc69cf7499b809b05b495c.jpg"
   },
   ":seq_info": {
-    "3d_models": 9,
+    "3d_models": 13,
     "floors": 7
   },
   ":type_lists": {
     "3d_models": {
       "1": "3d_models/wall.obj",
+      "10": "3d_models/escalera03.obj",
+      "11": "3d_models/escalera02.obj",
+      "12": "3d_models/escalera04.obj",
       "2": "3d_models/colmn.obj",
       "3": "3d_models/caution.obj",
       "4": "3d_models/hwall_corner.obj",
       "5": "3d_models/hwall_cross.obj",
       "6": "3d_models/hwall_solid.obj",
       "7": "3d_models/hwall_fork.obj",
-      "8": "3d_models/hwall_straight.obj"
+      "8": "3d_models/hwall_straight.obj",
+      "9": "3d_models/escalera01.obj"
     },
     "floors": {
       "1": "floors/simplewall.obj",

@@ -12,6 +12,7 @@ import Ogre
 #import Ogre.Bites as OgreBites
 #import os.path
 import numpy as np
+import collisiontypes
 
 class tmxmap:
     
@@ -30,7 +31,8 @@ class tmxmap:
     '270':[(0.0,0.0),(0.0,1.0),(1.0,1.0),(1.0,0.0)],
     '180':[(0.0,1.0),(1.0,1.0),(1.0,0.0),(0.0,0.0)],
     '90':[(1.0,1.0),(1.0,0.0),(0.0,0.0),(0.0,1.0)]}
-    wall_layers={}
+    wall_layers={}  #Lista de layers conteniendo las walls por niveles
+    floor_layers={}
     
     def __init__(self,file_name):
         self.load(file_name)
@@ -39,7 +41,7 @@ class tmxmap:
     def load(self,file_name):
         #Cargamos el mapa
         self.world_map = tmxreader.TileMapParser().parse_decode(file_name)
-        #Hacemos el listado de las capas y de las metadatas
+        
         for layer in self.world_map.layers:
             if self.maxh<int(layer.properties['level']):
                 self.maxh=int(layer.properties['level'])
@@ -58,13 +60,19 @@ class tmxmap:
             h=float(layer.properties['level'])*2
             if layer.properties['tipo'] in tipo:
                 tipo[layer.properties['tipo']](scn_mgr,layer.name,h)
+        
         # vamos a registrar las layers necesarias
         for layer in self.world_map.layers:
             if layer.properties['tipo']=='w':
                 self.wall_layers[int(layer.properties['level'])]=layer
+            elif layer.properties['tipo']=='f':
+                self.floor_layers[int(layer.properties['level'])]=layer
         
-        print (self.wall_layers)
-        
+        #creamos las layers de colisiones
+        print ("creando colisiones")
+        self.collisiontiles=collisiontypes.collision_tiles()
+        self.collisiontiles.createtiles(self.world_map.tiles)
+
         
     
     def makewalls(self,scn_mgr,layername,h):
@@ -80,7 +88,7 @@ class tmxmap:
                     wallNode1 = scn_mgr.getRootSceneNode().createChildSceneNode()
                     wallNode2=wallNode1.createChildSceneNode()
                     wallNode2.translate(-.5,0,-.5)
-                    wallNode1.yaw(Ogre.Ogre.Radian((float(self.world_map.tiles[gid].properties[self.ROT_PROP])+90)/180*np.pi),Ogre.Node.TS_WORLD)
+                    wallNode1.yaw(Ogre.Ogre.Radian((-float(self.world_map.tiles[gid].properties[self.ROT_PROP])+90)/180*np.pi),Ogre.Node.TS_WORLD)
                     #wallNode.translate(py+0.5, h, px+0.5)
                     wallNode1.setPosition(py+0.5, h, px+0.5)
                     wallNode2.attachObject(wall)
@@ -169,44 +177,56 @@ class tmxmap:
         #man.setCastShadows(False)
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.attachObject(man)
-    
-    def collisionwall(self,layer,x,y):
-        tile=layer.content2D [y] [x]
-        if tile==0:
-            return ""
-        else:
-            prop=self.world_map.tiles[tile].properties
-        if "Collision" in prop:
-            return prop['Collision']
-        else:
-            return ""
-        
+
+#
+#
+#           ESTUDIO DE LAS COLISIONES
+#
+#
+
+  
+    def collisionwall(self,layer,objeto,x,y):
+        """ ESTUDIO DE LA COLISION DE LAS WALLS"""
+        return self.collisiontiles.collisiontypes[layer.content2D [int(y)] [int(x)]] (objeto,x,y)
         
  
-    def collisiontile(self,x,y,z,offset):
+    def collisiontile(self,objeto,x,y,z,offset):
         """ Comprobamos si se puede estar en un tile"""
-        #primero vemos a ver cual es el layer que corresponde a esa altura
-        if y>self.world_map.width-offset or x>self.world_map.height-offset:
-            return False
-        #calculamos el nivel de altura correspondiente
-        level=int(z)//2
         
-        #Empezamos comprobando las colisiones con los walls
+        #si estmos fuera del mapa la altura sera 0
+        if y>self.world_map.width-offset or x>self.world_map.height-offset:
+            return 0
+        
+        #primero vemos a ver cual es el layer que corresponde a esa altura
+        level=int(z)//2
+
+        #estudio de la colisión con las paredes        
         if level in self.wall_layers:
             layer=self.wall_layers[level]
-            if (self.collisionwall(layer,int(x+offset),int(y+offset))=="S" or
-                self.collisionwall(layer,int(x-offset),int(y-offset))=="S" or
-                self.collisionwall(layer,int(x-offset),int(y+offset))=="S" or
-                self.collisionwall(layer,int(x+offset),int(y-offset))=="S"):
-                print("colision")
-                return True
-            else:
-                return False
-        else:
-            return False
-        
-        
+            h= max(self.collisionwall(layer,objeto,x+offset,y+offset),
+                self.collisionwall(layer,objeto,x-offset,y-offset),
+                self.collisionwall(layer,objeto,x+offset,y-offset),
+                self.collisionwall(layer,objeto,x-offset,y+offset))+level*2
+        else: #No existe la layer, luego no hay colisión
+            h= -2.0+level*2
 
+        if h>level:
+            return h
+
+        #estudio la colisión con el suelo
+        if level==0:
+            return 0
+        print (level)
+        
+        if level in self.floor_layers:
+            layer=self.floor_layers[level]
+            if layer.content2D [int(y)] [int(x)]==0:
+                return -2.0+level*2
+            else:
+                return level*2
+        else:
+            return -2.0+level*2
+        
     
     def metadata(self,layername,x,y):
         # Comporbamos no pasarnos de los limites del mapa

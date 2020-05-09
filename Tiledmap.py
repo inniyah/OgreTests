@@ -107,7 +107,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         # Creo el player y lo fusiono con su nodo
         self.Player=Player.Player(Playernode)
         self.Player.mapa=mapa
-        self.Player.setpos(0,0,0)
+        self.Player.setpos(10,10,0)
 
         
         # Creamos la camara y la posicionamos en el personaje
@@ -147,17 +147,6 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         #pointLightNode.setPosition(Ogre.Vector3(2, 2, 2))
         pointLightNode.setPosition(2, 2, 2)
 
-        
-        #manual object (y,z,x)
-
-        #mapa.load("Maps/mapa.tmx")
-        #floor1=mapa.makefloor(scn_mgr,"Floor1",0)
-        #ceil1=mapa.makeceil(scn_mgr,"Ceil1",2)
-        #mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
-        #mannode.setPosition(0,0,0)
-        #mannode.attachObject(floor1)
-        #mannode.attachObject(ceil1)
-        #mapa.makewalls(scn_mgr,"Wall1",0)
         self.mapa=mapa
         
         
@@ -172,7 +161,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         
         
         self.time=evt.timeSinceLastFrame
-        self.Player.actualizanodo()
+        self.Player.actualiza(self.time)
         #self.vel=self.time*self.LINEAL_VEL
         #print (evt.timeSinceLastFrame)
                         
@@ -184,19 +173,22 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
                 self.getRoot().queueEndRendering()
             
             if evt.keysym.sym == OgreBites.SDLK_DOWN:
-                self.Player.backward(self.time)
+                self.Player.backward()
 
                 
             if evt.keysym.sym == OgreBites.SDLK_UP:
-                self.Player.fordward(self.time)
+                self.Player.fordward()
   
             
             if evt.keysym.sym == OgreBites.SDLK_LEFT:
-                self.Player.rotateleft(self.time)
+                self.Player.rotateleft()
 
             
             if evt.keysym.sym == OgreBites.SDLK_RIGHT:
-                self.Player.rotateright(self.time)
+                self.Player.rotateright()
+            
+            if evt.keysym.sym == OgreBites.SDLK_SPACE:
+                self.Player.jump()
  
             
             if evt.keysym.sym == OgreBites.SDLK_PAGEDOWN:
@@ -204,6 +196,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
 
             if evt.keysym.sym == OgreBites.SDLK_PAGEUP:
                 self.camNode.pitch(Ogre.Ogre.Radian(self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
+
 
             
             return True
