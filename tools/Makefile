@@ -16,14 +16,27 @@ FLOOR_ISO_TILES = \
 	$(FLOOR_ISO_OBJS:.obj=_4.iso.png) \
 	$(FLOOR_ISO_OBJS:.obj=.mesh)
 
-all: tiles floors tiled/models.tsx
+CEILING_PNG_SOURCES = $(shell find ceilings -name "*.png" | grep -v ".iso.png$$")
+CEILING_JPG_SOURCES = $(shell find ceilings -name "*.jpg")
+CEILING_ISO_OBJS = $(CEILING_PNG_SOURCES:.png=.obj) $(CEILING_JPG_SOURCES:.jpg=.obj)
+CEILING_ISO_TILES = \
+	$(CEILING_ISO_OBJS:.obj=_1.iso.png) \
+	$(CEILING_ISO_OBJS:.obj=_2.iso.png) \
+	$(CEILING_ISO_OBJS:.obj=_3.iso.png) \
+	$(CEILING_ISO_OBJS:.obj=_4.iso.png) \
+	$(CEILING_ISO_OBJS:.obj=.mesh)
+
+all: tiles floors ceilings tiled/models.tsx
 
 tiles: $(ISO_TILES)
 
 floors: $(FLOOR_ISO_OBJS) $(FLOOR_ISO_TILES)
 	echo $(FLOOR_ISO_OBJS)
 
-%.obj: %.png
+ceilings: $(CEILING_ISO_OBJS) $(CEILING_ISO_TILES)
+	echo $(CEILING_ISO_OBJS)
+
+floors/%.obj: floors/%.png
 	cat floors/floor.mtl.in \
 		| sed -e 's|$${MATERIAL_TEXTURE}|$(<:floors/%=%)|' \
 		| sed -e 's|$${MATERIAL_NAME}|Material_$(shell echo "$<" | md5sum)|' \
@@ -34,8 +47,38 @@ floors: $(FLOOR_ISO_OBJS) $(FLOOR_ISO_TILES)
 		> $@
 	scripts/add_metadata.py $@ -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D Texture $<
 
-%.obj: %.jpg
-	echo $< $@
+floors/%.obj: floors/%.jpg
+	cat floors/floor.mtl.in \
+		| sed -e 's|$${MATERIAL_TEXTURE}|$(<:floors/%=%)|' \
+		| sed -e 's|$${MATERIAL_NAME}|Material_$(shell echo "$<" | md5sum)|' \
+		> $(basename $@).mtl
+	cat floors/floor.obj.in \
+		| sed -e 's|$${MATERIAL_FILE}|$(basename $(<:floors/%=%)).mtl|' \
+		| sed -e 's|$${MATERIAL_NAME}|Material_$(shell echo "$<" | md5sum)|' \
+		> $@
+	scripts/add_metadata.py $@ -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D Texture $<
+
+ceilings/%.obj: ceilings/%.png
+	cat ceilings/ceiling.mtl.in \
+		| sed -e 's|$${MATERIAL_TEXTURE}|$(<:ceilings/%=%)|' \
+		| sed -e 's|$${MATERIAL_NAME}|Material_$(shell echo "$<" | md5sum)|' \
+		> $(basename $@).mtl
+	cat ceilings/ceiling.obj.in \
+		| sed -e 's|$${MATERIAL_FILE}|$(basename $(<:ceilings/%=%)).mtl|' \
+		| sed -e 's|$${MATERIAL_NAME}|Material_$(shell echo "$<" | md5sum)|' \
+		> $@
+	scripts/add_metadata.py $@ -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D Texture $<
+
+ceilings/%.obj: ceilings/%.jpg
+	cat ceilings/ceiling.mtl.in \
+		| sed -e 's|$${MATERIAL_TEXTURE}|$(<:ceilings/%=%)|' \
+		| sed -e 's|$${MATERIAL_NAME}|Material_$(shell echo "$<" | md5sum)|' \
+		> $(basename $@).mtl
+	cat ceilings/ceiling.obj.in \
+		| sed -e 's|$${MATERIAL_FILE}|$(basename $(<:ceilings/%=%)).mtl|' \
+		| sed -e 's|$${MATERIAL_NAME}|Material_$(shell echo "$<" | md5sum)|' \
+		> $@
+	scripts/add_metadata.py $@ -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D Texture $<
 
 TinyRenderer/TinyRenderer:
 	$(MAKE) -C TinyRenderer
@@ -78,7 +121,7 @@ OgreAssimp/OgreAssimpConverter:
 	convert +append $+ $@
 	optipng $@
 
-tiled/models.tsx tiled/floors.tsx: metadata/info.json tiles floors
+tiled/models.tsx tiled/floors.tsx tiled/ceilings.tsx: metadata/info.json tiles floors ceilings
 	scripts/tsx_generator.py -d metadata/info.json -o tiled/
 
 clean:
@@ -104,6 +147,15 @@ clean:
 	@rm -fv `find floors -name "*.material"`
 	@rm -fv `find floors -name "*.skeleton"`
 	@rm -fv `find floors -name "*.skeleton.xml"`
+
+	@rm -fv `find ceilings -name "*.obj"`
+	@rm -fv `find ceilings -name "*.mtl"`
+	@rm -fv `find ceilings -name "*.iso.png"`
+	@rm -fv `find ceilings -name "*.mesh"`
+	@rm -fv `find ceilings -name "*.mesh.xml"`
+	@rm -fv `find ceilings -name "*.material"`
+	@rm -fv `find ceilings -name "*.skeleton"`
+	@rm -fv `find ceilings -name "*.skeleton.xml"`
 
 cleanall: clean
 	$(MAKE) -C OgreAssimp cleanall

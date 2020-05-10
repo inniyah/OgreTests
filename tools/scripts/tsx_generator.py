@@ -27,6 +27,7 @@ if __name__ == "__main__":
     for (tiles_name, tiles_list, tile_id_base, tsx_filename) in [
         ("models", all_info[":type_lists"]["3d_models"], 1, os.path.join(args.output, "models.tsx")),
         ("floors", all_info[":type_lists"]["floors"],    1, os.path.join(args.output, "floors.tsx")),
+        ("ceilings", all_info[":type_lists"]["ceilings"],1, os.path.join(args.output, "ceilings.tsx")),
     ]:
 
         tiles_per_object = 4
