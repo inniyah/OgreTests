@@ -44,7 +44,6 @@ class Player:
         self.pos[1]=y
         self.z=np.double(z)
         self.actualizanodo()
-        print (self.pos)
     
     def actdireccion(self):
         """ devuelve el vector de direccion correspondiente al angulo """
@@ -55,18 +54,6 @@ class Player:
 
         self.direccion[0]=np.cos(self.angle)
         self.direccion[1]=-np.sin(self.angle) 
-        
-    def rotateright(self):
-        self.keyright=True
-
-    def rotateleft(self):
-        self.keyleft=True
-
-    def fordward(self):
-        self.keyup=True
-        
-    def backward(self):
-        self.keydown=True
     
     def jump(self):
         self.keyjump=True
@@ -76,18 +63,18 @@ class Player:
         
         if self.keyright:
             self.angle-=t*self.ANGULAR_VEL
-            self.keyright=False
+
             self.actdireccion()
         if self.keyleft:
             self.angle+=t*self.ANGULAR_VEL
-            self.keyleft=False
+
             self.actdireccion()
         if self.keyup:
             self.moveifcan(self.direccion*t*self.LINEAL_VEL)
-            self.keyup=False
+
         if self.keydown:
             self.moveifcan(-self.direccion*t*self.LINEAL_VEL)
-            self.keydown=False
+
         if self.keyjump:
             self.keyjump=False
             if self.z==self.hsuelo:

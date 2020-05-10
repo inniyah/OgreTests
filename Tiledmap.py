@@ -173,20 +173,13 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
                 self.getRoot().queueEndRendering()
             
             if evt.keysym.sym == OgreBites.SDLK_DOWN:
-                self.Player.backward()
-
-                
+                self.Player.keydown=True          
             if evt.keysym.sym == OgreBites.SDLK_UP:
-                self.Player.fordward()
-  
-            
+                self.Player.keyup=True      
             if evt.keysym.sym == OgreBites.SDLK_LEFT:
-                self.Player.rotateleft()
-
-            
+                self.Player.keyleft=True      
             if evt.keysym.sym == OgreBites.SDLK_RIGHT:
-                self.Player.rotateright()
-            
+                self.Player.keyright=True      
             if evt.keysym.sym == OgreBites.SDLK_SPACE:
                 self.Player.jump()
  
@@ -197,7 +190,17 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
             if evt.keysym.sym == OgreBites.SDLK_PAGEUP:
                 self.camNode.pitch(Ogre.Ogre.Radian(self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
 
+            return True
 
+    def keyReleased(self, evt):
+            if evt.keysym.sym == OgreBites.SDLK_DOWN:
+                self.Player.keydown=False          
+            if evt.keysym.sym == OgreBites.SDLK_UP:
+                self.Player.keyup=False      
+            if evt.keysym.sym == OgreBites.SDLK_LEFT:
+                self.Player.keyleft=False      
+            if evt.keysym.sym == OgreBites.SDLK_RIGHT:
+                self.Player.keyright=False   
             
             return True
                 

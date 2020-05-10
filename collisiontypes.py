@@ -92,7 +92,6 @@ class collision_tiles:
                 else:
                     colprop=tilelist[gid].properties["Collision"] + ROT_DIR[tilelist[gid].properties["RotAngle"]]
                     if colprop in COLISION_TYPE:
-                        print(colprop)
                         self.collisiontypes[gid]=COLISION_TYPE[colprop]
                     else:
                         self.collisiontypes[gid]=COLISION_TYPE[""]
