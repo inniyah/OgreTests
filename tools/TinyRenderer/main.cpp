@@ -109,7 +109,7 @@ struct Shader : public IShader {
         return gl_Vertex;
     }
 
-    virtual bool fragment(Vec3f bar, ImageColor &color) {
+    virtual bool fragment(Vec3f bar, ImageColor &color, Vec3f &normal) {
         color = model->ambient();
 
         Vec3f bn = (varying_nrm * bar).normalize();
@@ -141,6 +141,7 @@ struct Shader : public IShader {
 
         color.add(color_diff);
 
+        normal = n;
         return false;
     }
 };
@@ -307,6 +308,8 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     float *zbuffer = new float[width*height];
     for (int i=width*height; i--; zbuffer[i] = -std::numeric_limits<float>::max());
 
+    Vec3f *normals_buffer = new Vec3f[width*height];
+
     Image frame(width, height, Image::RGBA);
     lookat(eye, center, up);
 
@@ -358,7 +361,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
             for (int j=0; j<3; j++) {
                 shader.vertex(i, j);
             }
-            triangle(shader.varying_tri, shader, frame, zbuffer);
+            triangle(shader.varying_tri, shader, frame, zbuffer, normals_buffer);
         }
         delete model;
     }
@@ -369,6 +372,49 @@ int main (int argc, const char * const * argv, const char * const * envp) {
         output_path = output_filename.substr(0, output_last_slash) + "/";
     }
     mkpath(output_path.c_str());
+
+    ImageColor black(0, 0, 0);
+    for (int y = 0; y < frame.get_height(); ++y) {
+        for (int x = 0; x < frame.get_width(); ++x) {
+            float z = zbuffer[width * y + x];
+            Vec3f & n = normals_buffer[width * y + x];
+            if (n[0] || n[1] || n[1]) {
+                if (x > 0) {
+                    if (n*normals_buffer[width * y + (x - 1)] < 0.1)
+                        frame.set(x, y, black);
+                    if (zbuffer[width * y + (x - 1)] < z - 0.1)
+                        frame.set(x, y, black);
+                }
+                if (x < frame.get_width() - 1) {
+                    if (n*normals_buffer[width * y + (x + 1)] < 0.1)
+                        frame.set(x, y, black);
+                    if (zbuffer[width * y + (x + 1)] < z - 0.1)
+                        frame.set(x, y, black);
+                }
+                if (y > 0) {
+                    if (n*normals_buffer[width * (y - 1) + x] < 0.1)
+                        frame.set(x, y, black);
+                    if (zbuffer[width * (y - 1) + x] < z - 0.1)
+                        frame.set(x, y, black);
+                }
+                if (y < frame.get_height() - 1) {
+                    if (n*normals_buffer[width * (y+1) + x] < 0.1)
+                        frame.set(x, y, black);
+                    if (zbuffer[width * (y + 1) + x] < z - 0.1)
+                        frame.set(x, y, black);
+                }
+            } else {
+                if (x > 0 && normals_buffer[width * y + (x-1)].norm() > 0.1)
+                    frame.set(x, y, black);
+                if (x < frame.get_width() - 1 && normals_buffer[width * y + (x+1)].norm() > 0.1)
+                    frame.set(x, y, black);
+                if (y > 0 && normals_buffer[width * (y-1) + x].norm() > 0.1)
+                    frame.set(x, y, black);
+                if (y < frame.get_height() - 1 && normals_buffer[width * (y+1) + x].norm() > 0.1)
+                    frame.set(x, y, black);
+            }
+        }
+    }
 
     frame.flip_vertically(); // to place the origin in the bottom left corner of the image
     frame.write_to_file(output_filename.c_str());
@@ -396,6 +442,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     }
 #endif
 
+    delete [] normals_buffer;
     delete [] zbuffer;
     return EXIT_SUCCESS;
 }
