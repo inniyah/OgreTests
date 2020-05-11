@@ -382,27 +382,27 @@ int main (int argc, const char * const * argv, const char * const * envp) {
                 if (x > 0) {
                     if (n*normals_buffer[width * y + (x - 1)] < 0.1)
                         frame.set(x, y, black);
-                    if (fabs(zbuffer[width * y + (x - 1)] - z) > 0.1)
+                    if (fabs(zbuffer[width * y + (x - 1)] - z) > 0.15)
                         frame.set(x, y, black);
-                }
+                } else frame.set(x, y, black);
                 if (x < frame.get_width() - 1) {
                     if (n*normals_buffer[width * y + (x + 1)] < 0.1)
                         frame.set(x, y, black);
-                    if (fabs(zbuffer[width * y + (x + 1)] - z) > 0.1)
+                    if (fabs(zbuffer[width * y + (x + 1)] - z) > 0.15)
                         frame.set(x, y, black);
-                }
+                } else frame.set(x, y, black);
                 if (y > 0) {
                     if (n*normals_buffer[width * (y - 1) + x] < 0.1)
                         frame.set(x, y, black);
-                    if (fabs(zbuffer[width * (y - 1) + x] - z) > 0.1)
+                    if (fabs(zbuffer[width * (y - 1) + x] - z) > 0.15)
                         frame.set(x, y, black);
-                }
+                } else frame.set(x, y, black);
                 if (y < frame.get_height() - 1) {
-                    if (n*normals_buffer[width * (y+1) + x] < 0.1)
+                    if (n*normals_buffer[width * (y + 1) + x] < 0.1)
                         frame.set(x, y, black);
-                    if (fabs(zbuffer[width * (y + 1) + x] - z) > 0.1)
+                    if (fabs(zbuffer[width * (y + 1) + x] - z) > 0.15)
                         frame.set(x, y, black);
-                }
+                } else frame.set(x, y, black);
             } else {
                 if (x > 0 && normals_buffer[width * y + (x-1)].norm() > 0.1)
                     frame.set(x, y, black);
