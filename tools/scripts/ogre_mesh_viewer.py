@@ -29,6 +29,7 @@ def show_vertex_decl(decl):
         except IndexError:
             OgreOverlay.Text("TODO")
         OgreOverlay.NextColumn()
+
     OgreOverlay.Columns(1)
 
 class MaterialCreator(Ogre.MeshSerializerListener):
@@ -46,8 +47,11 @@ class MaterialCreator(Ogre.MeshSerializerListener):
                 # this is illegal due to OGRE specs, but we want to show that in the UI
                 pass
 
-    def processSkeletonName(self, mesh, name): pass
-    def processMeshCompleted(self, mesh): pass
+    def processSkeletonName(self, mesh, name):
+        pass
+
+    def processMeshCompleted(self, mesh):
+        pass
 
 class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
 
@@ -82,12 +86,14 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
     def mousePressed(self, evt):
         if evt.clicks != 2:
             return True
+
         vp = self.cam.getViewport()
         ray = self.cam.getCameraToViewportRay(evt.x / vp.getActualWidth(), evt.y / vp.getActualHeight())
         self.ray_query.setRay(ray)
         for hit in self.ray_query.execute():
             self.camman.setPivotOffset(ray.getPoint(hit.distance))
             break
+
         return True
 
     def _toggle_bbox(self):
@@ -120,9 +126,16 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
         win = self.getRenderWindow()
         stats = win.getStatistics()
 
-        OgreOverlay.SetNextWindowPos(OgreOverlay.ImVec2(win.getWidth() - 10, win.getHeight() - 10), OgreOverlay.ImGuiCond_Always, OgreOverlay.ImVec2(1, 1))
+        OgreOverlay.SetNextWindowPos(OgreOverlay.ImVec2(win.getWidth() - 10, win.getHeight() - 10),
+                                     OgreOverlay.ImGuiCond_Always, OgreOverlay.ImVec2(1, 1))
         OgreOverlay.SetNextWindowBgAlpha(0.3)
-        flags = OgreOverlay.ImGuiWindowFlags_NoMove | OgreOverlay.ImGuiWindowFlags_NoTitleBar | OgreOverlay.ImGuiWindowFlags_NoResize | OgreOverlay.ImGuiWindowFlags_AlwaysAutoResize | OgreOverlay.ImGuiWindowFlags_NoSavedSettings | OgreOverlay.ImGuiWindowFlags_NoFocusOnAppearing | OgreOverlay.ImGuiWindowFlags_NoNav
+        flags = OgreOverlay.ImGuiWindowFlags_NoMove \
+              | OgreOverlay.ImGuiWindowFlags_NoTitleBar \
+              | OgreOverlay.ImGuiWindowFlags_NoResize \
+              | OgreOverlay.ImGuiWindowFlags_AlwaysAutoResize \
+              | OgreOverlay.ImGuiWindowFlags_NoSavedSettings \
+              | OgreOverlay.ImGuiWindowFlags_NoFocusOnAppearing \
+              | OgreOverlay.ImGuiWindowFlags_NoNav
         self.show_metrics = OgreOverlay.Begin("Metrics", self.show_metrics, flags)[1]
         OgreOverlay.Text("Metrics")
         OgreOverlay.Separator()
@@ -178,7 +191,8 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
         mesh = Ogre.MeshManager.getSingleton().getByName(self.meshname)
 
         OgreOverlay.SetNextWindowPos(OgreOverlay.ImVec2(0, 30))
-        flags = OgreOverlay.ImGuiWindowFlags_NoTitleBar | OgreOverlay.ImGuiWindowFlags_NoMove
+        flags = OgreOverlay.ImGuiWindowFlags_NoTitleBar \
+              | OgreOverlay.ImGuiWindowFlags_NoMove
         OgreOverlay.Begin("MeshProps", None, flags)
         OgreOverlay.Text(self.meshname)
 
