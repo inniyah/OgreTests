@@ -4,8 +4,7 @@
 import Ogre
 import Ogre.RTShader as OgreRTShader
 import Ogre.Bites as OgreBites
-
-from Ogre.Overlay import *
+import Ogre.Overlay as OgreOverlay
 
 import os.path
 
@@ -15,22 +14,22 @@ VES2STR = ("ERROR", "Position", "Blend Weights", "Blend Indices", "Normal", "Dif
 VET2STR = ("float", "float2", "float3", "float4", "ERROR", "short", "short2", "short3", "short4", "ubyte4", "argb", "abgr")
 
 def show_vertex_decl(decl):
-    Columns(2)
-    Text("Semantic")
-    NextColumn()
-    Text("Type")
-    NextColumn()
-    Separator()
+    OgreOverlay.Columns(2)
+    OgreOverlay.Text("Semantic")
+    OgreOverlay.NextColumn()
+    OgreOverlay.Text("Type")
+    OgreOverlay.NextColumn()
+    OgreOverlay.Separator()
 
     for e in decl.getElements():
-        Text(VES2STR[e.getSemantic()])
-        NextColumn()
+        OgreOverlay.Text(VES2STR[e.getSemantic()])
+        OgreOverlay.NextColumn()
         try:
-            Text(VET2STR[e.getType()])
+            OgreOverlay.Text(VET2STR[e.getType()])
         except IndexError:
-            Text("TODO")
-        NextColumn()
-    Columns(1)
+            OgreOverlay.Text("TODO")
+        OgreOverlay.NextColumn()
+    OgreOverlay.Columns(1)
 
 class MaterialCreator(Ogre.MeshSerializerListener):
     def __init__(self):
@@ -108,29 +107,29 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
         self.cam.getViewport().setOverlaysEnabled(True)
 
     def draw_about(self):
-        flags = ImGuiWindowFlags_AlwaysAutoResize
-        self.show_about = Begin("About OgreMeshViewer", self.show_about, flags)[1]
-        Text("By Pavel Rojtberg")
-        Text("OgreMeshViewer is licensed under the MIT License, see LICENSE for more information.")
-        Separator()
-        BulletText("Ogre:  %s" % Ogre.__version__)
-        BulletText("imgui: %s" % GetVersion())
-        End()
+        flags = OgreOverlay.ImGuiWindowFlags_AlwaysAutoResize
+        self.show_about = OgreOverlay.Begin("About OgreMeshViewer", self.show_about, flags)[1]
+        OgreOverlay.Text("By Pavel Rojtberg")
+        OgreOverlay.Text("OgreMeshViewer is licensed under the MIT License, see LICENSE for more information.")
+        OgreOverlay.Separator()
+        OgreOverlay.BulletText("Ogre:  %s" % Ogre.__version__)
+        OgreOverlay.BulletText("imgui: %s" % OgreOverlay.GetVersion())
+        OgreOverlay.End()
 
     def draw_metrics(self):
         win = self.getRenderWindow()
         stats = win.getStatistics()
 
-        SetNextWindowPos(ImVec2(win.getWidth() - 10, win.getHeight() - 10), ImGuiCond_Always, ImVec2(1, 1))
-        SetNextWindowBgAlpha(0.3)
-        flags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNav
-        self.show_metrics = Begin("Metrics", self.show_metrics, flags)[1]
-        Text("Metrics")
-        Separator()
-        Text("Average FPS: {:.2f}".format(stats.avgFPS))
-        Text("Batches: {}".format(stats.batchCount))
-        Text("Triangles: {}".format(stats.triangleCount))
-        End()
+        OgreOverlay.SetNextWindowPos(OgreOverlay.ImVec2(win.getWidth() - 10, win.getHeight() - 10), OgreOverlay.ImGuiCond_Always, OgreOverlay.ImVec2(1, 1))
+        OgreOverlay.SetNextWindowBgAlpha(0.3)
+        flags = OgreOverlay.ImGuiWindowFlags_NoMove | OgreOverlay.ImGuiWindowFlags_NoTitleBar | OgreOverlay.ImGuiWindowFlags_NoResize | OgreOverlay.ImGuiWindowFlags_AlwaysAutoResize | OgreOverlay.ImGuiWindowFlags_NoSavedSettings | OgreOverlay.ImGuiWindowFlags_NoFocusOnAppearing | OgreOverlay.ImGuiWindowFlags_NoNav
+        self.show_metrics = OgreOverlay.Begin("Metrics", self.show_metrics, flags)[1]
+        OgreOverlay.Text("Metrics")
+        OgreOverlay.Separator()
+        OgreOverlay.Text("Average FPS: {:.2f}".format(stats.avgFPS))
+        OgreOverlay.Text("Batches: {}".format(stats.batchCount))
+        OgreOverlay.Text("Triangles: {}".format(stats.triangleCount))
+        OgreOverlay.End()
 
     def frameStarted(self, evt):
         OgreBites.ApplicationContext.frameStarted(self, evt)
@@ -138,36 +137,36 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
         if not self.cam.getViewport().getOverlaysEnabled():
             return True
 
-        ImGuiOverlay.NewFrame(evt)
+        OgreOverlay.ImGuiOverlay.NewFrame(evt)
 
-        if BeginMainMenuBar():
-            if BeginMenu("File"):
-                if MenuItem("Select Renderer"):
+        if OgreOverlay.BeginMainMenuBar():
+            if OgreOverlay.BeginMenu("File"):
+                if OgreOverlay.MenuItem("Select Renderer"):
                     self.getRoot().queueEndRendering()
                     self.restart = True
-                if MenuItem("Save Screenshot", "P"):
+                if OgreOverlay.MenuItem("Save Screenshot", "P"):
                     self._save_screenshot()
-                if MenuItem("Quit", "Esc"):
+                if OgreOverlay.MenuItem("Quit", "Esc"):
                     self.getRoot().queueEndRendering()
-                EndMenu()
-            if BeginMenu("View"):
+                OgreOverlay.EndMenu()
+            if OgreOverlay.BeginMenu("View"):
                 enode = self.entity.getParentSceneNode()
-                if MenuItem("Show Axes", "A", self.axes.getVisible()):
+                if OgreOverlay.MenuItem("Show Axes", "A", self.axes.getVisible()):
                     self._toggle_axes()
-                if MenuItem("Show Bounding Box", "B", enode.getShowBoundingBox()):
+                if OgreOverlay.MenuItem("Show Bounding Box", "B", enode.getShowBoundingBox()):
                     self._toggle_bbox()
-                if self.entity.hasSkeleton() and MenuItem("Show Skeleton", None, self.entity.getDisplaySkeleton()):
+                if self.entity.hasSkeleton() and OgreOverlay.MenuItem("Show Skeleton", None, self.entity.getDisplaySkeleton()):
                     self.entity.setDisplaySkeleton(not self.entity.getDisplaySkeleton())
-                EndMenu()
+                OgreOverlay.EndMenu()
 
-            if BeginMenu("Help"):
-                if MenuItem("Metrics", None, self.show_metrics):
+            if OgreOverlay.BeginMenu("Help"):
+                if OgreOverlay.MenuItem("Metrics", None, self.show_metrics):
                     self.show_metrics = not self.show_metrics
-                if MenuItem("About"):
+                if OgreOverlay.MenuItem("About"):
                     self.show_about = True
-                EndMenu()
+                OgreOverlay.EndMenu()
 
-            EndMainMenuBar()
+            OgreOverlay.EndMainMenuBar()
 
         if self.show_about:
             self.draw_about()
@@ -178,41 +177,41 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
         # Mesh Info Sidebar
         mesh = Ogre.MeshManager.getSingleton().getByName(self.meshname)
 
-        SetNextWindowPos(ImVec2(0, 30))
-        flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
-        Begin("MeshProps", None, flags)
-        Text(self.meshname)
+        OgreOverlay.SetNextWindowPos(OgreOverlay.ImVec2(0, 30))
+        flags = OgreOverlay.ImGuiWindowFlags_NoTitleBar | OgreOverlay.ImGuiWindowFlags_NoMove
+        OgreOverlay.Begin("MeshProps", None, flags)
+        OgreOverlay.Text(self.meshname)
 
         highlight = -1
 
-        if CollapsingHeader("Geometry"):
+        if OgreOverlay.CollapsingHeader("Geometry"):
             if mesh.sharedVertexData:
-                if TreeNode("Shared Vertices: {}".format(mesh.sharedVertexData.vertexCount)):
+                if OgreOverlay.TreeNode("Shared Vertices: {}".format(mesh.sharedVertexData.vertexCount)):
                     show_vertex_decl(mesh.sharedVertexData.vertexDeclaration)
                     TreePop()
             else:
-                Text("Shared Vertices: None")
+                OgreOverlay.Text("Shared Vertices: None")
 
             for i, sm in enumerate(mesh.getSubMeshes()):
-                submesh_details = TreeNode("SubMesh #{}".format(i))
-                if IsItemHovered():
+                submesh_details = OgreOverlay.TreeNode("SubMesh #{}".format(i))
+                if OgreOverlay.IsItemHovered():
                     highlight = i
 
                 if submesh_details:
-                    BulletText("Material: {}".format(sm.getMaterialName()))
+                    OgreOverlay.BulletText("Material: {}".format(sm.getMaterialName()))
                     if sm.indexData:
                         bits = sm.indexData.indexBuffer.getIndexSize() * 8
-                        BulletText("Indices: {} ({} bit)".format(sm.indexData.indexCount, bits))
+                        OgreOverlay.BulletText("Indices: {} ({} bit)".format(sm.indexData.indexCount, bits))
                     else:
-                        BulletText("Indices: None")
+                        OgreOverlay.BulletText("Indices: None")
 
                     if sm.vertexData:
-                        if TreeNode("Vertices: {}".format(sm.vertexData.vertexCount)):
+                        if OgreOverlay.TreeNode("Vertices: {}".format(sm.vertexData.vertexCount)):
                             show_vertex_decl(sm.vertexData.vertexDeclaration)
-                            TreePop()
+                            OgreOverlay.TreePop()
                     else:
-                        BulletText("Vertices: shared")
-                    TreePop()
+                        OgreOverlay.BulletText("Vertices: shared")
+                    OgreOverlay.TreePop()
 
         if self.highlighted > -1:
             self.entity.getSubEntities()[self.highlighted].setMaterialName(self.orig_mat)
@@ -223,45 +222,45 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
             self.highlighted = highlight
 
         animations = self.entity.getAllAnimationStates()
-        if animations is not None and CollapsingHeader("Animations"):
+        if animations is not None and OgreOverlay.CollapsingHeader("Animations"):
             controller_mgr = Ogre.ControllerManager.getSingleton()
 
             if self.entity.hasSkeleton():
-                Text("Skeleton: {}".format(mesh.getSkeletonName()))
+                OgreOverlay.Text("Skeleton: {}".format(mesh.getSkeletonName()))
                 # self.entity.setUpdateBoundingBoxFromSkeleton(True)
             if mesh.hasVertexAnimation():
-                Text("Vertex Animations")
+                OgreOverlay.Text("Vertex Animations")
 
             for name, astate in animations.getAnimationStates().items():
-                if TreeNode(name):
+                if OgreOverlay.TreeNode(name):
                     if astate.getEnabled():
-                        if Button("Reset"):
+                        if OgreOverlay.Button("Reset"):
                             astate.setEnabled(False)
                             astate.setTimePosition(0)
                             if name in self.active_controllers:
                                 controller_mgr.destroyController(self.active_controllers[name])
-                    elif Button("Play"):
+                    elif OgreOverlay.Button("Play"):
                         astate.setEnabled(True)
                         self.active_controllers[name] = controller_mgr.createFrameTimePassthroughController(
                             Ogre.AnimationStateControllerValue.create(astate, True))
                     changed = False
                     if astate.getLength() > 0:
-                        SameLine()
-                        changed, value = SliderFloat("", astate.getTimePosition(), 0, astate.getLength(), "%.3fs")
+                        OgreOverlay.SameLine()
+                        changed, value = OgreOverlay.SliderFloat("", astate.getTimePosition(), 0, astate.getLength(), "%.3fs")
                     if changed:
                         astate.setEnabled(True)
                         astate.setTimePosition(value)
-                    TreePop()
+                    OgreOverlay.TreePop()
 
-        if CollapsingHeader("Bounds"):
+        if OgreOverlay.CollapsingHeader("Bounds"):
             bounds = mesh.getBounds()
             s = bounds.getSize()
-            BulletText("Size: {:.2f}, {:.2f}, {:.2f}".format(s[0], s[1], s[2]))
+            OgreOverlay.BulletText("Size: {:.2f}, {:.2f}, {:.2f}".format(s[0], s[1], s[2]))
             c = bounds.getCenter()
-            BulletText("Center: {:.2f}, {:.2f}, {:.2f}".format(c[0], c[1], c[2]))
-            BulletText("Radius: {:.2f}".format(mesh.getBoundingSphereRadius()))
+            OgreOverlay.BulletText("Center: {:.2f}, {:.2f}, {:.2f}".format(c[0], c[1], c[2]))
+            OgreOverlay.BulletText("Radius: {:.2f}".format(mesh.getBoundingSphereRadius()))
 
-        End()
+        OgreOverlay.End()
 
         # ShowDemoWindow()
 
@@ -298,8 +297,8 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
         self.addInputListener(self)
 
         self.restart = False
-        imgui_overlay = ImGuiOverlay()
-        GetIO().IniFilename = self.getFSLayer().getWritablePath("imgui.ini")
+        imgui_overlay = OgreOverlay.ImGuiOverlay()
+        OgreOverlay.GetIO().IniFilename = self.getFSLayer().getWritablePath("imgui.ini")
 
         root = self.getRoot()
         scn_mgr = root.createSceneManager()
@@ -315,7 +314,7 @@ class MeshViewer(OgreBites.ApplicationContext, OgreBites.InputListener):
 
         #imgui_overlay.addFont("SdkTrays/Value", RGN_MESHVIEWER)
         imgui_overlay.show()
-        OverlayManager.getSingleton().addOverlay(imgui_overlay)
+        OgreOverlay.OverlayManager.getSingleton().addOverlay(imgui_overlay)
         imgui_overlay.disown() # owned by OverlayMgr now
 
         shadergen = OgreRTShader.ShaderGenerator.getSingleton()
