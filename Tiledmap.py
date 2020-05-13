@@ -10,13 +10,13 @@ import Ogre.RTShader as OgreRTShader
 import Ogre.Bites as OgreBites
 import os.path
 import Ogretmxmap
-from Ogre.Overlay import *
+import Ogre.Overlay as OgreOverlay
 import Player
 
 
 def gettilepos(vector):
     return [vector.x,vector.z]
-    
+
 
 RGN_MESHVIEWER = "OgreMeshViewer"
 
@@ -28,32 +28,34 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         #self.pos=Ogre.Vector3(-1,1.5,0) #altura 1.80m
         self.LINEAL_VEL=5
         self.ANGULAR_VEL=1
-        
-    def draw_about(self):
-        flags = ImGuiWindowFlags_AlwaysAutoResize
-        self.show_about = Begin("About OgreMeshViewer", True, flags)[1]
-        Text("By Pavel Rojtberg")
-        Text("OgreMeshViewer is licensed under the MIT License, see LICENSE for more information.")
-        Separator()
-        BulletText("Ogre:  %s" % Ogre.__version__)
-        BulletText("imgui: %s" % GetVersion())
-        End()
 
-        
-    def frameStarted(self, evt):
-        return True
+        self.show_about = False
+
+    def draw_about(self):
+        flags = OgreOverlay.ImGuiWindowFlags_AlwaysAutoResize
+        self.show_about = OgreOverlay.Begin("About TiledMap", True, flags)[1]
+        OgreOverlay.Text("By arky")
+        OgreOverlay.Text("TiledMap is licensed under the MIT License, see LICENSE for more information.")
+        OgreOverlay.Separator()
+        OgreOverlay.BulletText(f"Ogre: {Ogre.__version__}")
+        OgreOverlay.BulletText(f"imgui: {OgreOverlay.GetVersion()}")
+        OgreOverlay.End()
+
+
+#    def frameStarted(self, evt):
+#        return True
 #        OgreBites.ApplicationContext.frameStarted(self, evt)
-#        
+#
 #        if not self.cam.getViewport().getOverlaysEnabled():
 #            return True
 #
 #        ImGuiOverlay.NewFrame(evt)
-        
+
     def locateResources(self):
-        
+
         self.rescfg= os.path.basename("./resources.cfg")
         self.meshdir = os.path.dirname("./resources.cfg")
-        
+
         rgm = Ogre.ResourceGroupManager.getSingleton()
         # ensure our resource group is separate, even with a local resources.cfg
         rgm.createResourceGroup(RGN_MESHVIEWER, False)
@@ -78,8 +80,8 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         # explicitly add mesh location to be safe
         if not rgm.resourceLocationExists(self.meshdir, Ogre.RGN_DEFAULT):
             rgm.addResourceLocation(self.meshdir, "FileSystem", Ogre.RGN_DEFAULT)
-        
-        
+
+
     def setup(self):
         # SETUP es la primera función a la que se llama
         # Primero llamamos a la base y ponemos el listener
@@ -87,56 +89,59 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         #Ahora se llama a locate resources
         self.addInputListener(self)
         #imgui_overlay = ImGuiOverlay()
-               
-        self.restart =False
-        
+
+        self.restart = False
+
+        imgui_overlay = OgreOverlay.ImGuiOverlay()
+        OgreOverlay.GetIO().IniFilename = self.getFSLayer().getWritablePath("imgui.ini")
+
         #Inicializamos ogre u hacemos un puntero a Root
         root = self.getRoot()
-        
+
         #Creamos el scene manager
         scn_mgr = root.createSceneManager()
         scn_mgr.addRenderQueueListener(self.getOverlaySystem())
         self.scn_mgr = scn_mgr
-        
-        #imgui_overlay.show()
-        #OverlayManager.getSingleton().addOverlay(imgui_overlay)
-        # imgui_overlay.disown() # owned by OverlayMgr now
-        
-        
+
+        imgui_overlay.show()
+        OgreOverlay.OverlayManager.getSingleton().addOverlay(imgui_overlay)
+        imgui_overlay.disown() # owned by OverlayMgr now
+
+
         # Creamos el Shader
         shadergen = OgreRTShader.ShaderGenerator.getSingleton()
         shadergen.addSceneManager(scn_mgr)
         scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_MODULATIVE)
         #scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_STENCIL_MODULATIVE)
- 
+
         #Creamos el mapa
         mapa=Ogretmxmap.tmxmap("Maps/map.tmx")
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.setPosition(0,0,0)
         mapa.createmap(scn_mgr)
 
-       
+
         # Vamos a crear el nodo perteneciente al personaje
         Playernode=scn_mgr.getRootSceneNode().createChildSceneNode()
-        #Playernode.setPosition(self.pos)        
+        #Playernode.setPosition(self.pos)
         self.Playernode=Playernode
         # Creo el player y lo fusiono con su nodo
         self.Player=Player.Player(Playernode)
         self.Player.mapa=mapa
         self.Player.setpos(10,10,0)
 
-        
+
         # Creamos la camara y la posicionamos en el personaje
         camNode = Playernode.createChildSceneNode()
         camNode.setPosition(0,1.5,0)
-        cam = scn_mgr.createCamera("MainCam")
+        self.cam = scn_mgr.createCamera("MainCam")
         #camNode.setPosition(0, 0, 80)
         camNode.lookAt(Ogre.Vector3(300, 1.5, 0), Ogre.Node.TS_WORLD)
-        cam.setNearClipDistance(.2)
-        camNode.attachObject(cam)
-        vp = self.getRenderWindow().addViewport(cam)
+        self.cam.setNearClipDistance(.2)
+        camNode.attachObject(self.cam)
+        vp = self.getRenderWindow().addViewport(self.cam)
         vp.setBackgroundColour(Ogre.ColourValue(0, 0, 0))
-        cam.setAspectRatio((vp.getActualWidth()) / (vp.getActualHeight()))
+        self.cam.setAspectRatio((vp.getActualWidth()) / (vp.getActualHeight()))
 
         self.camNode=camNode
 
@@ -148,7 +153,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         light.setDiffuseColour(Ogre.ColourValue(.7, .0, .0));
         light.setSpecularColour(Ogre.ColourValue(.3, .3, 0))
         light.setDirection(1, -1, 0)
-        
+
 #        lightNode = scn_mgr.getRootSceneNode().createChildSceneNode()
 #        lightNode.attachObject(light)
 #        lightNode.setPosition(0, 3, 0)
@@ -164,25 +169,30 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         pointLightNode.setPosition(2, 2, 2)
 
         self.mapa=mapa
-        
-        
+
+
         #lets set a fog
         Fadecolor=Ogre.ColourValue(0,0,0)
         vp.setBackgroundColour(Fadecolor)
         scn_mgr.setFog(Ogre.Ogre.FOG_LINEAR,Fadecolor,0,600,900)
-        
-        cam.getViewport().setOverlaysEnabled(True)
+
+        self.cam.getViewport().setOverlaysEnabled(True)
         #self.mtraymanager=OgreBites.TrayManager("Interface",self.getRenderWindow())
         #self.mtraymanager.createLabel(OgreBites.TL_TOP,"TInfo","",350)
-        
+
+        self.imgui_input = OgreBites.ImGuiInputListener()
+        self.input_dispatcher = OgreBites.InputListenerChain([self.imgui_input])
+        self.addInputListener(self.input_dispatcher)
 
     def frameStarted(self, evt):
         OgreBites.ApplicationContext.frameStarted(self, evt)
-        
-        
+
+        if not self.cam.getViewport().getOverlaysEnabled():
+            return True
+
         self.time=evt.timeSinceLastFrame
         self.Player.actualiza(self.time)
-        
+
         OgreBites.ApplicationContext.frameStarted(self, evt)
         #ImGuiOverlay.NewFrame(evt)
         #flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
@@ -191,26 +201,42 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         #End()
         #self.vel=self.time*self.LINEAL_VEL
         #print (evt.timeSinceLastFrame)
-                        
+
+
+        OgreOverlay.ImGuiOverlay.NewFrame(evt)
+
+        if OgreOverlay.BeginMainMenuBar():
+
+            if OgreOverlay.BeginMenu("Help"):
+                if OgreOverlay.MenuItem("About"):
+                    self.show_about = True
+                OgreOverlay.EndMenu()
+
+            OgreOverlay.EndMainMenuBar()
+
+        if self.show_about:
+            self.draw_about()
+
+
         return True
-        
-    
+
+
     def keyPressed(self, evt):
             if evt.keysym.sym == OgreBites.SDLK_ESCAPE:
                 self.getRoot().queueEndRendering()
-            
+
             if evt.keysym.sym == OgreBites.SDLK_DOWN:
-                self.Player.keydown=True          
+                self.Player.keydown=True
             if evt.keysym.sym == OgreBites.SDLK_UP:
-                self.Player.keyup=True      
+                self.Player.keyup=True
             if evt.keysym.sym == OgreBites.SDLK_LEFT:
-                self.Player.keyleft=True      
+                self.Player.keyleft=True
             if evt.keysym.sym == OgreBites.SDLK_RIGHT:
-                self.Player.keyright=True      
+                self.Player.keyright=True
             if evt.keysym.sym == OgreBites.SDLK_SPACE:
                 self.Player.jump()
- 
-            
+
+
             if evt.keysym.sym == OgreBites.SDLK_PAGEDOWN:
                 self.camNode.pitch(Ogre.Ogre.Radian(-self.time*self.ANGULAR_VEL),Ogre.Ogre.Node.TS_LOCAL)
 
@@ -221,22 +247,22 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
 
     def keyReleased(self, evt):
             if evt.keysym.sym == OgreBites.SDLK_DOWN:
-                self.Player.keydown=False          
+                self.Player.keydown=False
             if evt.keysym.sym == OgreBites.SDLK_UP:
-                self.Player.keyup=False      
+                self.Player.keyup=False
             if evt.keysym.sym == OgreBites.SDLK_LEFT:
-                self.Player.keyleft=False      
+                self.Player.keyleft=False
             if evt.keysym.sym == OgreBites.SDLK_RIGHT:
-                self.Player.keyright=False   
-            
+                self.Player.keyright=False
+
             return True
-                
+
     def mousePressed(self, evt):
         return True
-    
+
     def shutdown(self):
         OgreBites.ApplicationContext.shutdown(self)
-        
+
         if self.restart:
             # make sure empty rendersystem is written
             self.getRoot().shutdown()
