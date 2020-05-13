@@ -30,7 +30,7 @@
     "@IsoTile2": "3d_models/escalera01_2.iso.png",
     "@IsoTile3": "3d_models/escalera01_3.iso.png",
     "@IsoTile4": "3d_models/escalera01_4.iso.png",
-    "@Material": "dummyMat0_e51549a95f88f635af33e957694f1d9d2eea0e5b_e51549a95f88f635af33e957694f1d9d2eea0e5b"
+    "@Material": "rugs_e51549a95f88f635af33e957694f1d9d2eea0e5b.jpg"
   },
   "3d_models/escalera02.obj": {
     ":attrs_file": "3d_models/attributes.json",
@@ -41,7 +41,7 @@
     "@IsoTile2": "3d_models/escalera02_2.iso.png",
     "@IsoTile3": "3d_models/escalera02_3.iso.png",
     "@IsoTile4": "3d_models/escalera02_4.iso.png",
-    "@Material": "dummyMat0_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6"
+    "@Material": "rugs_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6.jpg"
   },
   "3d_models/escalera03.obj": {
     ":attrs_file": "3d_models/attributes.json",
@@ -52,7 +52,7 @@
     "@IsoTile2": "3d_models/escalera03_2.iso.png",
     "@IsoTile3": "3d_models/escalera03_3.iso.png",
     "@IsoTile4": "3d_models/escalera03_4.iso.png",
-    "@Material": "dummyMat0_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2"
+    "@Material": "rugs_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2.jpg"
   },
   "3d_models/escalera04.obj": {
     ":attrs_file": "3d_models/attributes.json",
@@ -63,7 +63,7 @@
     "@IsoTile2": "3d_models/escalera04_2.iso.png",
     "@IsoTile3": "3d_models/escalera04_3.iso.png",
     "@IsoTile4": "3d_models/escalera04_4.iso.png",
-    "@Material": "dummyMat0_c4d6ef71de74bb945ac6218ded997c50c4e7395d_c4d6ef71de74bb945ac6218ded997c50c4e7395d"
+    "@Material": "rugs_c4d6ef71de74bb945ac6218ded997c50c4e7395d.jpg"
   },
   "3d_models/hwall_corner.obj": {
     ":attrs_file": "3d_models/attributes.json",
@@ -133,6 +133,7 @@
   },
   ":seq_info": {
     "3d_models": 13,
+    "ceilings": 4,
     "floors": 7
   },
   ":type_lists": {
@@ -150,6 +151,11 @@
       "8": "3d_models/hwall_straight.obj",
       "9": "3d_models/escalera01.obj"
     },
+    "ceilings": {
+      "1": "ceilings/wooden_beams.obj",
+      "2": "ceilings/wood.obj",
+      "3": "ceilings/brick.obj"
+    },
     "floors": {
       "1": "floors/simplewall.obj",
       "2": "floors/terr_rock6.obj",
@@ -158,6 +164,42 @@
       "5": "floors/MtlPlat2.obj",
       "6": "floors/prueba.obj"
     }
+  },
+  "ceilings/brick.obj": {
+    ":attrs_file": "ceilings/attributes.json",
+    ":seq_id": 3,
+    "@3DMesh": "ceilings/brick.mesh",
+    "@3DModel": "ceilings/brick.obj",
+    "@IsoTile1": "ceilings/brick_1.iso.png",
+    "@IsoTile2": "ceilings/brick_2.iso.png",
+    "@IsoTile3": "ceilings/brick_3.iso.png",
+    "@IsoTile4": "ceilings/brick_4.iso.png",
+    "@Material": "brick_78af191374572b69c50315961552ab0a523f5c3b.jpg",
+    "@Texture": "ceilings/brick.jpg"
+  },
+  "ceilings/wood.obj": {
+    ":attrs_file": "ceilings/attributes.json",
+    ":seq_id": 2,
+    "@3DMesh": "ceilings/wood.mesh",
+    "@3DModel": "ceilings/wood.obj",
+    "@IsoTile1": "ceilings/wood_1.iso.png",
+    "@IsoTile2": "ceilings/wood_2.iso.png",
+    "@IsoTile3": "ceilings/wood_3.iso.png",
+    "@IsoTile4": "ceilings/wood_4.iso.png",
+    "@Material": "wood_5a2d153753229de7e28faf602d83432c84d38524.jpg",
+    "@Texture": "ceilings/wood.jpg"
+  },
+  "ceilings/wooden_beams.obj": {
+    ":attrs_file": "ceilings/attributes.json",
+    ":seq_id": 1,
+    "@3DMesh": "ceilings/wooden_beams.mesh",
+    "@3DModel": "ceilings/wooden_beams.obj",
+    "@IsoTile1": "ceilings/wooden_beams_1.iso.png",
+    "@IsoTile2": "ceilings/wooden_beams_2.iso.png",
+    "@IsoTile3": "ceilings/wooden_beams_3.iso.png",
+    "@IsoTile4": "ceilings/wooden_beams_4.iso.png",
+    "@Material": "wooden_beams_48d3865011bae54bf50250f094d55a763f58cc8d.jpg",
+    "@Texture": "ceilings/wooden_beams.jpg"
   },
   "floors/BeachStones.obj": {
     ":attrs_file": "floors/attributes.json",

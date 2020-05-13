@@ -96,7 +96,7 @@ class tmxmap:
     
     def makefloor (self,scn_mgr,layername,h):
         layer=self.world_map.named_layers[layername]
-        man=scn_mgr.createManualObject("floor")
+        man=scn_mgr.createManualObject(layername)
         man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
         man.estimateVertexCount(self.world_map.width*self.world_map.height*4) #Numero de vertices
         
@@ -141,9 +141,9 @@ class tmxmap:
         mannode.attachObject(man)
     
     def makeceil (self,scn_mgr,layername,h):
-        h=h+self.INCTILE_Z
+        h=h+self.INCTILE_Z-0.05
         layer=self.world_map.named_layers[layername]
-        man=scn_mgr.createManualObject("ceil")
+        man=scn_mgr.createManualObject(layername)
         man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
         man.estimateVertexCount(self.world_map.width*self.world_map.height*4) #Numero de vertices
         
@@ -151,26 +151,35 @@ class tmxmap:
             for ty in range (0,self.world_map.height):
                 gid=layer.content2D [tx][ty]
                 if gid!=0:
-                    mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
+                    if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
+                        mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
+                    else:
+                        print (self.MATERIAL_PROP, " is not in tile ",tx,"-",ty,"(",gid,")")
+                        mat_name=""
+                    rot=self.FLOOR_ROT[self.world_map.tiles[gid].properties[self.ROT_PROP]]
                     man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
                     man.position(py, h, px)
-                    man.normal(0, -1, 0)
-                    man.textureCoord(0, 0)
-
+                    man.normal(0, 1, 0)
+                    #man.textureCoord(0, 0)
+                    man.textureCoord(rot[0][0],rot[0][1])
+                    
                     man.position(py, h, px+self.INCTILE_X)
-                    man.normal(0, -1, 0)
-                    man.textureCoord(0, 1)
-
+                    man.normal(0, 1, 0)
+                    #man.textureCoord(0, 1)
+                    man.textureCoord(rot[1][0],rot[1][1])
+                    
                     man.position(py+self.INCTILE_Y, h, px+self.INCTILE_X)
-                    man.normal(0, -1, 0)
-                    man.textureCoord(1, 1)
-
+                    man.normal(0, 1, 0)
+                    #man.textureCoord(1, 1)
+                    man.textureCoord(rot[2][0],rot[2][1])
+                    
                     man.position(py+self.INCTILE_Y, h, px)
-                    man.normal(0, -1, 0)
-                    man.textureCoord(1, 0)
-                
+                    man.normal(0, 1, 0)
+                    #man.textureCoord(1, 0)
+                    man.textureCoord(rot[3][0],rot[3][1])
+                    
                     man.quad(3, 2, 1, 0)
                     man.end()                
 
@@ -210,10 +219,12 @@ class tmxmap:
         else: #No existe la layer, luego no hay colisión
             h= -2.0+level*2
 
-        if h>level:
+        if h>level*2:
+            print ("2-"+str(h))
             return h
 
         #estudio la colisión con el suelo
+        level=int(z+0.2)//2
         if level==0:
             return 0
         print (level)

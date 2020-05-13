@@ -45,7 +45,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera03.obj"/>
    <property name="3DMesh" value="escalera03.mesh"/>
-   <property name="Material" value="dummyMat0_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2"/>
+   <property name="Material" value="rugs_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2.jpg"/>
    <property name="RotAngle" value="0"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E3"/>
@@ -56,7 +56,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera03.obj"/>
    <property name="3DMesh" value="escalera03.mesh"/>
-   <property name="Material" value="dummyMat0_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2"/>
+   <property name="Material" value="rugs_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2.jpg"/>
    <property name="RotAngle" value="90"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E3"/>
@@ -67,7 +67,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera03.obj"/>
    <property name="3DMesh" value="escalera03.mesh"/>
-   <property name="Material" value="dummyMat0_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2"/>
+   <property name="Material" value="rugs_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2.jpg"/>
    <property name="RotAngle" value="180"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E3"/>
@@ -78,7 +78,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera03.obj"/>
    <property name="3DMesh" value="escalera03.mesh"/>
-   <property name="Material" value="dummyMat0_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2"/>
+   <property name="Material" value="rugs_c3380fcc1c05d4d5ad16136a206f60f4e73d1fb2.jpg"/>
    <property name="RotAngle" value="270"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E3"/>
@@ -89,7 +89,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera02.obj"/>
    <property name="3DMesh" value="escalera02.mesh"/>
-   <property name="Material" value="dummyMat0_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6"/>
+   <property name="Material" value="rugs_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6.jpg"/>
    <property name="RotAngle" value="0"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E2"/>
@@ -100,7 +100,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera02.obj"/>
    <property name="3DMesh" value="escalera02.mesh"/>
-   <property name="Material" value="dummyMat0_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6"/>
+   <property name="Material" value="rugs_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6.jpg"/>
    <property name="RotAngle" value="90"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E2"/>
@@ -111,7 +111,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera02.obj"/>
    <property name="3DMesh" value="escalera02.mesh"/>
-   <property name="Material" value="dummyMat0_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6"/>
+   <property name="Material" value="rugs_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6.jpg"/>
    <property name="RotAngle" value="180"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E2"/>
@@ -122,7 +122,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera02.obj"/>
    <property name="3DMesh" value="escalera02.mesh"/>
-   <property name="Material" value="dummyMat0_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6"/>
+   <property name="Material" value="rugs_4637543a9c81f22a3f60ff1cd3d0f41e1bf38cd6.jpg"/>
    <property name="RotAngle" value="270"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E2"/>
@@ -133,7 +133,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera04.obj"/>
    <property name="3DMesh" value="escalera04.mesh"/>
-   <property name="Material" value="dummyMat0_c4d6ef71de74bb945ac6218ded997c50c4e7395d_c4d6ef71de74bb945ac6218ded997c50c4e7395d"/>
+   <property name="Material" value="rugs_c4d6ef71de74bb945ac6218ded997c50c4e7395d.jpg"/>
    <property name="RotAngle" value="0"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E4"/>
@@ -144,7 +144,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera04.obj"/>
    <property name="3DMesh" value="escalera04.mesh"/>
-   <property name="Material" value="dummyMat0_c4d6ef71de74bb945ac6218ded997c50c4e7395d_c4d6ef71de74bb945ac6218ded997c50c4e7395d"/>
+   <property name="Material" value="rugs_c4d6ef71de74bb945ac6218ded997c50c4e7395d.jpg"/>
    <property name="RotAngle" value="90"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E4"/>
@@ -155,7 +155,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera04.obj"/>
    <property name="3DMesh" value="escalera04.mesh"/>
-   <property name="Material" value="dummyMat0_c4d6ef71de74bb945ac6218ded997c50c4e7395d_c4d6ef71de74bb945ac6218ded997c50c4e7395d"/>
+   <property name="Material" value="rugs_c4d6ef71de74bb945ac6218ded997c50c4e7395d.jpg"/>
    <property name="RotAngle" value="180"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E4"/>
@@ -166,7 +166,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera04.obj"/>
    <property name="3DMesh" value="escalera04.mesh"/>
-   <property name="Material" value="dummyMat0_c4d6ef71de74bb945ac6218ded997c50c4e7395d_c4d6ef71de74bb945ac6218ded997c50c4e7395d"/>
+   <property name="Material" value="rugs_c4d6ef71de74bb945ac6218ded997c50c4e7395d.jpg"/>
    <property name="RotAngle" value="270"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E4"/>
@@ -469,7 +469,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera01.obj"/>
    <property name="3DMesh" value="escalera01.mesh"/>
-   <property name="Material" value="dummyMat0_e51549a95f88f635af33e957694f1d9d2eea0e5b_e51549a95f88f635af33e957694f1d9d2eea0e5b"/>
+   <property name="Material" value="rugs_e51549a95f88f635af33e957694f1d9d2eea0e5b.jpg"/>
    <property name="RotAngle" value="0"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E1"/>
@@ -480,7 +480,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera01.obj"/>
    <property name="3DMesh" value="escalera01.mesh"/>
-   <property name="Material" value="dummyMat0_e51549a95f88f635af33e957694f1d9d2eea0e5b_e51549a95f88f635af33e957694f1d9d2eea0e5b"/>
+   <property name="Material" value="rugs_e51549a95f88f635af33e957694f1d9d2eea0e5b.jpg"/>
    <property name="RotAngle" value="90"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E1"/>
@@ -491,7 +491,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera01.obj"/>
    <property name="3DMesh" value="escalera01.mesh"/>
-   <property name="Material" value="dummyMat0_e51549a95f88f635af33e957694f1d9d2eea0e5b_e51549a95f88f635af33e957694f1d9d2eea0e5b"/>
+   <property name="Material" value="rugs_e51549a95f88f635af33e957694f1d9d2eea0e5b.jpg"/>
    <property name="RotAngle" value="180"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E1"/>
@@ -502,7 +502,7 @@
   <properties>
    <property name="3DModel" value="3d_models/escalera01.obj"/>
    <property name="3DMesh" value="escalera01.mesh"/>
-   <property name="Material" value="dummyMat0_e51549a95f88f635af33e957694f1d9d2eea0e5b_e51549a95f88f635af33e957694f1d9d2eea0e5b"/>
+   <property name="Material" value="rugs_e51549a95f88f635af33e957694f1d9d2eea0e5b.jpg"/>
    <property name="RotAngle" value="270"/>
    <property name="Type" value="Model"/>
    <property name="Collision" value="E1"/>

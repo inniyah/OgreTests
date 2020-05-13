@@ -29,6 +29,17 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         self.LINEAL_VEL=5
         self.ANGULAR_VEL=1
         
+    def draw_about(self):
+        flags = ImGuiWindowFlags_AlwaysAutoResize
+        self.show_about = Begin("About OgreMeshViewer", True, flags)[1]
+        Text("By Pavel Rojtberg")
+        Text("OgreMeshViewer is licensed under the MIT License, see LICENSE for more information.")
+        Separator()
+        BulletText("Ogre:  %s" % Ogre.__version__)
+        BulletText("imgui: %s" % GetVersion())
+        End()
+
+        
     def frameStarted(self, evt):
         return True
 #        OgreBites.ApplicationContext.frameStarted(self, evt)
@@ -75,6 +86,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         OgreBites.ApplicationContext.setup(self)
         #Ahora se llama a locate resources
         self.addInputListener(self)
+        #imgui_overlay = ImGuiOverlay()
                
         self.restart =False
         
@@ -85,6 +97,10 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         scn_mgr = root.createSceneManager()
         scn_mgr.addRenderQueueListener(self.getOverlaySystem())
         self.scn_mgr = scn_mgr
+        
+        #imgui_overlay.show()
+        #OverlayManager.getSingleton().addOverlay(imgui_overlay)
+        # imgui_overlay.disown() # owned by OverlayMgr now
         
         
         # Creamos el Shader
@@ -155,6 +171,10 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         vp.setBackgroundColour(Fadecolor)
         scn_mgr.setFog(Ogre.Ogre.FOG_LINEAR,Fadecolor,0,600,900)
         
+        cam.getViewport().setOverlaysEnabled(True)
+        #self.mtraymanager=OgreBites.TrayManager("Interface",self.getRenderWindow())
+        #self.mtraymanager.createLabel(OgreBites.TL_TOP,"TInfo","",350)
+        
 
     def frameStarted(self, evt):
         OgreBites.ApplicationContext.frameStarted(self, evt)
@@ -162,6 +182,13 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         
         self.time=evt.timeSinceLastFrame
         self.Player.actualiza(self.time)
+        
+        OgreBites.ApplicationContext.frameStarted(self, evt)
+        #ImGuiOverlay.NewFrame(evt)
+        #flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
+        #Begin("MeshProps", None, flags)
+        #Text("probando")
+        #End()
         #self.vel=self.time*self.LINEAL_VEL
         #print (evt.timeSinceLastFrame)
                         
