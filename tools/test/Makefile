@@ -12,10 +12,7 @@ ISO_TILES = \
 	$(OBJ_SOURCES:.obj=_4.iso.png) \
 	$(OBJ_SOURCES:.obj=.mesh)
 
-all: $(ISO_TILES)
-
-test:
-	echo $(MKFILE_PATH) "->" $(MKFILE_DIR)  "->" $(TILES_ID)
+all: $(ISO_TILES) $(TILES_ID).tsx
 
 ../TinyRenderer/TinyRenderer:
 	$(MAKE) -C ../TinyRenderer
