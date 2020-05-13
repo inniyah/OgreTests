@@ -40,6 +40,7 @@ static Vec3f light1_dir(1,3,2);
 static Vec3f light2_dir(1,0,4);
 static Vec3f light3_dir(4,0,2);
 
+static double global_opacity = 1;
 static double drawing_scale = 1;
 static double viewport_zoom = 100;
 static double viewport_aspect = 1;
@@ -279,6 +280,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     ah.new_flag('z', "zmirror", "Mirror along the Z plane", mirror_z);
     ah.new_flag('d', "dmirror", "Mirror along the diagonal XZ plane", mirror_xz);
     ah.new_named_double('a', "angle", "angle in degrees", "Angle to rotate around the Y axis in degrees", angle_y);
+    ah.new_named_double('o', "opacity", "opacity (0.0 - 1.0)", "opacity between 0.0 (transparent) and 1.0 (opaque)", global_opacity);
     ah.new_named_string('Z', "zbuffer", "zbuffer_output.png", "Dump the zbuffer", zbuffer_output_filename);
 
     ah.set_description("Tiny Renderer");
@@ -297,6 +299,9 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     if (!overwrite_output && zbuffer_output_filename.length() && file_exists(zbuffer_output_filename)) {
         return EXIT_FAILURE;
     }
+
+    if (global_opacity < 0.0) global_opacity = 0.0;
+    if (global_opacity > 1.0) global_opacity = 1.0;
 
     readConfig(cfgfile);
     width = round(width * drawing_scale);
@@ -365,6 +370,8 @@ int main (int argc, const char * const * argv, const char * const * envp) {
         }
         delete model;
     }
+
+    if (global_opacity < 0.99) frame.modify_opacity(global_opacity);
 
     std::string output_path = "./";
     size_t output_last_slash = output_filename.find_last_of("/\\");

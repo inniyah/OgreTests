@@ -28,6 +28,10 @@ CEILING_ISO_TILES = \
 
 all: tiles floors ceilings tiled/models.tsx
 
+test/it:
+	@echo DIR: "'$(dir $@)'", FILE: "'$(basename $(basename $(notdir $@)))'", EXT: "'$(suffix $@)'"
+	echo $(OPACITY_$(firstword $(subst /, ,$@)))
+
 tiles: $(ISO_TILES)
 
 floors: $(FLOOR_ISO_OBJS) $(FLOOR_ISO_TILES)
@@ -86,23 +90,28 @@ TinyRenderer/TinyRenderer:
 OgreAssimp/OgreAssimpConverter:
 	$(MAKE) -C OgreAssimp
 
+OPACITY_test := 1.0
+OPACITY_3d_models := 0.85
+OPACITY_floors := 1.0
+OPACITY_ceilings := 0.7
+
 %_1.iso.png: %.obj TinyRenderer/TinyRenderer
-	TinyRenderer/TinyRenderer -w $< $@
+	TinyRenderer/TinyRenderer -w -o $(OPACITY_$(firstword $(subst /, ,$@))) $< $@
 	optipng $@
 	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D IsoTile1 $@
 
 %_2.iso.png: %.obj TinyRenderer/TinyRenderer
-	TinyRenderer/TinyRenderer -w $< $@ -a 90
+	TinyRenderer/TinyRenderer -w -o $(OPACITY_$(firstword $(subst /, ,$@))) $< $@ -a 90
 	optipng $@
 	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D IsoTile2 $@
 
 %_3.iso.png: %.obj TinyRenderer/TinyRenderer
-	TinyRenderer/TinyRenderer -w $< $@ -a 180
+	TinyRenderer/TinyRenderer -w -o $(OPACITY_$(firstword $(subst /, ,$@))) $< $@ -a 180
 	optipng $@
 	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D IsoTile3 $@
 
 %_4.iso.png: %.obj TinyRenderer/TinyRenderer
-	TinyRenderer/TinyRenderer -w $< $@ -a 270
+	TinyRenderer/TinyRenderer -w -o $(OPACITY_$(firstword $(subst /, ,$@))) $< $@ -a 270
 	optipng $@
 	scripts/add_metadata.py $< -d metadata/info.json -t $(firstword $(subst /, ,$<)) -D IsoTile4 $@
 
