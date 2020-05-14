@@ -3,7 +3,7 @@
     "test": 27
   },
   ":type_lists": {
-    "test": {
+    "stairs": {
       "1": "SolidBlock.obj",
       "10": "G_SpiralStairsR1mB.obj",
       "11": "G_SpiralStairsR1mC.obj",
