@@ -312,10 +312,6 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     viewport_offset_x = viewport_offset_x * drawing_scale;
     viewport_offset_y = viewport_offset_y * drawing_scale;
 
-    if (reverse_pov) {
-        for (int i = 0; i < 3; i++) eye[i] = -eye[i];
-    }
-
     float *zbuffer = new float[width*height];
     for (int i=width*height; i--; zbuffer[i] = -std::numeric_limits<float>::max());
 
@@ -372,7 +368,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
             for (int j=0; j<3; j++) {
                 shader.vertex(i, j);
             }
-            triangle(shader.varying_tri, shader, frame, zbuffer, normals_buffer);
+            triangle(shader.varying_tri, shader, frame, zbuffer, reverse_pov, normals_buffer);
         }
         delete model;
     }
@@ -427,10 +423,6 @@ int main (int argc, const char * const * argv, const char * const * envp) {
                     frame.set(x, y, black);
             }
         }
-    }
-
-    if (reverse_pov) {
-        frame.flip_horizontally();
     }
 
     frame.flip_vertically(); // to place the origin in the bottom left corner of the image
