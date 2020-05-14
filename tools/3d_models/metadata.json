@@ -1,0 +1,153 @@
+{
+  ":seq_info": {
+    "3d_models": 13
+  },
+  ":type_lists": {
+    "3d_models": {
+      "1": "wall.obj",
+      "10": "escalera04.obj",
+      "11": "caution.obj",
+      "12": "colmn.obj",
+      "2": "hwall_solid.obj",
+      "3": "hwall_straight.obj",
+      "4": "hwall_cross.obj",
+      "5": "hwall_fork.obj",
+      "6": "hwall_corner.obj",
+      "7": "escalera01.obj",
+      "8": "escalera02.obj",
+      "9": "escalera03.obj"
+    }
+  },
+  "caution.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 11,
+    "@3DMesh": "caution.mesh",
+    "@3DModel": "caution.obj",
+    "@IsoTile1": "caution_1.iso.png",
+    "@IsoTile2": "caution_2.iso.png",
+    "@IsoTile3": "caution_3.iso.png",
+    "@IsoTile4": "caution_4.iso.png",
+    "@Material": "caution_diffuse_c1337f3d4e30f4af87a86581c63e5df650c28c9a.png"
+  },
+  "colmn.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 12,
+    "@3DMesh": "colmn.mesh",
+    "@3DModel": "colmn.obj",
+    "@IsoTile1": "colmn_1.iso.png",
+    "@IsoTile2": "colmn_2.iso.png",
+    "@IsoTile3": "colmn_3.iso.png",
+    "@IsoTile4": "colmn_4.iso.png",
+    "@Material": "colmn_1640b82ab1e816bee3e51d44d438ad86c8cc2e11.jpg"
+  },
+  "escalera01.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 7,
+    "@3DMesh": "escalera01.mesh",
+    "@3DModel": "escalera01.obj",
+    "@IsoTile1": "escalera01_1.iso.png",
+    "@IsoTile2": "escalera01_2.iso.png",
+    "@IsoTile3": "escalera01_3.iso.png",
+    "@IsoTile4": "escalera01_4.iso.png",
+    "@Material": "rugs_68bbe31c87419653d481573f8596077003a7f838.jpg"
+  },
+  "escalera02.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 8,
+    "@3DMesh": "escalera02.mesh",
+    "@3DModel": "escalera02.obj",
+    "@IsoTile1": "escalera02_1.iso.png",
+    "@IsoTile2": "escalera02_2.iso.png",
+    "@IsoTile3": "escalera02_3.iso.png",
+    "@IsoTile4": "escalera02_4.iso.png",
+    "@Material": "rugs_16914be7988564dbb4beed844f640d3918eb8b5d.jpg"
+  },
+  "escalera03.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 9,
+    "@3DMesh": "escalera03.mesh",
+    "@3DModel": "escalera03.obj",
+    "@IsoTile1": "escalera03_1.iso.png",
+    "@IsoTile2": "escalera03_2.iso.png",
+    "@IsoTile3": "escalera03_3.iso.png",
+    "@IsoTile4": "escalera03_4.iso.png",
+    "@Material": "rugs_8c7a14ecba5a532109ddafe19dbdae5708325731.jpg"
+  },
+  "escalera04.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 10,
+    "@3DMesh": "escalera04.mesh",
+    "@3DModel": "escalera04.obj",
+    "@IsoTile1": "escalera04_1.iso.png",
+    "@IsoTile2": "escalera04_2.iso.png",
+    "@IsoTile3": "escalera04_3.iso.png",
+    "@IsoTile4": "escalera04_4.iso.png",
+    "@Material": "rugs_ea3e64bd233d79bd6354bdbcaebefe226d39b3ff.jpg"
+  },
+  "hwall_corner.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 6,
+    "@3DMesh": "hwall_corner.mesh",
+    "@3DModel": "hwall_corner.obj",
+    "@IsoTile1": "hwall_corner_1.iso.png",
+    "@IsoTile2": "hwall_corner_2.iso.png",
+    "@IsoTile3": "hwall_corner_3.iso.png",
+    "@IsoTile4": "hwall_corner_4.iso.png",
+    "@Material": "hwall_2399eb90b628c2d125e88f8d748348971eb6f50d.jpg"
+  },
+  "hwall_cross.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 4,
+    "@3DMesh": "hwall_cross.mesh",
+    "@3DModel": "hwall_cross.obj",
+    "@IsoTile1": "hwall_cross_1.iso.png",
+    "@IsoTile2": "hwall_cross_2.iso.png",
+    "@IsoTile3": "hwall_cross_3.iso.png",
+    "@IsoTile4": "hwall_cross_4.iso.png",
+    "@Material": "hwall_e8890cc76bbde89ca2a1c678e339c14132c6fc8f.jpg"
+  },
+  "hwall_fork.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 5,
+    "@3DMesh": "hwall_fork.mesh",
+    "@3DModel": "hwall_fork.obj",
+    "@IsoTile1": "hwall_fork_1.iso.png",
+    "@IsoTile2": "hwall_fork_2.iso.png",
+    "@IsoTile3": "hwall_fork_3.iso.png",
+    "@IsoTile4": "hwall_fork_4.iso.png",
+    "@Material": "hwall_9f09d9565f9320a60c2df37ca136c76c8c41c16a.jpg"
+  },
+  "hwall_solid.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 2,
+    "@3DMesh": "hwall_solid.mesh",
+    "@3DModel": "hwall_solid.obj",
+    "@IsoTile1": "hwall_solid_1.iso.png",
+    "@IsoTile2": "hwall_solid_2.iso.png",
+    "@IsoTile3": "hwall_solid_3.iso.png",
+    "@IsoTile4": "hwall_solid_4.iso.png",
+    "@Material": "hwall_2d070ad954ea17db0b0c3d5f75429aed02b5df64.jpg"
+  },
+  "hwall_straight.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 3,
+    "@3DMesh": "hwall_straight.mesh",
+    "@3DModel": "hwall_straight.obj",
+    "@IsoTile1": "hwall_straight_1.iso.png",
+    "@IsoTile2": "hwall_straight_2.iso.png",
+    "@IsoTile3": "hwall_straight_3.iso.png",
+    "@IsoTile4": "hwall_straight_4.iso.png",
+    "@Material": "hwall_c0606cab8eb6934b950f18a7f3f04c80bbbfd7ac.jpg"
+  },
+  "wall.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 1,
+    "@3DMesh": "wall.mesh",
+    "@3DModel": "wall.obj",
+    "@IsoTile1": "wall_1.iso.png",
+    "@IsoTile2": "wall_2.iso.png",
+    "@IsoTile3": "wall_3.iso.png",
+    "@IsoTile4": "wall_4.iso.png",
+    "@Material": "wall_ec4f88cd57c6df7bb5e52f1a95872c02a754189f.jpg"
+  }
+}
