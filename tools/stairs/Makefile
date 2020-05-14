@@ -14,6 +14,9 @@ ISO_TILES = \
 
 all: $(ISO_TILES) $(TILES_ID).tsx
 
+a/test.kk:
+	echo $(notdir $@)
+
 ../TinyRenderer/TinyRenderer:
 	$(MAKE) -C ../TinyRenderer
 
@@ -21,24 +24,36 @@ all: $(ISO_TILES) $(TILES_ID).tsx
 	$(MAKE) -C ../OgreAssimp
 
 %_1.iso.png: %.obj ../TinyRenderer/TinyRenderer
-	../TinyRenderer/TinyRenderer -w $< $@
-	optipng $@
+	../TinyRenderer/TinyRenderer -w    $< tmp_dir_$(notdir $@)
+	../TinyRenderer/TinyRenderer -w -r $< tmp_rev_$(notdir $@)
+	composite -dissolve 60 -gravity Center tmp_dir_$(notdir $@) tmp_rev_$(notdir $@) -alpha Set $@
+	convert $@ -channel A -evaluate Multiply 0.85 +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile1 $@
+	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
 %_2.iso.png: %.obj ../TinyRenderer/TinyRenderer
-	../TinyRenderer/TinyRenderer -w $< $@ -a 90
-	optipng $@
+	../TinyRenderer/TinyRenderer -w    $< tmp_dir_$(notdir $@) -a 90
+	../TinyRenderer/TinyRenderer -w -r $< tmp_rev_$(notdir $@) -a 90
+	composite -dissolve 60 -gravity Center tmp_dir_$(notdir $@) tmp_rev_$(notdir $@) -alpha Set $@
+	convert $@ -channel A -evaluate Multiply 0.85 +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile2 $@
+	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
 %_3.iso.png: %.obj ../TinyRenderer/TinyRenderer
-	../TinyRenderer/TinyRenderer -w $< $@ -a 180
-	optipng $@
+	../TinyRenderer/TinyRenderer -w    $< tmp_dir_$(notdir $@) -a 180
+	../TinyRenderer/TinyRenderer -w -r $< tmp_rev_$(notdir $@) -a 180
+	composite -dissolve 60 -gravity Center tmp_dir_$(notdir $@) tmp_rev_$(notdir $@) -alpha Set $@
+	convert $@ -channel A -evaluate Multiply 0.85 +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile3 $@
+	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
 %_4.iso.png: %.obj ../TinyRenderer/TinyRenderer
-	../TinyRenderer/TinyRenderer -w $< $@ -a 270
-	optipng $@
+	../TinyRenderer/TinyRenderer -w    $< tmp_dir_$(notdir $@) -a 270
+	../TinyRenderer/TinyRenderer -w -r $< tmp_rev_$(notdir $@) -a 270
+	composite -dissolve 60 -gravity Center tmp_dir_$(notdir $@) tmp_rev_$(notdir $@) -alpha Set $@
+	convert $@ -channel A -evaluate Multiply 0.85 +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile4 $@
+	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
 %.mesh: %.obj ../OgreAssimp/OgreAssimpConverter
 	../OgreAssimp/OgreAssimpConverter -uuid `echo '$<' | sha1sum | head -n1 | awk '{print $$1;}'` $<
@@ -53,7 +68,6 @@ all: $(ISO_TILES) $(TILES_ID).tsx
 	mkdir -p tmp
 	@echo DIR: "'$(dir $@)'", FILE: "'$(basename $(basename $(notdir $@)))'", EXT: "'$(suffix $@)'"
 	convert +append $+ $@
-	optipng $@
 
 $(TILES_ID).tsx: $(ISO_TILES) metadata.json
 	../scripts/generate_simple_tsx.py -d metadata.json -i . -o . -n "$(TILES_ID)"
@@ -66,3 +80,4 @@ clean:
 	@rm -fv `find . -maxdepth 1 -name "*.skeleton"`
 	@rm -fv `find . -maxdepth 1 -name "*.skeleton.xml"`
 	@rm -fv `find . -maxdepth 1 -name "*.tsx"`
+	@rm -fv `find . -maxdepth 1 -name "tmp_*.png"`

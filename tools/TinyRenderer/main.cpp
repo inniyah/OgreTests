@@ -269,7 +269,8 @@ int main (int argc, const char * const * argv, const char * const * envp) {
 
     dsr::ArgumentHelper ah;
 
-    bool overwrite_output = false, mirror_x = false, mirror_z = false, mirror_xz = false;
+    bool overwrite_output = false, reverse_pov = false;
+    bool mirror_x = false, mirror_z = false, mirror_xz = false;
     double angle_y = 0;
     Matrix mod_matrix = Matrix::identity();
 
@@ -279,6 +280,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     ah.new_flag('x', "xmirror", "Mirror along the X plane", mirror_x);
     ah.new_flag('z', "zmirror", "Mirror along the Z plane", mirror_z);
     ah.new_flag('d', "dmirror", "Mirror along the diagonal XZ plane", mirror_xz);
+    ah.new_flag('r', "reverse", "Reverse point of view", reverse_pov);
     ah.new_named_double('a', "angle", "angle in degrees", "Angle to rotate around the Y axis in degrees", angle_y);
     ah.new_named_double('o', "opacity", "opacity (0.0 - 1.0)", "opacity between 0.0 (transparent) and 1.0 (opaque)", global_opacity);
     ah.new_named_string('Z', "zbuffer", "zbuffer_output.png", "Dump the zbuffer", zbuffer_output_filename);
@@ -309,6 +311,10 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     viewport_zoom = viewport_zoom * drawing_scale;
     viewport_offset_x = viewport_offset_x * drawing_scale;
     viewport_offset_y = viewport_offset_y * drawing_scale;
+
+    if (reverse_pov) {
+        for (int i = 0; i < 3; i++) eye[i] = -eye[i];
+    }
 
     float *zbuffer = new float[width*height];
     for (int i=width*height; i--; zbuffer[i] = -std::numeric_limits<float>::max());
@@ -421,6 +427,10 @@ int main (int argc, const char * const * argv, const char * const * envp) {
                     frame.set(x, y, black);
             }
         }
+    }
+
+    if (reverse_pov) {
+        frame.flip_horizontally();
     }
 
     frame.flip_vertically(); // to place the origin in the bottom left corner of the image
