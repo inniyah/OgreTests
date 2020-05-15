@@ -11,7 +11,7 @@
  </layer>
  <layer id="1" name="Objetos 01" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt0yEOgDAQBMDrG+A5yAKG/38AieQDVNcCadPMJCvO7YqLAAAAAACAf+UUsaTWLd47yoZ5gB304S65Wpf4wFR+4mxdAgBgYHt1b01aQJ/W6s4lD5JCBNA=
+   eJzt07ENgzAQBVB7hjAOJYGGRSlTMg8lZRaIayREYWIn1nvSFXfV/8WFAAAAAAAA3zXEEPpYO0W+OXXoGujxL5baAW7yOrm/0+wlg2RaT+6P9BNb0SR51kZ+uJUeAMC16bCPVVLAb3oe9iHNB15vCFc=
   </data>
  </layer>
  <layer id="3" name="Techos 01" width="50" height="50">
@@ -26,7 +26,7 @@
  </layer>
  <layer id="5" name="Objetos 02" width="50" height="50" offsetx="0" offsety="148">
   <data encoding="base64" compression="zlib">
-   eJzt0isOgDAQBNAtEsmZ+BwAiURyf4OiuhJES/NesmLcTLIRAAAAAMAbZ4o4Uu0W3115w97BDtow5V8aO/inO9/QwQ4AgFYtRZ6rtIA2rUXeqrSA/3oA5SIDsg==
+   eJzt0isOgDAQRdEWB5I18VkAEolkZQSJZAcEyWZA8SSphIR+ck/STMe9accYAAAAAAAAAG8M1pje+k7x3agZugTmQBhK7VKRwD5dOlkCc8TkfNxXvf2huuvMkf3DpLyb6qKaR5YdAIA/1U5feUkBhKlx+tZLCiBeNxD1CeU=
   </data>
  </layer>
  <layer id="6" name="Techos 02" width="50" height="50" offsetx="0" offsety="148">
