@@ -269,7 +269,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
 
     dsr::ArgumentHelper ah;
 
-    bool overwrite_output = false, reverse_pov = false;
+    bool overwrite_output = false, reverse_pov = false, invert_normals = false;
     bool mirror_x = false, mirror_z = false, mirror_xz = false;
     double angle_y = 0;
     Matrix mod_matrix = Matrix::identity();
@@ -281,6 +281,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     ah.new_flag('z', "zmirror", "Mirror along the Z plane", mirror_z);
     ah.new_flag('d', "dmirror", "Mirror along the diagonal XZ plane", mirror_xz);
     ah.new_flag('r', "reverse", "Reverse point of view", reverse_pov);
+    ah.new_flag('i', "invertnormals", "Invert normals", invert_normals);
     ah.new_named_double('a', "angle", "angle in degrees", "Angle to rotate around the Y axis in degrees", angle_y);
     ah.new_named_double('o', "opacity", "opacity (0.0 - 1.0)", "opacity between 0.0 (transparent) and 1.0 (opaque)", global_opacity);
     ah.new_named_string('Z', "zbuffer", "zbuffer_output.png", "Dump the zbuffer", zbuffer_output_filename);
@@ -363,6 +364,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     if (true) {
         model = new Model(input_filename.c_str());
         model->modify(mod_matrix);
+        if (invert_normals) model->invert_normals();
         Shader shader;
         for (int i=0; i<model->nfaces(); i++) {
             for (int j=0; j<3; j++) {

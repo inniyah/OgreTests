@@ -18,7 +18,7 @@
     "@IsoTile2": "brick_2.iso.png",
     "@IsoTile3": "brick_3.iso.png",
     "@IsoTile4": "brick_4.iso.png",
-    "@Material": "brick_e9b09a5a0ee677c4d20654918137cb541440780a.jpg",
+    "@Material": "brick_78af191374572b69c50315961552ab0a523f5c3b.jpg",
     "@Texture": "brick.jpg"
   },
   "wood.obj": {
@@ -30,7 +30,7 @@
     "@IsoTile2": "wood_2.iso.png",
     "@IsoTile3": "wood_3.iso.png",
     "@IsoTile4": "wood_4.iso.png",
-    "@Material": "wood_be5ec3df6e8c3095e2a6ee1e1ffcb34fce7a2603.jpg",
+    "@Material": "wood_5a2d153753229de7e28faf602d83432c84d38524.jpg",
     "@Texture": "wood.jpg"
   },
   "wooden_beams.obj": {
@@ -42,7 +42,7 @@
     "@IsoTile2": "wooden_beams_2.iso.png",
     "@IsoTile3": "wooden_beams_3.iso.png",
     "@IsoTile4": "wooden_beams_4.iso.png",
-    "@Material": "wooden_beams_59815fa86f6332cd5c3eb9afabf3d2f69a15bd1e.jpg",
+    "@Material": "wooden_beams_48d3865011bae54bf50250f094d55a763f58cc8d.jpg",
     "@Texture": "wooden_beams.jpg"
   }
 }

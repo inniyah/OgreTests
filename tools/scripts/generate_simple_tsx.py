@@ -31,7 +31,7 @@ if __name__ == "__main__":
     ]:
 
         tiles_per_object = 4
-        tile_id_multiplier = 5
+        tile_id_multiplier = 8
 
         num_of_objects = len(tiles_list)
 

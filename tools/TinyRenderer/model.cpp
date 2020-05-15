@@ -182,3 +182,11 @@ void Model::modify(const Matrix & m) {
 		n = proj<3>(mn * embed<4>(n));
 	}
 }
+
+void Model::invert_normals() {
+	for(auto & n: m_norms) {
+		n[0] = -n[0];
+		n[1] = -n[1];
+		n[2] = -n[2];
+	}
+}

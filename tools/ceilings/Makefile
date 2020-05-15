@@ -16,7 +16,11 @@ ISO_TILES = \
 	$(OBJ_SOURCES:.obj=_4.iso.png) \
 	$(OBJ_SOURCES:.obj=.mesh)
 
-all: $(ISO_TILES) $(TILES_ID).tsx
+all: $(OBJ_SOURCES) $(ISO_TILES) ../tiled/$(TILES_ID).tsx
+
+add-new-objs:
+	ls *.png *.jpg | grep -v ".iso.png$$" | cut -f1 -d'.' | sort --unique | while read -r F; do \
+		../scripts/add_metadata.py "$${F}.obj" -d metadata.json -t $(TILES_ID); done
 
 ../TinyRenderer/TinyRenderer:
 	$(MAKE) -C ../TinyRenderer
@@ -47,27 +51,27 @@ all: $(ISO_TILES) $(TILES_ID).tsx
 	../scripts/add_metadata.py $@ -d metadata.json -t $(TILES_ID) -D Texture $<
 
 %_1.iso.png: %.obj ../TinyRenderer/TinyRenderer
-	../TinyRenderer/TinyRenderer -w $< $@
+	../TinyRenderer/TinyRenderer -w -i $< $@
 	convert $@ -channel A -evaluate Multiply $(OPACITY) +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile1 $@
 
 %_2.iso.png: %.obj ../TinyRenderer/TinyRenderer
-	../TinyRenderer/TinyRenderer -w $< $@ -a 90
+	../TinyRenderer/TinyRenderer -w -i $< $@ -a 90
 	convert $@ -channel A -evaluate Multiply $(OPACITY) +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile2 $@
 
 %_3.iso.png: %.obj ../TinyRenderer/TinyRenderer
-	../TinyRenderer/TinyRenderer -w $< $@ -a 180
+	../TinyRenderer/TinyRenderer -w -i $< $@ -a 180
 	convert $@ -channel A -evaluate Multiply $(OPACITY) +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile3 $@
 
 %_4.iso.png: %.obj ../TinyRenderer/TinyRenderer
-	../TinyRenderer/TinyRenderer -w $< $@ -a 270
+	../TinyRenderer/TinyRenderer -w -i $< $@ -a 270
 	convert $@ -channel A -evaluate Multiply $(OPACITY) +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile4 $@
 
 %.mesh: %.obj ../OgreAssimp/OgreAssimpConverter
-	../OgreAssimp/OgreAssimpConverter -uuid `echo '$<' | sha1sum | head -n1 | awk '{print $$1;}'` $<
+	../OgreAssimp/OgreAssimpConverter -uuid `echo '$(TILES_ID)/$<' | sha1sum | head -n1 | awk '{print $$1;}'` $<
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) \
 		-J $(dir $<)attributes.json -D 3DModel $< -D 3DMesh $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D Material \
@@ -80,8 +84,9 @@ all: $(ISO_TILES) $(TILES_ID).tsx
 	@echo DIR: "'$(dir $@)'", FILE: "'$(basename $(basename $(notdir $@)))'", EXT: "'$(suffix $@)'"
 	convert +append $+ $@
 
-$(TILES_ID).tsx: $(ISO_TILES) metadata.json
-	../scripts/generate_simple_tsx.py -d metadata.json -i . -o . -n "$(TILES_ID)"
+../tiled/$(TILES_ID).tsx: $(ISO_TILES) metadata.json
+	mkdir -p ../tiled
+	../scripts/generate_simple_tsx.py -d metadata.json -i . -o ../tiled -n "$(TILES_ID)"
 
 clean:
 	@rm -fv `find . -maxdepth 1 -name "*.obj"`
@@ -94,3 +99,5 @@ clean:
 	@rm -fv `find . -maxdepth 1 -name "*.skeleton.xml"`
 	@rm -fv `find . -maxdepth 1 -name "*.tsx"`
 	@rm -fv `find . -maxdepth 1 -name "tmp_*.png"`
+
+.PHONY: all add-new-objs clean
