@@ -1,0 +1,74 @@
+{
+  ":seq_info": {
+    "floors": 6
+  },
+  ":type_lists": {
+    "floors": {
+      "1": "BumpyMetal.obj",
+      "2": "simplewall.obj",
+      "3": "terr_rock6.obj",
+      "4": "BeachStones.obj",
+      "5": "MtlPlat2.obj"
+    }
+  },
+  "BeachStones.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 4,
+    "@3DMesh": "BeachStones.mesh",
+    "@3DModel": "BeachStones.obj",
+    "@IsoTile1": "BeachStones_1.iso.png",
+    "@IsoTile2": "BeachStones_2.iso.png",
+    "@IsoTile3": "BeachStones_3.iso.png",
+    "@IsoTile4": "BeachStones_4.iso.png",
+    "@Material": "BeachStones_4d739ec7d85bbf65f2feafe4ad9bcffc8b49d19d.png",
+    "@Texture": "BeachStones.png"
+  },
+  "BumpyMetal.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 1,
+    "@3DMesh": "BumpyMetal.mesh",
+    "@3DModel": "BumpyMetal.obj",
+    "@IsoTile1": "BumpyMetal_1.iso.png",
+    "@IsoTile2": "BumpyMetal_2.iso.png",
+    "@IsoTile3": "BumpyMetal_3.iso.png",
+    "@IsoTile4": "BumpyMetal_4.iso.png",
+    "@Material": "BumpyMetal_d605d33d1db19a8ead5f41260aaed87b84c2d9da.png",
+    "@Texture": "BumpyMetal.png"
+  },
+  "MtlPlat2.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 5,
+    "@3DMesh": "MtlPlat2.mesh",
+    "@3DModel": "MtlPlat2.obj",
+    "@IsoTile1": "MtlPlat2_1.iso.png",
+    "@IsoTile2": "MtlPlat2_2.iso.png",
+    "@IsoTile3": "MtlPlat2_3.iso.png",
+    "@IsoTile4": "MtlPlat2_4.iso.png",
+    "@Material": "MtlPlat2_7c60bd1db553bcd07efee3bea79c3ab070425e53.png",
+    "@Texture": "MtlPlat2.png"
+  },
+  "simplewall.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 2,
+    "@3DMesh": "simplewall.mesh",
+    "@3DModel": "simplewall.obj",
+    "@IsoTile1": "simplewall_1.iso.png",
+    "@IsoTile2": "simplewall_2.iso.png",
+    "@IsoTile3": "simplewall_3.iso.png",
+    "@IsoTile4": "simplewall_4.iso.png",
+    "@Material": "simplewall_de12b929ed274743dba8db1d6f4747115559b303.png",
+    "@Texture": "simplewall.png"
+  },
+  "terr_rock6.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 3,
+    "@3DMesh": "terr_rock6.mesh",
+    "@3DModel": "terr_rock6.obj",
+    "@IsoTile1": "terr_rock6_1.iso.png",
+    "@IsoTile2": "terr_rock6_2.iso.png",
+    "@IsoTile3": "terr_rock6_3.iso.png",
+    "@IsoTile4": "terr_rock6_4.iso.png",
+    "@Material": "terr_rock6_1697d0f196443ab8be2b081004434c8c18a73b45.png",
+    "@Texture": "terr_rock6.png"
+  }
+}
