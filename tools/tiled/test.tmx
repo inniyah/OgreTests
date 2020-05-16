@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="floors.tsx"/>
  <tileset firstgid="46" source="ceilings.tsx"/>
  <tileset firstgid="67" source="models.tsx"/>
- <tileset firstgid="160" source="stairs.tsx"/>
+ <tileset firstgid="168" source="stairs.tsx"/>
  <layer id="2" name="Suelo 01" width="50" height="50">
   <data encoding="base64" compression="zlib">
    eJztwwEJAAAMBKHL8/0DLsdAwVVTVVVVVVVVVVXV5w8OUJo4
@@ -11,7 +11,7 @@
  </layer>
  <layer id="1" name="Objetos 01" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJzt07ENgzAQBVB7hjAOJYGGRSlTMg8lZRaIayREYWIn1nvSFXfV/8WFAAAAAAAA3zXEEPpYO0W+OXXoGujxL5baAW7yOrm/0+wlg2RaT+6P9BNb0SR51kZ+uJUeAMC16bCPVVLAb3oe9iHNB15vCFc=
+   eJzt0yEOhDAQBdByjuU4sBgkF0UiOQ8SuWarSQiiQKF5Lxkxo/4XEwIAAAAAAFyrr0Joqtwp0g2xQ11Aj7cYcwc4ybRz/8VZ7wySaN65f+JPLLcmSTMX8sOl9AAAjnWb/ZslBTxTu9mbOH8AqQi/
   </data>
  </layer>
  <layer id="3" name="Techos 01" width="50" height="50">
@@ -19,19 +19,19 @@
    eJztzwENAAAIwzCs4d8UBhBwSJtMwKoAAAAAAAAAAIBEvXSRjyyfPwZe4gZa
   </data>
  </layer>
- <layer id="4" name="Suelo 02" width="50" height="50" offsetx="0" offsety="148">
+ <layer id="4" name="Suelo 02" width="50" height="50" offsetx="0" offsety="-148">
   <data encoding="base64" compression="zlib">
-   eJztz7EJAAAIwDBn/z9Y3J1FIYEe0AgAAAAAAAAAgD059JGPW3wArQDWhAD7
+   eJztz0ENAAAIxDDe+BeMAQQcpE0mYFUAAAAAAAAAAECiXrrIR5bPHwO5dwD7
   </data>
  </layer>
- <layer id="5" name="Objetos 02" width="50" height="50" offsetx="0" offsety="148">
+ <layer id="5" name="Objetos 02" width="50" height="50" offsetx="0" offsety="-148">
   <data encoding="base64" compression="zlib">
-   eJzt0isOgDAQRdEWB5I18VkAEolkZQSJZAcEyWZA8SSphIR+ck/STMe9accYAAAAAAAAAG8M1pje+k7x3agZugTmQBhK7VKRwD5dOlkCc8TkfNxXvf2huuvMkf3DpLyb6qKaR5YdAIA/1U5feUkBhKlx+tZLCiBeNxD1CeU=
+   eJzt0isOgDAQRdEpEgeS9fBZBBKJZGUEiWQHBMlieJLUEiht7kma6bh57ZgBAAAAAAAAAPCu0ZkNLvQUz03K0CeQA/9QaZfKBPYpU4Y8gRwxcbf33nQ/VQ+dJbJ/mDXvrrqqFpHNDgDAlxqvr4NMAfxT6/WdzgV5KAhv
   </data>
  </layer>
- <layer id="6" name="Techos 02" width="50" height="50" offsetx="0" offsety="148">
+ <layer id="6" name="Techos 02" width="50" height="50" offsetx="0" offsety="-148">
   <data encoding="base64" compression="zlib">
-   eJztz7EJAAAIwDDv8v/DxN1ZFBLoAY0AAAAAAAAAANiTQx/5uMUH0ApUHQWr
+   eJztzwENAAAIwzB04V8YBhBwSJtMwKoAAAAAAAAAAIBEvXSRjyyfPwZFLwWr
   </data>
  </layer>
 </map>
