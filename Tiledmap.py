@@ -194,14 +194,6 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         self.Player.actualiza(self.time)
 
         OgreBites.ApplicationContext.frameStarted(self, evt)
-        #ImGuiOverlay.NewFrame(evt)
-        #flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove
-        #Begin("MeshProps", None, flags)
-        #Text("probando")
-        #End()
-        #self.vel=self.time*self.LINEAL_VEL
-        #print (evt.timeSinceLastFrame)
-
 
         OgreOverlay.ImGuiOverlay.NewFrame(evt)
 
@@ -216,7 +208,6 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
 
         if self.show_about:
             self.draw_about()
-
 
         return True
 

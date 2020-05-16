@@ -33,6 +33,7 @@ class tmxmap:
     '90':[(1.0,1.0),(1.0,0.0),(0.0,0.0),(0.0,1.0)]}
     wall_layers={}  #Lista de layers conteniendo las walls por niveles
     floor_layers={}
+    ceil_layers={}
     
     def __init__(self,file_name):
         self.load(file_name)
@@ -67,6 +68,9 @@ class tmxmap:
                 self.wall_layers[int(layer.properties['level'])]=layer
             elif layer.properties['tipo']=='f':
                 self.floor_layers[int(layer.properties['level'])]=layer
+            elif layer.properties['tipo']=='c':
+                self.ceil_layers[int(layer.properties['level'])]=layer
+                
         
         #creamos las layers de colisiones
         print ("creando colisiones")
@@ -95,6 +99,7 @@ class tmxmap:
     
     
     def makefloor (self,scn_mgr,layername,h):
+        h+=.025
         layer=self.world_map.named_layers[layername]
         man=scn_mgr.createManualObject(layername)
         man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
@@ -141,7 +146,7 @@ class tmxmap:
         mannode.attachObject(man)
     
     def makeceil (self,scn_mgr,layername,h):
-        h=h+self.INCTILE_Z-0.05
+        h=h+self.INCTILE_Z-0.025
         layer=self.world_map.named_layers[layername]
         man=scn_mgr.createManualObject(layername)
         man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
@@ -194,15 +199,14 @@ class tmxmap:
 #
 
   
-    def collisionwall(self,layer,objeto,x,y):
+    def wallheight(self,layer,objeto,x,y):
         """ ESTUDIO DE LA COLISION DE LAS WALLS"""
         return self.collisiontiles.collisiontypes[layer.content2D [int(y)] [int(x)]] (objeto,x,y)
         
  
-    def collisiontile(self,objeto,x,y,z,offset):
-        """ Comprobamos si se puede estar en un tile"""
-        
-        #si estmos fuera del mapa la altura sera 0
+    def wallsheight(self,objeto,x,y,z,offset):
+        """ Vamos a comprobar las coliciones con las walls"""
+        #si estamos fuera del mapa la altura sera 0
         if y>self.world_map.width-offset or x>self.world_map.height-offset:
             return 0
         
@@ -212,23 +216,29 @@ class tmxmap:
         #estudio de la colisión con las paredes        
         if level in self.wall_layers:
             layer=self.wall_layers[level]
-            h= max(self.collisionwall(layer,objeto,x+offset,y+offset),
-                self.collisionwall(layer,objeto,x-offset,y-offset),
-                self.collisionwall(layer,objeto,x+offset,y-offset),
-                self.collisionwall(layer,objeto,x-offset,y+offset))+level*2
+            return max(self.wallheight(layer,objeto,x+offset,y+offset),
+                self.wallheight(layer,objeto,x-offset,y-offset),
+                self.wallheight(layer,objeto,x+offset,y-offset),
+                self.wallheight(layer,objeto,x-offset,y+offset))+level*2
         else: #No existe la layer, luego no hay colisión
-            h= -2.0+level*2
+            return (-2.0+level*2)
 
-        if h>level*2:
-            print ("2-"+str(h))
-            return h
 
-        #estudio la colisión con el suelo
-        level=int(z+0.2)//2
-        if level==0:
-            return 0
-        print (level)
+    def floorheight(self,x,y,z):
+        """ Debuelve la altura del suelo de un punto """
+        level=int(z)//2
         
+        #estudio la altura de los objetos        
+        if level in self.wall_layers:
+            layer=self.wall_layers[level]
+            h=self.wallheight(layer,None,x,y)+level*2
+            if h>0:
+                return h
+        
+        #Voy a estudiar el suelo que hay mas cercano
+        level=int(z+0.2)//2
+        
+        #si hay nivel de suelo a ese invel
         if level in self.floor_layers:
             layer=self.floor_layers[level]
             if layer.content2D [int(y)] [int(x)]==0:
@@ -237,17 +247,39 @@ class tmxmap:
                 return level*2
         else:
             return -2.0+level*2
-        
     
-    def metadata(self,layername,x,y):
-        # Comporbamos no pasarnos de los limites del mapa
-        if y>self.world_map.width-1 or x>self.world_map.height-1:
-            return 0
-        layernumber=self.layerlist[layername]
-        gid=self.world_map.layers[layernumber].content2D [y][x]
-#        if gid!=0:
-#            ret=self.world_map.tiles[gid].properties['tipo']
-#        else:
-#            ret=0
+    def ceilheight(self,x,y,z):
+        """ Debuelve la altura del techo de un punto """
+        level=int(z)//2
+                
+        #si hay nivel de techo a ese invel
+        if level in self.ceil_layers:
+            layer=self.ceil_layers[level]
+            if layer.content2D [int(y)] [int(x)]==0:
+                return 4.0+level*2
+            else:
+                return level*2+2.0
+        else:
+            return 4.0+level*2
+    
+    def floorsheight(self,x,y,z,offset):
+        """ Altura de los suelos en un offset """
+        level=int(z+0.2)//2
         
-        return gid
+        #si hay nivel de suelo a ese invel
+        if level in self.floor_layers:
+            layer=self.floor_layers[level]            
+            if not layer.content2D [int(y-offset)] [int(x-offset)]==0:
+                return level*2
+            elif not layer.content2D [int(y+offset)] [int(x-offset)]==0:
+                return level*2
+            elif not layer.content2D [int(y+offset)] [int(x+offset)]==0:
+                return level*2
+            elif not layer.content2D [int(y-offset)] [int(x+offset)]==0:
+                return level*2
+            else:
+                return -2.0+level*2
+        else:
+            return -2.0+level*2
+
+        
