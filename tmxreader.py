@@ -715,8 +715,7 @@ class TileMapParser(object):
         if hasattr(tile_set, "source"):
             tile_set = self._parse_tsx(tile_set, world_map)
         else:
-            tile_set = self._get_tile_set(tile_set_node, tile_set, \
-                                                  self.map_file_name, world_map)
+            tile_set = self._get_tile_set(tile_set_node, tile_set, self.map_file_name, world_map)
         world_map.tile_sets.append(tile_set)
 
     def _parse_tsx(self, tile_set, world_map):
@@ -806,12 +805,17 @@ class TileMapParser(object):
             else:
                 layer.encoded_content = []
                 for child in node.childNodes:
-                    if child.nodeType == Node.ELEMENT_NODE and \
-                                                    child.nodeName == "tile":
+                    if child.nodeType == Node.ELEMENT_NODE and child.nodeName == "tile":
                         val = child.attributes["gid"].nodeValue
                         #print child, val
                         layer.encoded_content.append(val)
         world_map.layers.append(layer)
+
+    def _build_group(self, group_node, world_map):
+        for node in self._get_nodes(group_node.childNodes, 'layer'):
+            self._build_layer(node, world_map)
+        for node in self._get_nodes(group_node.childNodes, 'group'):
+            self._build_group(node, world_map)
 
     def _build_world_map(self, world_node):
         world_map = TileMap()
@@ -822,6 +826,8 @@ class TileMapParser(object):
             self._build_tile_set(node, world_map)
         for node in self._get_nodes(world_node.childNodes, 'layer'):
             self._build_layer(node, world_map)
+        for node in self._get_nodes(world_node.childNodes, 'group'):
+            self._build_group(node, world_map)
         for node in self._get_nodes(world_node.childNodes, 'objectgroup'):
             self._build_object_groups(node, world_map)
         return world_map
