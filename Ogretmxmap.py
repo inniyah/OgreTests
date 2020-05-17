@@ -44,8 +44,9 @@ class tmxmap:
         self.world_map = tmxreader.TileMapParser().parse_decode(file_name)
         
         for layer in self.world_map.layers:
-            if self.maxh<int(layer.properties['level']):
-                self.maxh=int(layer.properties['level'])
+            if 'level' in layer.properties:
+                if self.maxh<int(layer.properties['level']):
+                    self.maxh=int(layer.properties['level'])
             
         print("loaded map:", self.world_map.map_file_name)
         print("tiles used:", self.world_map.width, self.world_map.height)
@@ -57,19 +58,22 @@ class tmxmap:
         tipo = {'w':self.makewalls, 'c':self.makeceil, 'f':self.makefloor }
 
         for layer in self.world_map.layers:
-            print ("creating layer:",layer.name)
-            h=float(layer.properties['level'])*2
-            if layer.properties['tipo'] in tipo:
-                tipo[layer.properties['tipo']](scn_mgr,layer.name,h)
+            print ("reading layer:",layer.name)
+            if 'level' in layer.properties:
+                print ("creating layer:",layer.name)
+                h=float(layer.properties['level'])*2
+                if layer.properties['tipo'] in tipo:
+                    tipo[layer.properties['tipo']](scn_mgr,layer.name,h)
         
         # vamos a registrar las layers necesarias
         for layer in self.world_map.layers:
-            if layer.properties['tipo']=='w':
-                self.wall_layers[int(layer.properties['level'])]=layer
-            elif layer.properties['tipo']=='f':
-                self.floor_layers[int(layer.properties['level'])]=layer
-            elif layer.properties['tipo']=='c':
-                self.ceil_layers[int(layer.properties['level'])]=layer
+            if 'tipo' in layer.properties:
+                if layer.properties['tipo']=='w':
+                    self.wall_layers[int(layer.properties['level'])]=layer
+                elif layer.properties['tipo']=='f':
+                    self.floor_layers[int(layer.properties['level'])]=layer
+                elif layer.properties['tipo']=='c':
+                    self.ceil_layers[int(layer.properties['level'])]=layer
                 
         
         #creamos las layers de colisiones
@@ -92,9 +96,9 @@ class tmxmap:
                     wallNode1 = scn_mgr.getRootSceneNode().createChildSceneNode()
                     wallNode2=wallNode1.createChildSceneNode()
                     wallNode2.translate(-.5,0,-.5)
-                    wallNode1.yaw(Ogre.Ogre.Radian((-float(self.world_map.tiles[gid].properties[self.ROT_PROP])+90)/180*np.pi),Ogre.Node.TS_WORLD)
+                    wallNode1.yaw(Ogre.Ogre.Radian((-float(self.world_map.tiles[gid].properties[self.ROT_PROP]))/180*np.pi),Ogre.Node.TS_WORLD)
                     #wallNode.translate(py+0.5, h, px+0.5)
-                    wallNode1.setPosition(py+0.5, h, px+0.5)
+                    wallNode1.setPosition(px+0.5, h, py+0.5)
                     wallNode2.attachObject(wall)
     
     
@@ -109,18 +113,12 @@ class tmxmap:
             for ty in range (0,self.world_map.height):
                 gid=layer.content2D [tx][ty]
                 if gid!=0:
-                    try:
-                        if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
-                            mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
-                        else:
-                            print (f"{self.MATERIAL_PROP} is not in tile at {tx}, {ty} ({gid})")
-                            mat_name=""
-                        rot=self.FLOOR_ROT[self.world_map.tiles[gid].properties[self.ROT_PROP]]
-                    except KeyError:
-                        print (f"Tile at {tx}, {ty} ({gid}) does not exist")
+                    if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
+                        mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
+                    else:
+                        print (self.MATERIAL_PROP, " is not in tile ",tx,"-",ty,"(",gid,")")
                         mat_name=""
-                        gid = 0
-                        continue
+                    rot=self.FLOOR_ROT[self.world_map.tiles[gid].properties[self.ROT_PROP]]
                     man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
