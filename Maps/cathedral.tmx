@@ -4,16 +4,13 @@
  <tileset firstgid="46" source="../tools/tiled/ceilings.tsx"/>
  <tileset firstgid="67" source="../tools/tiled/models.tsx"/>
  <tileset firstgid="200" source="../tools/tiled/stairs.tsx"/>
- <tileset firstgid="485" name="test_tiles" tilewidth="32" tileheight="32" tilecount="450" columns="25">
-  <image source="../tools/tiled/cathedral/test_tiles.png" width="800" height="576"/>
- </tileset>
  <layer id="2" name="Suelo 01" width="50" height="50">
   <properties>
    <property name="level" type="int" value="0"/>
    <property name="tipo" value="f"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt2LERgDAMQ9HAONl/KMZgAYpwZyJZ/EJdCr2z03iOMWZBzs2p6OzuWH27u/Mb16pb3ffvjuvo41B32DGPLsHhlSSHugPzwOGaJIe6A/PA4Zokh7oD88DhmiSHukP1PJ5uPF1ucV3uoF85nCxdb9TV/dWOakuCAQeOpL+RZGGvcLg7VIYkC3uFw92hMiRZ2Ctfxw2Qemkg
+   eJzt2LENwDAMA0Eh43j/AbNACgdQTIr5gp0LHiQ3WlW1GnIdTkdnd8fu29Od37h23eq+f3fUIIe6w4l5TAkOryQ51B2YBw7XJDnUHZgHDtckOdQdmAcO1yQ51B265/F045lyi5tyB/3K4WSZeqPu7q92dFsSDDhwJP2NJAt7hcPdoTIkWdgrHO4OlSHJwl75Om6sU2g3
   </data>
  </layer>
  <layer id="1" name="Objetos 01" width="50" height="50">
@@ -22,7 +19,7 @@
    <property name="tipo" value="w"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztmDsOwjAMht1rwcpJYIMNrgR0YQQmHnNvRSxRKSpOcBPnocifFAGp4z9/GzelADKsTDsJ5fJx/mqlzG03ytOFkYuK4eafE0vFUedH8py58lP6+P1o/e4947lxUnDm8S9Wsi+UOfldsfbactVYLT7GNXad9Pfwuw6pa0nFUTqhdU7lpuYxxraA+qiLFny46pyquZi+l2lPzzxcx7n5c/E27RFxXFFKELP/KooiQ+g+yCXXfh66D87Zz1t4vkLUR11QPm4RfamhNKn/v5xmjw29R3Bipn13x1wA6Ovh68PPRQew78qsSdQ8GO1dpD6OXZsc20I+kKXR3kTqT9/15IbzDigkZ26kNTHfAOXqXJJBOB+HFGtAfYSjPmgGaKfOS9CCB0R91EWK/bzkc7skLTxfpcpZQlN91KOpdV6fpvqQ0/wAfBlu/g==
+   eJztmDsOwjAMht1rwcpJYIMNrsIRgC6MwMRjYemtiCWQouAUN3EeKv6kCEjd/4/buAkFkGFm2l5Iq4/D2yultt2onI4MLSqGqz8kloqjro/kNfPpU/74fWf9bnvO58ZJwRnHr1jJvlCG6Pti7bnlq7Fa8vjMsZPT38L3PKTuJRWHbevEhdY5pU2N4xMryVNYj0uqZ3JuNI968NU5VXMxfXfTbj3j8B3n6ufiYdo14riilMC3Zy1ZS4ryb4Sug1xyreeh6+CQ9XwM+ytE86gLKo9zRF9qKE/q/y+n2eeGPiM4MW7fxTMWAPp+9PXh56QBWDdl5iR6boz3KtIfz50bjWWhPJCp8V5E+rvvenLDeQcUopkbaU/U66BcnUvSCetxSDEHNI9wNA+aDsZT5yUYQw6I5lEXKdbzkvt2Scawv0qlWcJT86jHU+u8Pk/NQ87zBZ4McFY=
   </data>
  </layer>
  <layer id="3" name="Techos 01" width="50" height="50">
