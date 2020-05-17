@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.3" orientation="isometric" renderorder="right-down" width="200" height="200" tilewidth="137" tileheight="79" infinite="0" nextlayerid="13" nextobjectid="1">
+ <tileset firstgid="1" source="../tools/tiled/floors.tsx"/>
+ <tileset firstgid="46" source="../tools/tiled/ceilings.tsx"/>
+ <tileset firstgid="67" source="../tools/tiled/models.tsx"/>
+ <tileset firstgid="200" source="../tools/tiled/stairs.tsx"/>
+ <tileset firstgid="485" name="test_tiles" tilewidth="32" tileheight="32" tilecount="450" columns="25">
+  <image source="../tools/tiled/cathedral/test_tiles.png" width="800" height="576"/>
+ </tileset>
+ <layer id="2" name="Suelo 01" width="200" height="200">
+  <properties>
+   <property name="level" type="int" value="0"/>
+   <property name="tipo" value="f"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwwENAAAMw6DqmX+Bt3ABkLBqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqPB3eYo/g=
+  </data>
+ </layer>
+ <layer id="1" name="Objetos 01" width="200" height="200">
+  <properties>
+   <property name="level" type="int" value="0"/>
+   <property name="tipo" value="w"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt3L1u1EAUBlDntaDNk0AHHbxSAg0lUJGkTouoEBXiQbAVLC3WXGe8nl17ds6RRiher3+k+2Hf8e52HQAAAAAAAAAAAAAAAAAAAAAAAAAANfjQj+vJuN30iGA/hjzcHPz98d8yIJ0F+YAn8gEx+YCYfNCy6fzUbeK1qWg981tcmsP5qXFu6nDcJN4zt575LS7JtJaH+k5lIpJaXz64FKXvh6J7MqjReD9UIiNjNpZcf2DvStW03oNLU/p+yPwVtZvOx5a8H5rObckKtTlXj+B+ixqds2blg9qc677HXC+1yf2+06eMbaXW8X0qtpZbg6n1Tv15w2j7xx6vbLFU7nf6lqxXytrj8F1F1sqt8TXLjrXnY6MNSz5znvveUpbsc3rvJB+sNd6Xf54sX/PZ9FQNHtufp7a99DPyqe1BrpbqpaVzpYyWaqalc6WMlmqmpXOljJZqpqVzZb2oP0/1ymuW3ffjbuY4otdLHsfXTn/OPj3049uK1wEAgPqted69d/pzAABo07HPB2FL53p+fuzzQc/P2VpL9dLSuVJGSzXT0rlSRks109K5UkaqZr6sWHZqa45NPlgi9f3unHH43mN7+5x15nrsNQNyLf1dkuHfF1dd9+5qm1ob9vm+3/fbq/+PKbVezjIoaaixV31tvtkoH4OX/b5fb7h/iEx/S+fcnvsNH9iLrfIBezfU6WO3XX8Oe/e4wT5lg1rIB8TkA2LyAWmPnf4c9kY2ICYfEJMPiMkHNdCfwzzzuxCTD4jJB8TkA9L05zDP9QNi8gEx+YCYfECa/hzmuX5ATD4gJh8Qkw9I05/DvC2uH1AL+YCYfEBMPiBNfw7zzO9CTD4gJh8Qkw9I05/DPNcPiMkHxOQDYvIBafpzmOf6ATH5gJh8QEw+IE1/DvNcPyAmHxCTD4jN5eO+e6rluwXby3mPfFCL68xRensyQg3m6vTh3+vfFmwv5z2yQS22qFX5oBbyAbGhVp+bw0r12/fBsudq/zFjHdiL3HxM+4mHYFluPmSEGuTkoyTXD2oy5mP8P/32BPv4cLB9+aAmY83+6cevfvw4wT6+9+NnP3538kE9cp/jpZ6FD9eE1LVm7NE9H+QSPFenH7v0s75Ufz4uv1m5TwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADiVv9SGJo8=
+  </data>
+ </layer>
+ <layer id="3" name="Techos 01" width="200" height="200">
+  <properties>
+   <property name="level" type="int" value="0"/>
+   <property name="tipo" value="c"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
+  </data>
+ </layer>
+ <layer id="4" name="Suelo 02" width="200" height="200" offsetx="0" offsety="-158">
+  <properties>
+   <property name="level" type="int" value="1"/>
+   <property name="tipo" value="f"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
+  </data>
+ </layer>
+ <layer id="12" name="Objetos 02" width="200" height="200" offsetx="0" offsety="-158">
+  <properties>
+   <property name="level" type="int" value="1"/>
+   <property name="tipo" value="w"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzTERACAMBLD6d8bMyIgRTLQDf4mBVAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwB9W6AUdbugFHU7oBR126AUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMx6EdMGtQ==
+  </data>
+ </layer>
+ <layer id="6" name="Techos 02" width="200" height="200" offsetx="0" offsety="-158">
+  <properties>
+   <property name="level" type="int" value="1"/>
+   <property name="tipo" value="c"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
+  </data>
+ </layer>
+</map>

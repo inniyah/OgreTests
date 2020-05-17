@@ -1,6 +1,6 @@
 {
   ":seq_info": {
-    "models": 13
+    "models": 18
   },
   ":type_lists": {
     "models": {
@@ -8,6 +8,11 @@
       "10": "escalera04.obj",
       "11": "caution.obj",
       "12": "colmn.obj",
+      "13": "wall_diagonal.obj",
+      "14": "wall_column.obj",
+      "15": "wall_engaged.obj",
+      "17": "hwall_halfdoor.obj",
+      "16": "wall_big4.obj",
       "2": "hwall_solid.obj",
       "3": "hwall_straight.obj",
       "4": "hwall_cross.obj",
@@ -117,6 +122,17 @@
     "@IsoTile4": "hwall_fork_4.iso.png",
     "@Material": "hwall_560a8e0c753058f831ef2e27f65085c7090961a1.jpg"
   },
+  "hwall_halfdoor.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 17,
+    "@3DMesh": "hwall_halfdoor.mesh",
+    "@3DModel": "hwall_halfdoor.obj",
+    "@IsoTile1": "hwall_halfdoor_1.iso.png",
+    "@IsoTile2": "hwall_halfdoor_2.iso.png",
+    "@IsoTile3": "hwall_halfdoor_3.iso.png",
+    "@IsoTile4": "hwall_halfdoor_4.iso.png",
+    "@Material": "hwall_cd7d16b095a1e19f7d7094b0af1ddaf118209770.jpg"
+  },
   "hwall_solid.obj": {
     ":attrs_file": "./attributes.json",
     ":seq_id": 2,
@@ -149,5 +165,45 @@
     "@IsoTile3": "wall_3.iso.png",
     "@IsoTile4": "wall_4.iso.png",
     "@Material": "wall_18d0c51a6131b43f73983e44983d04f3753533b1.jpg"
+  },
+  "wall_big4.obj": {
+    ":seq_id": 16,
+    "@IsoTile1": "wall_big4_1.iso.png",
+    "@IsoTile2": "wall_big4_2.iso.png",
+    "@IsoTile3": "wall_big4_3.iso.png",
+    "@IsoTile4": "wall_big4_4.iso.png"
+  },
+  "wall_column.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 14,
+    "@3DMesh": "wall_column.mesh",
+    "@3DModel": "wall_column.obj",
+    "@IsoTile1": "wall_column_1.iso.png",
+    "@IsoTile2": "wall_column_2.iso.png",
+    "@IsoTile3": "wall_column_3.iso.png",
+    "@IsoTile4": "wall_column_4.iso.png",
+    "@Material": "wall_ab630a6aef4712da35e805ee209123df03015939.jpg"
+  },
+  "wall_diagonal.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 13,
+    "@3DMesh": "wall_diagonal.mesh",
+    "@3DModel": "wall_diagonal.obj",
+    "@IsoTile1": "wall_diagonal_1.iso.png",
+    "@IsoTile2": "wall_diagonal_2.iso.png",
+    "@IsoTile3": "wall_diagonal_3.iso.png",
+    "@IsoTile4": "wall_diagonal_4.iso.png",
+    "@Material": "wall_167c31fe7ccdc61887155705e57f56e362bcdb48.jpg"
+  },
+  "wall_engaged.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 15,
+    "@3DMesh": "wall_engaged.mesh",
+    "@3DModel": "wall_engaged.obj",
+    "@IsoTile1": "wall_engaged_1.iso.png",
+    "@IsoTile2": "wall_engaged_2.iso.png",
+    "@IsoTile3": "wall_engaged_3.iso.png",
+    "@IsoTile4": "wall_engaged_4.iso.png",
+    "@Material": "wall_e68dd4d9660ee7bff3a70f7289c10b50b8e75582.jpg"
   }
 }
