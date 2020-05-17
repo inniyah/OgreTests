@@ -206,8 +206,10 @@ class tmxmap:
   
     def wallheight(self,layer,objeto,x,y):
         """ ESTUDIO DE LA COLISION DE LAS WALLS"""
-        return self.collisiontiles.collisiontypes[layer.content2D [int(y)] [int(x)]] (objeto,x,y)
-        
+        try: 
+            return self.collisiontiles.collisiontypes[layer.content2D [int(y)] [int(x)]] (objeto,x,y)
+        except:
+            return 0
  
     def wallsheight(self,objeto,x,y,z,offset):
         """ Vamos a comprobar las coliciones con las walls"""
@@ -244,14 +246,17 @@ class tmxmap:
         level=int(z+0.2)//2
         
         #si hay nivel de suelo a ese invel
-        if level in self.floor_layers:
-            layer=self.floor_layers[level]
-            if layer.content2D [int(y)] [int(x)]==0:
-                return -2.0+level*2
+        try:
+            if level in self.floor_layers:
+                layer=self.floor_layers[level]
+                if layer.content2D [int(y)] [int(x)]==0:
+                    return -2.0+level*2
+                else:
+                    return level*2
             else:
-                return level*2
-        else:
-            return -2.0+level*2
+                return -2.0+level*2
+        except:
+            return 0
     
     def ceilheight(self,x,y,z):
         """ Debuelve la altura del techo de un punto """
@@ -260,10 +265,13 @@ class tmxmap:
         #si hay nivel de techo a ese invel
         if level in self.ceil_layers:
             layer=self.ceil_layers[level]
-            if layer.content2D [int(y)] [int(x)]==0:
+            try:
+                if layer.content2D [int(y)] [int(x)]==0:
+                    return 4.0+level*2
+                else:
+                    return level*2+2.0
+            except:
                 return 4.0+level*2
-            else:
-                return level*2+2.0
         else:
             return 4.0+level*2
     
@@ -272,19 +280,22 @@ class tmxmap:
         level=int(z+0.2)//2
         
         #si hay nivel de suelo a ese invel
-        if level in self.floor_layers:
-            layer=self.floor_layers[level]            
-            if not layer.content2D [int(y-offset)] [int(x-offset)]==0:
-                return level*2
-            elif not layer.content2D [int(y+offset)] [int(x-offset)]==0:
-                return level*2
-            elif not layer.content2D [int(y+offset)] [int(x+offset)]==0:
-                return level*2
-            elif not layer.content2D [int(y-offset)] [int(x+offset)]==0:
-                return level*2
+        try:
+            if level in self.floor_layers:
+                layer=self.floor_layers[level]            
+                if not layer.content2D [int(y-offset)] [int(x-offset)]==0:
+                    return level*2
+                elif not layer.content2D [int(y+offset)] [int(x-offset)]==0:
+                    return level*2
+                elif not layer.content2D [int(y+offset)] [int(x+offset)]==0:
+                    return level*2
+                elif not layer.content2D [int(y-offset)] [int(x+offset)]==0:
+                    return level*2
+                else:
+                    return -2.0+level*2
             else:
                 return -2.0+level*2
-        else:
-            return -2.0+level*2
+        except:
+            return 0
 
         
