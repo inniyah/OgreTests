@@ -48,6 +48,8 @@ It loads the \*.tmx files produced by Tiled.
 
 
 import sys
+import os
+
 from xml.dom import minidom, Node
 try:
     # python 2.x
@@ -56,7 +58,7 @@ try:
 except:
     # python 3.x
     from io import StringIO
-import os.path
+
 import struct
 import array
 
@@ -1034,6 +1036,7 @@ class AbstractResourceLoader(object):
 #  -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
+	import argparse
 	from PIL import Image
 
 	class MapResourceLoader(AbstractResourceLoader):
@@ -1122,8 +1125,21 @@ if __name__ == "__main__":
 				with open(filename, 'wb') as f:
 					f.write(output.getvalue())
 
+	def extant_file(x):
+		"""
+		'Type' for argparse - checks that file exists but does not open.
+		"""
+		if not os.path.exists(x):
+			# Argparse uses the ArgumentTypeError to give a rejection message like:
+			# error: argument input: x does not exist
+			raise argparse.ArgumentTypeError("{0} does not exist".format(x))
+		return x
 
-	map_filename = os.path.join('tools', 'tiled', 'test.tmx')
+	arg_parser = argparse.ArgumentParser()
+	arg_parser.add_argument(dest="file", type=extant_file, help="TMX File", metavar="FILE")
+	args = arg_parser.parse_args()
+
+	map_filename = str(args.file)
 	print("~ Map: '{}'".format(map_filename))
 	map = TileMapParser().parse_decode(map_filename)
 	resources = MapResourceLoader()
@@ -1135,6 +1151,8 @@ if __name__ == "__main__":
 	map_tileheight = map.tileheight
 	map_num_tiles_x = map.width
 	map_num_tiles_y = map.height
+
+	print(f"\nTiled Layers ({len(resources.world_map.layers)}):\n")
 
 	for idx, layer in enumerate(resources.world_map.layers):
 			layer_name = layer.name
@@ -1194,11 +1212,17 @@ if __name__ == "__main__":
 
 		#resources.save_tile_images('tmp')
 
+	print(f"\nTile Sets ({len(map.tile_sets)}):\n")
+
 	for tileset in map.tile_sets:
 		print(f"Tile Set '{tileset.name}': {len(tileset.tiles)} tiles, starting at firstgid = {tileset.firstgid}")
 
+	print(f"\nTiles ({len(map.tiles)}):\n")
+
 	for gid, cell in map.tiles.items():
 		print(f"Tile {gid} (from Tile Set '{cell.tile_set.name}') -> {cell.properties}")
+
+	print(f"\nLayers ({len(map.layers)}):\n")
 
 	for layer in map.layers:
 		print(f"Layer '{layer.name}' ({layer.width}x{layer.height})")
