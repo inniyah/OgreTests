@@ -18,6 +18,12 @@ build-ceilings: TinyRenderer/TinyRenderer OgreAssimp/OgreAssimpConverter
 build-stairs: TinyRenderer/TinyRenderer OgreAssimp/OgreAssimpConverter
 	$(MAKE) -C stairs
 
+up:
+	$(MAKE) -C models $@
+	$(MAKE) -C floors $@
+	$(MAKE) -C ceilings $@
+	$(MAKE) -C stairs $@
+
 clean:
 	@rm -rf tmp/
 	@rm -rf *.log
@@ -25,13 +31,13 @@ clean:
 	@rm -fv `find . -name "*~"`
 	@rm -fv `find tiled -name "*.tsx"`
 
-	$(MAKE) -C models clean
-	$(MAKE) -C floors clean
-	$(MAKE) -C ceilings clean
-	$(MAKE) -C stairs clean
+	$(MAKE) -C models $@
+	$(MAKE) -C floors $@
+	$(MAKE) -C ceilings $@
+	$(MAKE) -C stairs $@
 
 cleanall: clean
-	$(MAKE) -C OgreAssimp cleanall
-	$(MAKE) -C TinyRenderer cleanall
+	$(MAKE) -C OgreAssimp $@
+	$(MAKE) -C TinyRenderer $@
 
-.PHONY: all build-models build-floors build-ceilings build-stairs clean cleanall
+.PHONY: all build-models build-floors build-ceilings build-stairs up clean cleanall

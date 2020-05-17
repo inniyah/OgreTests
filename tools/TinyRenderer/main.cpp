@@ -284,6 +284,7 @@ int main (int argc, const char * const * argv, const char * const * envp) {
     ah.new_flag('i', "invertnormals", "Invert normals", invert_normals);
     ah.new_named_double('a', "angle", "angle in degrees", "Angle to rotate around the Y axis in degrees", angle_y);
     ah.new_named_double('o', "opacity", "opacity (0.0 - 1.0)", "opacity between 0.0 (transparent) and 1.0 (opaque)", global_opacity);
+    ah.new_named_string('C', "config", "config.ini", "Use a certain config file", cfgfile);
     ah.new_named_string('Z', "zbuffer", "zbuffer_output.png", "Dump the zbuffer", zbuffer_output_filename);
 
     ah.set_description("Tiny Renderer");

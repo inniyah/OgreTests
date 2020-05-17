@@ -22,6 +22,8 @@ add-new-objs:
 	ls *.png *.jpg | grep -v ".iso.png$$" | cut -f1 -d'.' | sort --unique | while read -r F; do \
 		../scripts/add_metadata.py "$${F}.obj" -d metadata.json -t $(TILES_ID); done
 
+up: $(OBJ_SOURCES:.obj=.up.png)
+
 ../TinyRenderer/TinyRenderer:
 	$(MAKE) -C ../TinyRenderer
 
@@ -49,6 +51,10 @@ add-new-objs:
 		| sed -e 's|$${MATERIAL_NAME}|Material_$(shell echo "$<" | md5sum)|' \
 		> $@
 	../scripts/add_metadata.py $@ -d metadata.json -t $(TILES_ID) -D Texture $<
+
+%.up.png: %.obj ../TinyRenderer/TinyRenderer
+	../TinyRenderer/TinyRenderer -C ../TinyRenderer/config_up.ini -w $< $@
+	optipng $@
 
 %_1.iso.png: %.obj ../TinyRenderer/TinyRenderer
 	../TinyRenderer/TinyRenderer -w -i $< $@
@@ -83,6 +89,7 @@ add-new-objs:
 	mkdir -p tmp
 	@echo DIR: "'$(dir $@)'", FILE: "'$(basename $(basename $(notdir $@)))'", EXT: "'$(suffix $@)'"
 	convert +append $+ $@
+	optipng $@
 
 ../tiled/$(TILES_ID).tsx: $(ISO_TILES) metadata.json
 	mkdir -p ../tiled
@@ -92,6 +99,7 @@ clean:
 	@rm -fv `find . -maxdepth 1 -name "*.obj"`
 	@rm -fv `find . -maxdepth 1 -name "*.mtl"`
 	@rm -fv `find . -maxdepth 1 -name "*.iso.png"`
+	@rm -fv `find . -maxdepth 1 -name "*.up.png"`
 	@rm -fv `find . -maxdepth 1 -name "*.mesh"`
 	@rm -fv `find . -maxdepth 1 -name "*.mesh.xml"`
 	@rm -fv `find . -maxdepth 1 -name "*.material"`
@@ -100,4 +108,4 @@ clean:
 	@rm -fv `find . -maxdepth 1 -name "*.tsx"`
 	@rm -fv `find . -maxdepth 1 -name "tmp_*.png"`
 
-.PHONY: all add-new-objs clean
+.PHONY: all add-new-objs up clean
