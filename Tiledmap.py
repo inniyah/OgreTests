@@ -115,7 +115,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         #scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_STENCIL_MODULATIVE)
 
         #Creamos el mapa
-        mapa=Ogretmxmap.tmxmap("Maps/map.tmx")
+        mapa=Ogretmxmap.tmxmap("Maps/cathedral.tmx")
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.setPosition(0,0,0)
         mapa.createmap(scn_mgr)

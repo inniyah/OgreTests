@@ -109,12 +109,18 @@ class tmxmap:
             for ty in range (0,self.world_map.height):
                 gid=layer.content2D [tx][ty]
                 if gid!=0:
-                    if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
-                        mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
-                    else:
-                        print (self.MATERIAL_PROP, " is not in tile ",tx,"-",ty,"(",gid,")")
+                    try:
+                        if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
+                            mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
+                        else:
+                            print (f"{self.MATERIAL_PROP} is not in tile at {tx}, {ty} ({gid})")
+                            mat_name=""
+                        rot=self.FLOOR_ROT[self.world_map.tiles[gid].properties[self.ROT_PROP]]
+                    except KeyError:
+                        print (f"Tile at {tx}, {ty} ({gid}) does not exist")
                         mat_name=""
-                    rot=self.FLOOR_ROT[self.world_map.tiles[gid].properties[self.ROT_PROP]]
+                        gid = 0
+                        continue
                     man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
