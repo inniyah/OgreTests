@@ -101,16 +101,30 @@ class tmxmap:
                     wallNode1.setPosition(px+0.5, h, py+0.5)
                     wallNode2.attachObject(wall)
     
-    
     def makefloor (self,scn_mgr,layername,h):
+        x=0
+        y=0
+        n=0
+        while x<self.world_map.width:
+            xr=[x,min(x+25,self.world_map.width)]
+            while y<self.world_map.height:
+                yr=[y,min(y+25,self.world_map.height)]
+                self.makefloorrange (scn_mgr,layername,xr,yr,h,n)
+                n=n+1
+                y=y+25
+            y=0
+            x=x+25
+    
+    def makefloorrange (self,scn_mgr,layername,xr,yr,h,n):
+        print ("createing floor",xr,"-",yr)
         h+=.025
         layer=self.world_map.named_layers[layername]
-        man=scn_mgr.createManualObject(layername)
-        man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
-        man.estimateVertexCount(self.world_map.width*self.world_map.height*4) #Numero de vertices
+        man=scn_mgr.createManualObject(layername+str(n))
+        man.estimateIndexCount((xr[1]-xr[0])*(yr[1]-yr[0])) #Numero de tiles
+        man.estimateVertexCount((xr[1]-xr[0])*(yr[1]-yr[0])*4) #Numero de vertices
         
-        for tx in range (0,self.world_map.width):
-            for ty in range (0,self.world_map.height):
+        for tx in range (xr[0],xr[1]):
+            for ty in range (yr[0],yr[1]):
                 gid=layer.content2D [tx][ty]
                 if gid!=0:
                     if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
