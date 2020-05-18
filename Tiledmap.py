@@ -5,6 +5,15 @@ Created on Sat Apr 11 19:05:57 2020
 
 @author: arky
 """
+
+import sys
+
+def trace(frame, event, arg):
+    #print(f"[{event}] {frame.f_code.co_filename}:{frame.f_lineno}")
+    return trace
+
+sys.settrace(trace)
+
 import Ogre
 import Ogre.RTShader as OgreRTShader
 import Ogre.Bites as OgreBites
