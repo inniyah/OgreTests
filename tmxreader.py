@@ -1240,3 +1240,4 @@ if __name__ == "__main__":
 			except KeyError:
 				histogram[gid] = 1
 		print(f"  - GID Histogram: {', '.join([f'{c} times tile {i}' for i,c in histogram.items()])}")
+		print(f"  - Properties: {layer.properties}")
