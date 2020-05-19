@@ -115,13 +115,26 @@ class tmxmap:
             y=0
             x=x+25
     
+    def numtiles (self,layername,xr,yr,h):
+        n=0
+        layer=self.world_map.named_layers[layername]
+        for tx in range (xr[0],xr[1]):
+            for ty in range (yr[0],yr[1]):
+                if not layer.content2D [tx][ty]==0:
+                    n+=1
+        return n
+    
     def makefloorrange (self,scn_mgr,layername,xr,yr,h,n):
-        print ("createing floor",xr,"-",yr)
+        ntiles=self.numtiles(layername,xr,yr,h)
+        if ntiles==0:
+            return None
+        
+        print ("creating floor",xr,"-",yr,"-num tiles:",ntiles)
         h+=.025
         layer=self.world_map.named_layers[layername]
         man=scn_mgr.createManualObject(layername+str(n))
-        man.estimateIndexCount((xr[1]-xr[0])*(yr[1]-yr[0])) #Numero de tiles
-        man.estimateVertexCount((xr[1]-xr[0])*(yr[1]-yr[0])*4) #Numero de vertices
+        man.estimateIndexCount(ntiles) #Numero de tiles
+        man.estimateVertexCount(ntiles*4) #Numero de vertices
         
         for tx in range (xr[0],xr[1]):
             for ty in range (yr[0],yr[1]):
@@ -159,10 +172,13 @@ class tmxmap:
                     
                     man.quad(3, 2, 1, 0)
                     man.end()
+                    
         man.setCastShadows(False)
-        #man.convertToMesh("mapa")
+        mesh=man.convertToMesh(layername+str(n))
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
-        mannode.attachObject(man)
+        scn_mgr.destroyManualObject(man)
+        #mannode.attachObject(man)
+        mannode.attachObject(scn_mgr.createEntity(mesh))
     
     def makeceil (self,scn_mgr,layername,h):
         h=h+self.INCTILE_Z-0.025
