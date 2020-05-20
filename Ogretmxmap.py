@@ -95,10 +95,10 @@ class tmxmap:
                     wall=scn_mgr.createEntity(mesh)
                     wallNode1 = scn_mgr.getRootSceneNode().createChildSceneNode()
                     wallNode2=wallNode1.createChildSceneNode()
-                    wallNode2.translate(-.5,0,-.5)
-                    wallNode1.yaw(Ogre.Ogre.Radian((-float(self.world_map.tiles[gid].properties[self.ROT_PROP]))/180*np.pi),Ogre.Node.TS_WORLD)
+                    wallNode2.translate(-.5, 0, -.5)
+                    wallNode1.yaw(Ogre.Ogre.Radian(( float(self.world_map.tiles[gid].properties[self.ROT_PROP]) + 0) / 180*np.pi), Ogre.Node.TS_WORLD)
                     #wallNode.translate(py+0.5, h, px+0.5)
-                    wallNode1.setPosition(px+0.5, h, py+0.5)
+                    wallNode1.setPosition(px + 0.5, h, py + 0.5)
                     wallNode2.attachObject(wall)
     
     def makefloor (self,scn_mgr,layername,h):
