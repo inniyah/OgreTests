@@ -95,10 +95,10 @@ class tmxmap:
                     wall=scn_mgr.createEntity(mesh)
                     wallNode1 = scn_mgr.getRootSceneNode().createChildSceneNode()
                     wallNode2=wallNode1.createChildSceneNode()
-                    wallNode2.translate(-.5, 0, -.5)
-                    wallNode1.yaw(Ogre.Ogre.Radian(( float(self.world_map.tiles[gid].properties[self.ROT_PROP]) + 0) / 180*np.pi), Ogre.Node.TS_WORLD)
+                    wallNode2.translate(-.5,0,-.5)
+                    wallNode1.yaw(Ogre.Ogre.Radian((float(self.world_map.tiles[gid].properties[self.ROT_PROP]))/180*np.pi),Ogre.Node.TS_WORLD)
                     #wallNode.translate(py+0.5, h, px+0.5)
-                    wallNode1.setPosition(px + 0.5, h, py + 0.5)
+                    wallNode1.setPosition(px+0.5, h, py+0.5)
                     wallNode2.attachObject(wall)
     
     def makefloor (self,scn_mgr,layername,h):
@@ -106,14 +106,14 @@ class tmxmap:
         y=0
         n=0
         while x<self.world_map.width:
-            xr=[x,min(x+25,self.world_map.width)]
+            xr=[x,min(x+32,self.world_map.width)]
             while y<self.world_map.height:
-                yr=[y,min(y+25,self.world_map.height)]
+                yr=[y,min(y+32,self.world_map.height)]
                 self.makefloorrange (scn_mgr,layername,xr,yr,h,n)
                 n=n+1
-                y=y+25
+                y=y+32
             y=0
-            x=x+25
+            x=x+32
 
     def tiletypes (self,layername,xr,yr,h):
         tiles={}
@@ -248,7 +248,7 @@ class tmxmap:
     def wallheight(self,layer,objeto,x,y):
         """ ESTUDIO DE LA COLISION DE LAS WALLS"""
         try: 
-            return self.collisiontiles.collisiontypes[layer.content2D [int(y)] [int(x)]] (objeto,x,y)
+            return self.collisiontiles.collisiontypes[layer.content2D [int(x)] [int(y)]] (objeto,x,y)
         except:
             return 0
  
@@ -290,7 +290,7 @@ class tmxmap:
         try:
             if level in self.floor_layers:
                 layer=self.floor_layers[level]
-                if layer.content2D [int(y)] [int(x)]==0:
+                if layer.content2D [int(x)] [int(y)]==0:
                     return -2.0+level*2
                 else:
                     return level*2
@@ -307,7 +307,7 @@ class tmxmap:
         if level in self.ceil_layers:
             layer=self.ceil_layers[level]
             try:
-                if layer.content2D [int(y)] [int(x)]==0:
+                if layer.content2D [int(x)] [int(y)]==0:
                     return 4.0+level*2
                 else:
                     return level*2+2.0
@@ -324,13 +324,13 @@ class tmxmap:
         try:
             if level in self.floor_layers:
                 layer=self.floor_layers[level]            
-                if not layer.content2D [int(y-offset)] [int(x-offset)]==0:
+                if not layer.content2D [int(x-offset)] [int(y-offset)]==0:
                     return level*2
-                elif not layer.content2D [int(y+offset)] [int(x-offset)]==0:
+                elif not layer.content2D [int(x+offset)] [int(y-offset)]==0:
                     return level*2
-                elif not layer.content2D [int(y+offset)] [int(x+offset)]==0:
+                elif not layer.content2D [int(x+offset)] [int(y+offset)]==0:
                     return level*2
-                elif not layer.content2D [int(y-offset)] [int(x+offset)]==0:
+                elif not layer.content2D [int(x-offset)] [int(y+offset)]==0:
                     return level*2
                 else:
                     return -2.0+level*2
