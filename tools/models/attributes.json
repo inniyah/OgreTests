@@ -1,32 +1,77 @@
 {
   "": {
-    "Type": "Model"
+    "Type": "Model",
+    "Collision": "NP"
   },
-  "floors/BeachStones": {
-    "Friction": 0.8
-  },
-  "floors/BumpyMetal": {
-    "Friction": 0.3
-  },
-  "3d_models/caution": {
+  "models/caution": {
   "Collision": "NP"
   },
-  "3d_models/colmn": {
+  "models/colmn": {
   "Collision": "NP"
   },
-  "3d_models/escalera01": {
+  "models/escalera01": {
   "Collision": "E1"
   },
-    "3d_models/escalera02": {
+  "models/escalera02": {
   "Collision": "E2"
   },
-    "3d_models/escalera03": {
+  "models/escalera03": {
   "Collision": "E3"
   },
-    "3d_models/escalera04": {
+  "models/escalera04": {
   "Collision": "E4"
   },
-  "3d_models/hwall_solid": {
+  "models/hwall_solid": {
+  "Collision": "NP"
+  },
+  "models/hwall_corner": {
+  "Collision": "NP"
+  },  
+  "models/hwall_cross": {
+  "Collision": "NP"
+  },
+  "models/hwall_fork": {
+  "Collision": "NP"
+  },
+  "models/hwall_fork": {
+  "Collision": "NP"
+  },
+  "models/hwall_halfdoor": {
+  "Collision": "NP"
+  },
+  "models/hwall_solid": {
+  "Collision": "NP"
+  },
+  "models/hwall_straight": {
+  "Collision": "NP"
+  },
+  "models/wall_big4": {
+  "Collision": "NP"
+  },
+  "models/wall_buttress": {
+  "Collision": "NP"
+  },
+  "models/wall_buttress_top": {
+  "Collision": "NP"
+  },
+  "models/wall_column": {
+  "Collision": "NP"
+  },
+  "models/wall_diagonal": {
+  "Collision": "NP"
+  },
+  "models/wall_engaged": {
+  "Collision": "NP"
+  },
+  "models/wall_small4": {
+  "Collision": "NP"
+  },
+  "models/wall_small4_half": {
   "Collision": "NP"
   }
+  
+
+
+
+  
 }
