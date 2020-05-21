@@ -95,10 +95,10 @@ class tmxmap:
                     wall=scn_mgr.createEntity(mesh)
                     wallNode1 = scn_mgr.getRootSceneNode().createChildSceneNode()
                     wallNode2=wallNode1.createChildSceneNode()
-                    wallNode2.translate(-.5, 0, -.5)
-                    wallNode1.yaw(Ogre.Ogre.Radian(( float(self.world_map.tiles[gid].properties[self.ROT_PROP]) + 0) / 180*np.pi), Ogre.Node.TS_WORLD)
+                    wallNode2.translate(-.5,0,-.5)
+                    wallNode1.yaw(Ogre.Ogre.Radian((-float(self.world_map.tiles[gid].properties[self.ROT_PROP]))/180*np.pi),Ogre.Node.TS_WORLD)
                     #wallNode.translate(py+0.5, h, px+0.5)
-                    wallNode1.setPosition(px + 0.5, h, py + 0.5)
+                    wallNode1.setPosition(px+0.5, h, py+0.5)
                     wallNode2.attachObject(wall)
     
     def makefloor (self,scn_mgr,layername,h):
@@ -114,71 +114,82 @@ class tmxmap:
                 y=y+25
             y=0
             x=x+25
-    
-    def numtiles (self,layername,xr,yr,h):
-        n=0
+
+    def tiletypes (self,layername,xr,yr,h):
+        tiles={}
         layer=self.world_map.named_layers[layername]
-        for tx in range (xr[0],xr[1]):
-            for ty in range (yr[0],yr[1]):
-                if not layer.content2D [tx][ty]==0:
-                    n+=1
-        return n
-    
-    def makefloorrange (self,scn_mgr,layername,xr,yr,h,n):
-        ntiles=self.numtiles(layername,xr,yr,h)
-        if ntiles==0:
-            return None
-        
-        print ("creating floor",xr,"-",yr,"-num tiles:",ntiles)
-        h+=.025
-        layer=self.world_map.named_layers[layername]
-        man=scn_mgr.createManualObject(layername+str(n))
-        man.estimateIndexCount(ntiles) #Numero de tiles
-        man.estimateVertexCount(ntiles*4) #Numero de vertices
-        
         for tx in range (xr[0],xr[1]):
             for ty in range (yr[0],yr[1]):
                 gid=layer.content2D [tx][ty]
-                if gid!=0:
-                    if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
-                        mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
+                if not gid==0:
+                    if gid in tiles:
+                      tiles[gid]+=1
                     else:
-                        print (self.MATERIAL_PROP, " is not in tile ",tx,"-",ty,"(",gid,")")
-                        mat_name=""
-                    rot=self.FLOOR_ROT[self.world_map.tiles[gid].properties[self.ROT_PROP]]
-                    man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
+                      tiles[gid]=1
+        return tiles    
+    
+    def makefloorrange (self,scn_mgr,layername,xr,yr,h,n):
+        tiles=self.tiletypes(layername,xr,yr,h)
+        if len(tiles)==0: #no hay nada que dibujar
+            return None
+        print ("creating floor",xr,"-",yr,"-n types of tiles:",len(tiles))
+        h+=.025
+        layer=self.world_map.named_layers[layername]
+        man=scn_mgr.createManualObject(layername+str(n))
+        #man.estimateIndexCount(ntiles) #Numero de tiles
+        #man.estimateVertexCount(ntiles*4) #Numero de vertices
+        
+        for tiletype in tiles.keys(): #vamos a hacer un submesh por tipo de tile
+          if self.MATERIAL_PROP in self.world_map.tiles[tiletype].properties:
+            mat_name=self.world_map.tiles[tiletype].properties[self.MATERIAL_PROP]
+          else:
+            print (self.MATERIAL_PROP, " is not in tile (",tiletype,")")
+            mat_name=""
+          man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
+          n=0
+          rot=self.FLOOR_ROT[self.world_map.tiles[tiletype].properties[self.ROT_PROP]]
+          for tx in range (xr[0],xr[1]):
+            for ty in range (yr[0],yr[1]):
+                gid=layer.content2D [tx][ty]
+                if gid==tiletype:
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
-                    
+                        
+                    # vertice n
                     man.position(px, h, py)
                     man.normal(0, 1, 0)
                     #man.textureCoord(0, 0)
                     man.textureCoord(rot[0][0],rot[0][1])
                     
+                    #vertice n+1
                     man.position(px+self.INCTILE_X, h,py)
                     man.normal(0, 1, 0)
                     #man.textureCoord(0, 1)
                     man.textureCoord(rot[1][0],rot[1][1])
                     
+                    #vertice n+2
                     man.position(px+self.INCTILE_X, h,py+self.INCTILE_Y)
                     man.normal(0, 1, 0)
                     #man.textureCoord(1, 1)
                     man.textureCoord(rot[2][0],rot[2][1])
-                    
+                        
+                    #vertice n+3
                     man.position(px, h, py+self.INCTILE_Y)
                     man.normal(0, 1, 0)
                     #man.textureCoord(1, 0)
                     man.textureCoord(rot[3][0],rot[3][1])
                     
-                    man.quad(3, 2, 1, 0)
-                    man.end()
+                    man.quad(n+3, n+2, n+1, n)
+                    n+=4
+          man.end()  #termino el submesh
                     
+        #termino de dar propiedades al objeto manual y lo pongo en  escena
         man.setCastShadows(False)
-        mesh=man.convertToMesh(layername+str(n))
+        #mesh=man.convertToMesh(layername+str(n))
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
-        scn_mgr.destroyManualObject(man)
-        #mannode.attachObject(man)
-        mannode.attachObject(scn_mgr.createEntity(mesh))
+        #scn_mgr.destroyManualObject(man)
+        mannode.attachObject(man)
+        #mannode.attachObject(scn_mgr.createEntity(mesh))
     
     def makeceil (self,scn_mgr,layername,h):
         h=h+self.INCTILE_Z-0.025
