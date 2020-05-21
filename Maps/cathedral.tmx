@@ -1,61 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="isometric" renderorder="right-down" width="50" height="50" tilewidth="137" tileheight="79" infinite="0" nextlayerid="13" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.3" orientation="isometric" renderorder="right-down" width="200" height="200" tilewidth="137" tileheight="79" infinite="0" nextlayerid="20" nextobjectid="1">
  <tileset firstgid="1" source="../tools/tiled/floors.tsx"/>
  <tileset firstgid="46" source="../tools/tiled/ceilings.tsx"/>
  <tileset firstgid="67" source="../tools/tiled/models.tsx"/>
- <tileset firstgid="200" source="../tools/tiled/stairs.tsx"/>
- <layer id="2" name="Suelo 01" width="50" height="50">
-  <properties>
-   <property name="level" type="int" value="0"/>
-   <property name="tipo" value="f"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJzt2LENwDAMA0Eh43j/AbNACgdQTIr5gp0LHiQ3WlW1GnIdTkdnd8fu29Od37h23eq+f3fUIIe6w4l5TAkOryQ51B2YBw7XJDnUHZgHDtckOdQdmAcO1yQ51B265/F045lyi5tyB/3K4WSZeqPu7q92dFsSDDhwJP2NJAt7hcPdoTIkWdgrHO4OlSHJwl75Om6sU2g3
+ <tileset firstgid="232" source="../tools/tiled/stairs.tsx"/>
+ <group id="16" name="Planta 01">
+  <layer id="2" name="Suelo 01" width="200" height="200">
+   <properties>
+    <property name="level" type="int" value="0"/>
+    <property name="tipo" value="f"/>
+   </properties>
+   <data encoding="base64" compression="zlib">
+   eJzt10GKwlAQRdGih38p7n+BPWgaUXiSttWqr2dwyCwk4d2EnKrqBAAAAAAAAAAAAAAAAAAAAAAAAADAFr6udF8PTHHdhkbgTB+Q6QMyfUCmDz7drd0f7UM7vKO0///qvi94BH1Apg+4TRuQ6QMyfcClZ/13aIXdvaoNjbAjfUCmDz7ZkY12taEfOt3zHn/V98I3hm76gEwfkL1TH7rhHo/e83Tdz5u9dO9VH0zWvVd9MFn3XvXBZN171QeTde9VH0zWvVd9MFn3XvXBZN171QeTde9VH0zWvVd9MFn3XvXBZN171QeTde9VH0zWvVd9MFn3XvXBZN171QeTde9VH0zWvVd9MFn3XvXBZN171QfvpHvf9s5k3T3og+m6m9AGO9AFZPqATB+Q6QMyfUCmD8j0AZk+INMHZPqATB+Q6QMyfUCmD8j0AZk+INMHZPqATB+Q6QMyfUCmD8j0AZk+INMHZPqATB+Q6QMyfUCmD8j0AZk+INMHZPqATB+Q6QMyfUCmD8j0AZk+INMHZPqATB+Q6QMyfUCmD8hW6QOSVfqAZJU+IFmlD0hW6QOSdYA++FSrntuBPtjZKn1AskofkKz62evvUR9wtkofkKzSBySr9AHJqtd2oQ92sg746/aPnLP7vgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC49A0BwGry
   </data>
- </layer>
- <layer id="1" name="Objetos 01" width="50" height="50">
-  <properties>
-   <property name="level" type="int" value="0"/>
-   <property name="tipo" value="w"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJztmDsOwjAMht1rwcpJYIMNrsIRgC6MwMRjYemtiCWQouAUN3EeKv6kCEjd/4/buAkFkGFm2l5Iq4/D2yultt2onI4MLSqGqz8kloqjro/kNfPpU/74fWf9bnvO58ZJwRnHr1jJvlCG6Pti7bnlq7Fa8vjMsZPT38L3PKTuJRWHbevEhdY5pU2N4xMryVNYj0uqZ3JuNI968NU5VXMxfXfTbj3j8B3n6ufiYdo14riilMC3Zy1ZS4ryb4Sug1xyreeh6+CQ9XwM+ytE86gLKo9zRF9qKE/q/y+n2eeGPiM4MW7fxTMWAPp+9PXh56QBWDdl5iR6boz3KtIfz50bjWWhPJCp8V5E+rvvenLDeQcUopkbaU/U66BcnUvSCetxSDEHNI9wNA+aDsZT5yUYQw6I5lEXKdbzkvt2Scawv0qlWcJT86jHU+u8Pk/NQ87zBZ4McFY=
+  </layer>
+  <layer id="1" name="Objetos 01" width="200" height="200">
+   <properties>
+    <property name="level" type="int" value="0"/>
+    <property name="tipo" value="w"/>
+   </properties>
+   <data encoding="base64" compression="zlib">
+   eJzt3FuK1EAUBuDM3mYVug7xSQRFBEUEffVxLpuYywbUefHRy1ZMQweaok6l0kl3J53vg8KxOt2VQP1TOamZaRoAAAAAAAAAAAAAAAAAAAAAAAAAAJbgpm2XSbs+6RnBPHTZuNrpu21kBDbSbHS6jMCalTIgH6ydfEBMPli79PnUddIfyR3r+RbnZrcG7+ruyyauzZueY9XunJN0Lm/mdykXqdzx8sG5mPp+qO++DJZkyv2+3H4iLN1Uc1rtwbmpuR/6Fnyd4/kVS5c+j53yfih9riUrLE1tJkprRd86suF+iyU65pyVD5bmWPc9nvUyN7nfZ0rzUFMj/KoYK3dMqbapOTc4pFxtUaoDpq4RSrXN0HODqUVz7Vg/i7vPOPLBscgHa/cj6CvVw919fu69h87HmHPL9UHkZ5Ovcfv2+tKaPG2pfevzQ5zb94pzgU5uPv+rfG/uuNr3Hvrzc8e592KoNc2ZNV0r01jTnFnTtTKNNc2ZNV0r43X1+e+kP1crj+l7aNt94Tyi16c8j7+N+px5emzb3YjXAQCA87DvfvfcRfU5AABw3vbdH4RTOtb++b77g/bPObU1PdNZ07UyjTXNmTVdK9NY05xZ07Uyjdyc+TOi79DGnJt8METf75+Xfr+8+3rf2r7mmKjGHtPU5wzxNLBvM8eeXTTNl4vTfD/ejPm1HfvjzvhDrwEOZTMn37Rz88OJ8rHxvB377QnHh0j693OOreZv/MAcnCofMHdj995rjrEHzpJZPyAmHxCTD4jJB+Spz2F+rB8Qkw+IyQfE5IMlUJ9Dmee7EJMPiMkHxOQD8tTnUGb9gJh8QEw+ICYfkKc+hzLrB8TkA2LyATH5gDz1OZT5Xg4x+YCYfEBMPiBPfQ5lnu9CTD4gJh8Qkw/IU59DmfUDYvIBMfmAmHxAnvocyqwfEJMPiMkHxOQD8tTnUGb9gJh8QEw+IHa5bZ/b9r5tr9v2cvvaw/a1+wGfl77nRdtete1d2z7tjAdz19XnNa1W7eepz1mCUgZut/13Az7vcfueq57xYAn2WSOmGA+WQD4gdpn8Gx2T1ugPQV/f3JcPlqKrz5umPx9pDfIY9NXmQ33OEtTkY+rxrB8shXxA7NhzVT5Yitr9wdz++U3brjP9XY1uf5Bz8NTz/80eYW5/MFefd/3p3mDfGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAs/wE0DTRk
   </data>
- </layer>
- <layer id="3" name="Techos 01" width="50" height="50">
-  <properties>
-   <property name="level" type="int" value="0"/>
-   <property name="tipo" value="c"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </layer>
+  <layer id="3" name="Techos 01" width="200" height="200">
+   <properties>
+    <property name="level" type="int" value="0"/>
+    <property name="tipo" value="c"/>
+   </properties>
+   <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
   </data>
- </layer>
- <layer id="12" name="Objetos 02" width="50" height="50" offsetx="0" offsety="-158">
-  <properties>
-   <property name="level" type="int" value="1"/>
-   <property name="tipo" value="w"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </layer>
+ </group>
+ <group id="15" name="Planta 02">
+  <layer id="4" name="Suelo 02" width="200" height="200" offsetx="0" offsety="-158">
+   <properties>
+    <property name="level" type="int" value="1"/>
+    <property name="tipo" value="f"/>
+   </properties>
+   <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
   </data>
- </layer>
- <layer id="4" name="Suelo 02" width="50" height="50" offsetx="0" offsety="-158">
-  <properties>
-   <property name="level" type="int" value="1"/>
-   <property name="tipo" value="f"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </layer>
+  <layer id="12" name="Objetos 02" width="200" height="200" offsetx="0" offsety="-158">
+   <properties>
+    <property name="level" type="int" value="1"/>
+    <property name="tipo" value="w"/>
+   </properties>
+   <data encoding="base64" compression="zlib">
+   eJzt28Fq1UAUBuD03Xwkly5d+gLtziKI7nTd6stY+xom4AUpc6YJkzvJeL4PhtJ7aScHzn+nJ6HTBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANfxtPK1tT97bS3XdsT1Mq7f83pTWaOq1fTrwOtiPCPnYKtMtbKPTD2TqVb2kalnMtXKPjL1TKZaaXeZz6/tx7weG97fi/mcM/o5r4eG9wEAgP9Dpns6mWoFAICszvJ8ELbo9fz8LM8HPT9nq0z3dDLVyj4y9UymWtlHpp7JVCv7yNQzmWql3Wv/f75m9dZ6veZztnje+NrSY7c30/Tt5rh8fJ/3/vrP/ltrgGtZevLj3JtfDszH3bz3/UH7Q83n6Tx/X306YH9Y66h8wNn1evb+khmbUTg/ICYfEJMPiMkHlJnP4XycHxCTD4jJB8TkgxGYz6HO/V2IyQfE5ANi8gFl5nOoc35ATD4gJh8Qkw8oM59DnfMDYvIBMfmAmHxAmfkc6nyWQ0w+ICYfEJMPKDOfQ537uxCTD4jJB8TkA8rM51Dn/ICYfEBMPiAmH1BmPoc65wfE5ANi8gEx+YAy8znUOT8gJh8Qkw+IyQeUXebzt3+/Rmur2u+67GU+ZwRLr76b+n2m99wLWi29+n7q17M994JWS69+mPr1bM+9oFXLnNGyH5zdZT4/Ih/mc0bg/ICYfEBMPqDs5fzR4/mg+YORPL/y/Sh7AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwBp/AFTIg/Y=
   </data>
- </layer>
- <layer id="6" name="Techos 02" width="50" height="50" offsetx="0" offsety="-158">
-  <properties>
-   <property name="level" type="int" value="1"/>
-   <property name="tipo" value="c"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAADg3wAnEAAB
+  </layer>
+  <layer id="6" name="Techos 02" width="200" height="200" offsetx="0" offsety="-158">
+   <properties>
+    <property name="level" type="int" value="1"/>
+    <property name="tipo" value="c"/>
+   </properties>
+   <data encoding="base64" compression="zlib">
+   eJztwYEAAAAAw6D5U1/hAFUBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwGcR4AAQ==
   </data>
- </layer>
+  </layer>
+ </group>
 </map>
