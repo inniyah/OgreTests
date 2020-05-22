@@ -12,6 +12,8 @@ ISO_TILES = \
 	$(OBJ_SOURCES:.obj=_4.iso.png) \
 	$(OBJ_SOURCES:.obj=.mesh)
 
+OPACITY = 0.75
+
 all: $(ISO_TILES) ../tiled/$(TILES_ID).tsx
 
 add-new-objs:
@@ -34,7 +36,7 @@ up: $(OBJ_SOURCES:.obj=.up.png)
 	../TinyRenderer/TinyRenderer -w    $< tmp_dir_$(notdir $@)
 	../TinyRenderer/TinyRenderer -w -r $< tmp_rev_$(notdir $@)
 	composite -dissolve 60 -gravity Center tmp_dir_$(notdir $@) tmp_rev_$(notdir $@) -alpha Set $@
-	convert $@ -channel A -evaluate Multiply 0.85 +channel $@
+	convert $@ -channel A -evaluate Multiply $(OPACITY) +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile1 $@
 	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
@@ -42,7 +44,7 @@ up: $(OBJ_SOURCES:.obj=.up.png)
 	../TinyRenderer/TinyRenderer -w    $< tmp_dir_$(notdir $@) -a 90
 	../TinyRenderer/TinyRenderer -w -r $< tmp_rev_$(notdir $@) -a 90
 	composite -dissolve 60 -gravity Center tmp_dir_$(notdir $@) tmp_rev_$(notdir $@) -alpha Set $@
-	convert $@ -channel A -evaluate Multiply 0.85 +channel $@
+	convert $@ -channel A -evaluate Multiply $(OPACITY) +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile2 $@
 	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
@@ -50,7 +52,7 @@ up: $(OBJ_SOURCES:.obj=.up.png)
 	../TinyRenderer/TinyRenderer -w    $< tmp_dir_$(notdir $@) -a 180
 	../TinyRenderer/TinyRenderer -w -r $< tmp_rev_$(notdir $@) -a 180
 	composite -dissolve 60 -gravity Center tmp_dir_$(notdir $@) tmp_rev_$(notdir $@) -alpha Set $@
-	convert $@ -channel A -evaluate Multiply 0.85 +channel $@
+	convert $@ -channel A -evaluate Multiply $(OPACITY) +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile3 $@
 	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
@@ -58,7 +60,7 @@ up: $(OBJ_SOURCES:.obj=.up.png)
 	../TinyRenderer/TinyRenderer -w    $< tmp_dir_$(notdir $@) -a 270
 	../TinyRenderer/TinyRenderer -w -r $< tmp_rev_$(notdir $@) -a 270
 	composite -dissolve 60 -gravity Center tmp_dir_$(notdir $@) tmp_rev_$(notdir $@) -alpha Set $@
-	convert $@ -channel A -evaluate Multiply 0.85 +channel $@
+	convert $@ -channel A -evaluate Multiply $(OPACITY) +channel $@
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile4 $@
 	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
