@@ -5,15 +5,6 @@ Created on Sat Apr 11 19:05:57 2020
 
 @author: arky
 """
-
-import sys
-
-def trace(frame, event, arg):
-    #print(f"[{event}] {frame.f_code.co_filename}:{frame.f_lineno}")
-    return trace
-
-sys.settrace(trace)
-
 import Ogre
 import Ogre.RTShader as OgreRTShader
 import Ogre.Bites as OgreBites
@@ -121,10 +112,12 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         shadergen = OgreRTShader.ShaderGenerator.getSingleton()
         shadergen.addSceneManager(scn_mgr)
         scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_MODULATIVE)
+        scn_mgr.setShadowFarDistance(30)
         #scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_STENCIL_MODULATIVE)
 
         #Creamos el mapa
-        mapa=Ogretmxmap.tmxmap("Maps/cathedral.tmx")
+        #mapa=Ogretmxmap.tmxmap("Maps/cathedral.tmx")
+        mapa=Ogretmxmap.tmxmap("Maps/cathedral_orig.tmx")
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.setPosition(0,0,0)
         mapa.createmap(scn_mgr)
@@ -156,11 +149,11 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
 
         # Setup the scene
 
-        scn_mgr.setAmbientLight(Ogre.ColourValue(.5, .5, .5))
+        scn_mgr.setAmbientLight(Ogre.ColourValue(.3, .3, .3))
         light=scn_mgr.createLight("MainLight")
         light.setType(Ogre.Light.LT_DIRECTIONAL);
-        light.setDiffuseColour(Ogre.ColourValue(.7, .0, .0));
-        light.setSpecularColour(Ogre.ColourValue(.3, .3, 0))
+        light.setDiffuseColour(Ogre.ColourValue(0, .1, .7));
+        light.setSpecularColour(Ogre.ColourValue(0, 0, .5))
         light.setDirection(1, -1, 0)
 
 #        lightNode = scn_mgr.getRootSceneNode().createChildSceneNode()

@@ -93,6 +93,7 @@ class tmxmap:
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
                     wall=scn_mgr.createEntity(mesh)
+                    wall.setCastShadows(True)
                     wallNode1 = scn_mgr.getRootSceneNode().createChildSceneNode()
                     wallNode2=wallNode1.createChildSceneNode()
                     wallNode2.translate(-.5,0,-.5)
