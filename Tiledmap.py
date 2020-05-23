@@ -108,13 +108,26 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         imgui_overlay.disown() # owned by OverlayMgr now
 
 
-        # Creamos el Shader
+        # Creamos el Shader y definimos las sombras
         shadergen = OgreRTShader.ShaderGenerator.getSingleton()
         shadergen.addSceneManager(scn_mgr)
         scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_MODULATIVE)
-        scn_mgr.setShadowFarDistance(30)
+        #scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_ADDITIVE)
         #scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_STENCIL_MODULATIVE)
-
+        scn_mgr.setShadowFarDistance(200)
+        #para que los objetos emitan shadow sobre si mismos
+        scn_mgr.setShadowTextureSelfShadow(True)
+        
+        #skybox and distance of the skybox
+        #scn_mgr.setSkyBox(True,"Examples/SpaceSkyBox",300)
+        scn_mgr.setSkyDome(True,"Examples/CloudySky",5,8)
+        
+        #lets set a fog
+        #Fadecolor=Ogre.ColourValue(0,0,0)
+        #vp.setBackgroundColour(Fadecolor)
+        #scn_mgr.setFog(Ogre.Ogre.FOG_LINEAR,Fadecolor,0,600,900)
+        
+        
         #Creamos el mapa
         #mapa=Ogretmxmap.tmxmap("Maps/cathedral.tmx")
         mapa=Ogretmxmap.tmxmap("Maps/cathedral_orig.tmx")
@@ -148,13 +161,23 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         self.camNode=camNode
 
         # Setup the scene
-
-        scn_mgr.setAmbientLight(Ogre.ColourValue(.3, .3, .3))
+        #night light
+#        scn_mgr.setAmbientLight(Ogre.ColourValue(.3, .3, .3))
+#        light=scn_mgr.createLight("MainLight")
+#        light.setType(Ogre.Light.LT_DIRECTIONAL);
+#        light.setDiffuseColour(Ogre.ColourValue(0, .1, .7));
+#        light.setSpecularColour(Ogre.ColourValue(0, 0, .5))
+#        light.setDirection(1, -0.5, 0.5)
+        
+        #Daylight, esta tecnica de sombreado queda mucho mejor
+        scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_ADDITIVE)
+        scn_mgr.setAmbientLight(Ogre.ColourValue(.2, .2, .2))
         light=scn_mgr.createLight("MainLight")
         light.setType(Ogre.Light.LT_DIRECTIONAL);
-        light.setDiffuseColour(Ogre.ColourValue(0, .1, .7));
-        light.setSpecularColour(Ogre.ColourValue(0, 0, .5))
-        light.setDirection(1, -1, 0)
+        light.setDiffuseColour(Ogre.ColourValue(.6, .6, 1));
+        light.setSpecularColour(Ogre.ColourValue(.6, .6, 1))
+        light.setDirection(1, -0.5, 0.5)
+
 
 #        lightNode = scn_mgr.getRootSceneNode().createChildSceneNode()
 #        lightNode.attachObject(light)
@@ -171,12 +194,6 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         pointLightNode.setPosition(2, 2, 2)
 
         self.mapa=mapa
-
-
-        #lets set a fog
-        Fadecolor=Ogre.ColourValue(0,0,0)
-        vp.setBackgroundColour(Fadecolor)
-        scn_mgr.setFog(Ogre.Ogre.FOG_LINEAR,Fadecolor,0,600,900)
 
         self.cam.getViewport().setOverlaysEnabled(True)
         #self.mtraymanager=OgreBites.TrayManager("Interface",self.getRenderWindow())
