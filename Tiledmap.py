@@ -119,8 +119,9 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         scn_mgr.setShadowTextureSelfShadow(True)
         
         #skybox and distance of the skybox
-        #scn_mgr.setSkyBox(True,"Examples/SpaceSkyBox",300)
-        scn_mgr.setSkyDome(True,"Examples/CloudySky",5,8)
+        scn_mgr.setSkyBox(True,"Skyes/Night1",100)
+        #scn_mgr.setSkyDome(True,"Skyes/Night1",5,5)
+        #scn_mgr.setSkyDome(True,"Examples/SpaceSkyPlane",5,8)
         
         #lets set a fog
         #Fadecolor=Ogre.ColourValue(0,0,0)
@@ -162,21 +163,21 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
 
         # Setup the scene
         #night light
-#        scn_mgr.setAmbientLight(Ogre.ColourValue(.3, .3, .3))
-#        light=scn_mgr.createLight("MainLight")
-#        light.setType(Ogre.Light.LT_DIRECTIONAL);
-#        light.setDiffuseColour(Ogre.ColourValue(0, .1, .7));
-#        light.setSpecularColour(Ogre.ColourValue(0, 0, .5))
-#        light.setDirection(1, -0.5, 0.5)
-        
-        #Daylight, esta tecnica de sombreado queda mucho mejor
-        scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_ADDITIVE)
-        scn_mgr.setAmbientLight(Ogre.ColourValue(.2, .2, .2))
+        scn_mgr.setAmbientLight(Ogre.ColourValue(.3, .3, .3))
         light=scn_mgr.createLight("MainLight")
         light.setType(Ogre.Light.LT_DIRECTIONAL);
-        light.setDiffuseColour(Ogre.ColourValue(.6, .6, 1));
-        light.setSpecularColour(Ogre.ColourValue(.6, .6, 1))
+        light.setDiffuseColour(Ogre.ColourValue(0, .1, .7));
+        light.setSpecularColour(Ogre.ColourValue(0, 0, .5))
         light.setDirection(1, -0.5, 0.5)
+        
+        #Daylight, esta tecnica de sombreado queda mucho mejor
+#        scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_ADDITIVE)
+#        scn_mgr.setAmbientLight(Ogre.ColourValue(.2, .2, .2))
+#        light=scn_mgr.createLight("MainLight")
+#        light.setType(Ogre.Light.LT_DIRECTIONAL);
+#        light.setDiffuseColour(Ogre.ColourValue(.6, .6, 1));
+#        light.setSpecularColour(Ogre.ColourValue(.6, .6, 1))
+#        light.setDirection(1, -0.5, 0.5)
 
 
 #        lightNode = scn_mgr.getRootSceneNode().createChildSceneNode()

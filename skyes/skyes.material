@@ -1,0 +1,18 @@
+material Skyes/Night1
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+
+			texture_unit
+			{
+				texture night.jpg
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
