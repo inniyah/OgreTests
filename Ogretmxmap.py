@@ -58,7 +58,7 @@ class tmxmap:
         tipo = {'w':self.makewalls, 'c':self.makeceil, 'f':self.makefloor }
 
         for layer in self.world_map.layers:
-            print ("reading layer:",layer.name)
+            #print ("reading layer:",layer.name)
             if 'level' in layer.properties:
                 print ("creating layer:",layer.name)
                 h=float(layer.properties['level'])*2
@@ -133,7 +133,7 @@ class tmxmap:
         tiles=self.tiletypes(layername,xr,yr,h)
         if len(tiles)==0: #no hay nada que dibujar
             return None
-        print ("creating floor",xr,"-",yr,"-n types of tiles:",len(tiles))
+        #print ("creating floor",xr,"-",yr,"-n types of tiles:",len(tiles))
         h+=.025
         layer=self.world_map.named_layers[layername]
         man=scn_mgr.createManualObject(layername+str(n))
@@ -191,53 +191,83 @@ class tmxmap:
         #scn_mgr.destroyManualObject(man)
         mannode.attachObject(man)
         #mannode.attachObject(scn_mgr.createEntity(mesh))
-    
-    def makeceil (self,scn_mgr,layername,h):
-        h=h+self.INCTILE_Z-0.025
-        layer=self.world_map.named_layers[layername]
-        man=scn_mgr.createManualObject(layername)
-        man.estimateIndexCount(self.world_map.width*self.world_map.height) #Numero de tiles
-        man.estimateVertexCount(self.world_map.width*self.world_map.height*4) #Numero de vertices
         
-        for tx in range (0,self.world_map.width):
-            for ty in range (0,self.world_map.height):
+    def makeceil (self,scn_mgr,layername,h):
+        x=0
+        y=0
+        n=0
+        h=h+self.INCTILE_Z-0.025
+        while x<self.world_map.width:
+            xr=[x,min(x+32,self.world_map.width)]
+            while y<self.world_map.height:
+                yr=[y,min(y+32,self.world_map.height)]
+                self.makeceilrange (scn_mgr,layername,xr,yr,h,n)
+                n=n+1
+                y=y+32
+            y=0
+            x=x+32       
+        
+    def makeceilrange (self,scn_mgr,layername,xr,yr,h,n):
+        tiles=self.tiletypes(layername,xr,yr,h)
+        if len(tiles)==0: #no hay nada que dibujar
+            return None
+        print ("creating ceil",xr,"-",yr,"-n types of tiles:",len(tiles))
+        layer=self.world_map.named_layers[layername]
+        man=scn_mgr.createManualObject(layername+str(n))
+        #man.estimateIndexCount(ntiles) #Numero de tiles
+        #man.estimateVertexCount(ntiles*4) #Numero de vertices
+        
+        for tiletype in tiles.keys(): #vamos a hacer un submesh por tipo de tile
+          if self.MATERIAL_PROP in self.world_map.tiles[tiletype].properties:
+            mat_name=self.world_map.tiles[tiletype].properties[self.MATERIAL_PROP]
+          else:
+            print (self.MATERIAL_PROP, " is not in tile (",tiletype,")")
+            mat_name=""
+          man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
+          n=0
+          rot=self.FLOOR_ROT[self.world_map.tiles[tiletype].properties[self.ROT_PROP]]
+          for tx in range (xr[0],xr[1]):
+            for ty in range (yr[0],yr[1]):
                 gid=layer.content2D [tx][ty]
-                if gid!=0:
-                    if self.MATERIAL_PROP in self.world_map.tiles[gid].properties:
-                        mat_name=self.world_map.tiles[gid].properties[self.MATERIAL_PROP]
-                    else:
-                        print (self.MATERIAL_PROP, " is not in tile ",tx,"-",ty,"(",gid,")")
-                        mat_name=""
-                    rot=self.FLOOR_ROT[self.world_map.tiles[gid].properties[self.ROT_PROP]]
-                    man.begin(mat_name, Ogre.RenderOperation.OT_TRIANGLE_LIST)
+                if gid==tiletype:
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
-                    man.position(py, h, px)
+                        
+                    # vertice n
+                    man.position(px, h, py)
                     man.normal(0, 1, 0)
                     #man.textureCoord(0, 0)
                     man.textureCoord(rot[0][0],rot[0][1])
                     
-                    man.position(px+self.INCTILE_X, h,py )
+                    #vertice n+1
+                    man.position(px+self.INCTILE_X, h,py)
                     man.normal(0, 1, 0)
                     #man.textureCoord(0, 1)
                     man.textureCoord(rot[1][0],rot[1][1])
                     
-                    man.position(px+self.INCTILE_X, h, py+self.INCTILE_Y)
+                    #vertice n+2
+                    man.position(px+self.INCTILE_X, h,py+self.INCTILE_Y)
                     man.normal(0, 1, 0)
                     #man.textureCoord(1, 1)
                     man.textureCoord(rot[2][0],rot[2][1])
-                    
+                        
+                    #vertice n+3
                     man.position(px, h, py+self.INCTILE_Y)
                     man.normal(0, 1, 0)
                     #man.textureCoord(1, 0)
                     man.textureCoord(rot[3][0],rot[3][1])
                     
-                    man.quad(0, 1, 2, 3)
-                    man.end()                
-
-        #man.setCastShadows(False)
+                    man.quad(n, n+1, n+2, n+3)
+                    n+=4
+          man.end()  #termino el submesh
+                    
+        #termino de dar propiedades al objeto manual y lo pongo en  escena
+        man.setCastShadows(True)
+        #mesh=man.convertToMesh(layername+str(n))
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
+        #scn_mgr.destroyManualObject(man)
         mannode.attachObject(man)
+        #mannode.attachObject(scn_mgr.createEntity(mesh))
 
 #
 #

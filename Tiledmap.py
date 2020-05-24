@@ -5,15 +5,6 @@ Created on Sat Apr 11 19:05:57 2020
 
 @author: arky
 """
-
-import sys
-
-def trace(frame, event, arg):
-    #print(f"[{event}] {frame.f_code.co_filename}:{frame.f_lineno}")
-    return trace
-
-sys.settrace(trace)
-
 import Ogre
 import Ogre.RTShader as OgreRTShader
 import Ogre.Bites as OgreBites
@@ -128,8 +119,8 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         scn_mgr.setShadowTextureSelfShadow(True)
         
         #skybox and distance of the skybox
-        scn_mgr.setSkyBox(True,"Skyes/Night1",100)
-        #scn_mgr.setSkyDome(True,"Skyes/Night1",5,5)
+        #scn_mgr.setSkyBox(True,"Skyes/Night1",100)
+        scn_mgr.setSkyDome(True,"Skyes/Night1",50,5)
         #scn_mgr.setSkyDome(True,"Examples/SpaceSkyPlane",5,8)
         
         #lets set a fog
