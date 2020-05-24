@@ -38,7 +38,7 @@
     "@IsoTile2": "caution_2.iso.png",
     "@IsoTile3": "caution_3.iso.png",
     "@IsoTile4": "caution_4.iso.png",
-    "@Material": "caution_diffuse_6885d283eaa132c948f007eb685d14133f0b0d08.png"
+    "@Material": "MatCaution"
   },
   "colmn.obj": {
     ":attrs_file": "./attributes.json",
@@ -49,7 +49,7 @@
     "@IsoTile2": "colmn_2.iso.png",
     "@IsoTile3": "colmn_3.iso.png",
     "@IsoTile4": "colmn_4.iso.png",
-    "@Material": "colmn_4f3916eeb6680616ac3ea2a4da8ec007c30d094a.jpg"
+    "@Material": "MatColumn"
   },
   "escalera01.obj": {
     ":attrs_file": "./attributes.json",
@@ -60,7 +60,7 @@
     "@IsoTile2": "escalera01_2.iso.png",
     "@IsoTile3": "escalera01_3.iso.png",
     "@IsoTile4": "escalera01_4.iso.png",
-    "@Material": "rugs_9477219079dbf029f8b22d4eba6b1683f7a047b8.jpg"
+    "@Material": "MatEscalera"
   },
   "escalera02.obj": {
     ":attrs_file": "./attributes.json",
@@ -71,7 +71,7 @@
     "@IsoTile2": "escalera02_2.iso.png",
     "@IsoTile3": "escalera02_3.iso.png",
     "@IsoTile4": "escalera02_4.iso.png",
-    "@Material": "rugs_51dde27ef1fb90f382189f0a168584943da1d1aa.jpg"
+    "@Material": "MatEscalera"
   },
   "escalera03.obj": {
     ":attrs_file": "./attributes.json",
@@ -82,7 +82,7 @@
     "@IsoTile2": "escalera03_2.iso.png",
     "@IsoTile3": "escalera03_3.iso.png",
     "@IsoTile4": "escalera03_4.iso.png",
-    "@Material": "rugs_5bedef1c0cc3491eb4d0a824cb5b189e14270240.jpg"
+    "@Material": "MatEscalera"
   },
   "escalera04.obj": {
     ":attrs_file": "./attributes.json",
@@ -93,7 +93,7 @@
     "@IsoTile2": "escalera04_2.iso.png",
     "@IsoTile3": "escalera04_3.iso.png",
     "@IsoTile4": "escalera04_4.iso.png",
-    "@Material": "rugs_0b3c858512f64556c305fd718b3bd3c082a0548b.jpg"
+    "@Material": "MatEscalera"
   },
   "hwall_corner.obj": {
     ":attrs_file": "./attributes.json",
@@ -104,7 +104,7 @@
     "@IsoTile2": "hwall_corner_2.iso.png",
     "@IsoTile3": "hwall_corner_3.iso.png",
     "@IsoTile4": "hwall_corner_4.iso.png",
-    "@Material": "hwall_9c5cf16ef3c3955409293101ba53ffc856e1a196.jpg"
+    "@Material": "MatHalfWall"
   },
   "hwall_cross.obj": {
     ":attrs_file": "./attributes.json",
@@ -115,7 +115,7 @@
     "@IsoTile2": "hwall_cross_2.iso.png",
     "@IsoTile3": "hwall_cross_3.iso.png",
     "@IsoTile4": "hwall_cross_4.iso.png",
-    "@Material": "hwall_5200565ad5b02f94b1378300890fc113bb42bc00.jpg"
+    "@Material": "MatHalfWall"
   },
   "hwall_fork.obj": {
     ":attrs_file": "./attributes.json",
@@ -126,7 +126,7 @@
     "@IsoTile2": "hwall_fork_2.iso.png",
     "@IsoTile3": "hwall_fork_3.iso.png",
     "@IsoTile4": "hwall_fork_4.iso.png",
-    "@Material": "hwall_560a8e0c753058f831ef2e27f65085c7090961a1.jpg"
+    "@Material": "MatHalfWall"
   },
   "hwall_halfdoor.obj": {
     ":attrs_file": "./attributes.json",
@@ -137,7 +137,7 @@
     "@IsoTile2": "hwall_halfdoor_2.iso.png",
     "@IsoTile3": "hwall_halfdoor_3.iso.png",
     "@IsoTile4": "hwall_halfdoor_4.iso.png",
-    "@Material": "hwall_cd7d16b095a1e19f7d7094b0af1ddaf118209770.jpg"
+    "@Material": "MatHalfWall"
   },
   "hwall_solid.obj": {
     ":attrs_file": "./attributes.json",
@@ -148,7 +148,7 @@
     "@IsoTile2": "hwall_solid_2.iso.png",
     "@IsoTile3": "hwall_solid_3.iso.png",
     "@IsoTile4": "hwall_solid_4.iso.png",
-    "@Material": "hwall_6300390bc4d7e1ec319596e9742aa62ce585fb86.jpg"
+    "@Material": "MatHalfWall"
   },
   "hwall_straight.obj": {
     ":attrs_file": "./attributes.json",
@@ -159,7 +159,7 @@
     "@IsoTile2": "hwall_straight_2.iso.png",
     "@IsoTile3": "hwall_straight_3.iso.png",
     "@IsoTile4": "hwall_straight_4.iso.png",
-    "@Material": "hwall_581c5587defebaf9bd9639d73774e28d051c38bf.jpg"
+    "@Material": "MatHalfWall"
   },
   "wall.obj": {
     ":attrs_file": "./attributes.json",
@@ -170,7 +170,7 @@
     "@IsoTile2": "wall_2.iso.png",
     "@IsoTile3": "wall_3.iso.png",
     "@IsoTile4": "wall_4.iso.png",
-    "@Material": "wall_18d0c51a6131b43f73983e44983d04f3753533b1.jpg"
+    "@Material": "MatWall"
   },
   "wall_big4.obj": {
     ":attrs_file": "./attributes.json",
@@ -181,7 +181,7 @@
     "@IsoTile2": "wall_big4_2.iso.png",
     "@IsoTile3": "wall_big4_3.iso.png",
     "@IsoTile4": "wall_big4_4.iso.png",
-    "@Material": "none_6c4e698c139c6c702d41ed9d3c5dc700890688e3.jpg"
+    "@Material": "Material/None"
   },
   "wall_buttress.obj": {
     ":attrs_file": "./attributes.json",
@@ -192,7 +192,7 @@
     "@IsoTile2": "wall_buttress_2.iso.png",
     "@IsoTile3": "wall_buttress_3.iso.png",
     "@IsoTile4": "wall_buttress_4.iso.png",
-    "@Material": "wall_992b9d4a081c5bf97541c2fea5d3e97f612a29e1.jpg"
+    "@Material": "MatWall"
   },
   "wall_buttress_top.obj": {
     ":attrs_file": "./attributes.json",
@@ -203,7 +203,7 @@
     "@IsoTile2": "wall_buttress_top_2.iso.png",
     "@IsoTile3": "wall_buttress_top_3.iso.png",
     "@IsoTile4": "wall_buttress_top_4.iso.png",
-    "@Material": "wall_b822b998782e4740afc35bd99cd22e6dfbbb8975.jpg"
+    "@Material": "MatWall"
   },
   "wall_column.obj": {
     ":attrs_file": "./attributes.json",
@@ -214,7 +214,7 @@
     "@IsoTile2": "wall_column_2.iso.png",
     "@IsoTile3": "wall_column_3.iso.png",
     "@IsoTile4": "wall_column_4.iso.png",
-    "@Material": "none_ab630a6aef4712da35e805ee209123df03015939.jpg"
+    "@Material": "Material/None"
   },
   "wall_column_small.obj": {
     ":attrs_file": "./attributes.json",
@@ -225,7 +225,7 @@
     "@IsoTile2": "wall_column_small_2.iso.png",
     "@IsoTile3": "wall_column_small_3.iso.png",
     "@IsoTile4": "wall_column_small_4.iso.png",
-    "@Material": "none_5a96d12cca42a62cb0029b6b327b8bf17bae182b.jpg"
+    "@Material": "Material/None"
   },
   "wall_diagonal.obj": {
     ":attrs_file": "./attributes.json",
@@ -236,7 +236,7 @@
     "@IsoTile2": "wall_diagonal_2.iso.png",
     "@IsoTile3": "wall_diagonal_3.iso.png",
     "@IsoTile4": "wall_diagonal_4.iso.png",
-    "@Material": "wall_167c31fe7ccdc61887155705e57f56e362bcdb48.jpg"
+    "@Material": "MatWall"
   },
   "wall_engaged.obj": {
     ":attrs_file": "./attributes.json",
@@ -247,7 +247,7 @@
     "@IsoTile2": "wall_engaged_2.iso.png",
     "@IsoTile3": "wall_engaged_3.iso.png",
     "@IsoTile4": "wall_engaged_4.iso.png",
-    "@Material": "none_e68dd4d9660ee7bff3a70f7289c10b50b8e75582.jpg"
+    "@Material": "Material/None"
   },
   "wall_small4.obj": {
     ":attrs_file": "./attributes.json",
@@ -258,7 +258,7 @@
     "@IsoTile2": "wall_small4_2.iso.png",
     "@IsoTile3": "wall_small4_3.iso.png",
     "@IsoTile4": "wall_small4_4.iso.png",
-    "@Material": "none_309205926625d86b98fd0ee0ef6021a9d2a8c43b.jpg"
+    "@Material": "Material/None"
   },
   "wall_small4_base.obj": {
     ":attrs_file": "./attributes.json",
@@ -269,7 +269,7 @@
     "@IsoTile2": "wall_small4_base_2.iso.png",
     "@IsoTile3": "wall_small4_base_3.iso.png",
     "@IsoTile4": "wall_small4_base_4.iso.png",
-    "@Material": "none_f754bb196d59707b724d5613bba4d5b0ae40229c.jpg"
+    "@Material": "Material/None"
   },
   "wall_small4_half.obj": {
     ":attrs_file": "./attributes.json",
@@ -280,6 +280,6 @@
     "@IsoTile2": "wall_small4_half_2.iso.png",
     "@IsoTile3": "wall_small4_half_3.iso.png",
     "@IsoTile4": "wall_small4_half_4.iso.png",
-    "@Material": "none_5eea55be29c5e2c00425fa1cc561ab67b06db088.jpg"
+    "@Material": "Material/None"
   }
 }

@@ -1,4 +1,4 @@
-newmtl None
+newmtl Material/None
 Ns 19.999999999999996
 d 1.0
 illum 2
@@ -7,4 +7,3 @@ Ka 0.0 0.0 0.0
 Ks 0.45999999999999996 0.45999999999999996 0.45999999999999996
 Ke 0.0 0.0 0.0
 map_Kd ../materials/none.jpg
-
