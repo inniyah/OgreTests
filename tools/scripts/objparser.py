@@ -8,6 +8,8 @@
 import sys
 import os
 
+from collections import OrderedDict
+
 import numpy as np
 
 def eprint(*args, **kwargs):
@@ -227,6 +229,80 @@ class ObjModel:
 
         return (min_x, min_y, min_z), (max_x, max_y, max_z)
 
+    def to_ogre_xml(self, file=sys.stderr):
+        def w(*args, **kwargs):
+            print(*args, file=file, **kwargs)
+
+        w(f'<?xml version="1.0"?>')
+        w(f'<mesh>')
+        w(f'	<submeshes>')
+
+        for (gname, smap, usemtl) in self.groups:
+            material_name = f'{usemtl}' if usemtl else ''
+            if len(smap):
+                w(f'		<submesh material="{material_name}" usesharedvertices="false" use32bitindexes="false" operationtype="triangle_list">')
+
+            vertex = {}
+            vindex = 1
+            for k in sorted(smap.keys()):
+                for n in smap[k]:
+                    f = self.f_list[n - 1]
+                    for i in f:
+                        try:
+                            vertex[tuple(i)]
+                        except KeyError:
+                            vertex[tuple(i)] = vindex
+                            vindex += 1
+
+            # Sort dictionary by value
+            vertex = OrderedDict(sorted(vertex.items(), key=lambda t: t[1]))
+
+            #~ print(f"vertex = {vertex}")
+
+            faces = []
+            for k in sorted(smap.keys()):
+                for n in smap[k]:
+                    f = self.f_list[n - 1]
+                    for i in range(len(f) - 2):
+                        faces.append([ vertex[tuple(f[0])], vertex[tuple(f[i+1])], vertex[tuple(f[i+2])] ])
+
+            #~ print(f"faces = {faces}")
+
+            w(f'			<faces count="{len(faces)}">')
+            for face in faces:
+                w(f'				<face v1="{face[0]-1}" v2="{face[1]-1}" v3="{face[2]-1}" />')
+            w(f'			</faces>')
+
+            w(f'			<geometry vertexcount="{len(vertex)}">')
+            w(f'				<vertexbuffer positions="true" normals="true">')
+
+            for (i_v, i_vt, i_vn), vnum in vertex.items():
+                v = self.v_list[i_v - 1]
+                vn = self.vn_list[i_vn - 1]
+
+                w(f'					<vertex>')
+                w(f'						<position x="{v[0]}" y="{v[1]}" z="{v[2]}" />')
+                w(f'						<normal x="{vn[0]}" y="{vn[1]}" z="{vn[2]}" />')
+                w(f'					</vertex>')
+
+            w(f'				</vertexbuffer>')
+            w(f'				<vertexbuffer texture_coord_dimensions_0="float2" texture_coords="1">')
+
+            for (i_v, i_vt, i_vn), vnum in vertex.items():
+                vt = self.vt_list[i_vt - 1]
+
+                w(f'					<vertex>')
+                w(f'						<texcoord u="{vt[0]}" v="{vt[1]}" />')
+                w(f'					</vertex>')
+
+            w(f'				</vertexbuffer>')
+            w(f'			</geometry>')
+
+            w(f'		</submesh>')
+
+        w(f'	</submeshes>')
+        w(f'</mesh>')
+
 def load_model(file):
     objects = {}
     materials = {}
@@ -330,6 +406,7 @@ if __name__ == "__main__":
     arg_parser.add_argument('--verbose', '-v', action='count', default=0)
     arg_parser.add_argument('--dump-obj', action='store_true')
     arg_parser.add_argument('--dump-mtl', action='store_true')
+    arg_parser.add_argument("-m", "--mesh", help="output mesh xml", default=None)
     args = arg_parser.parse_args()
 
     obj_filename = str(args.file)
@@ -347,3 +424,7 @@ if __name__ == "__main__":
         #~ print(f"Min: ({min_x}, {min_y}, {min_z})")
         #~ print(f"Max: ({max_x}, {max_y}, {max_z})")
 
+    if args.mesh:
+        with open(args.mesh, 'w') as file:
+            for obj, objdata in objects.items():
+                objdata.to_ogre_xml(file)
