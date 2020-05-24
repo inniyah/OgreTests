@@ -1,6 +1,6 @@
 {
   ":seq_info": {
-    "models": 22
+    "models": 23
   },
   ":type_lists": {
     "models": {
@@ -18,6 +18,7 @@
       "2": "hwall_solid.obj",
       "20": "wall_small4_half.obj",
       "21": "wall_buttress_top.obj",
+      "22": "wall_column_small.obj",
       "3": "hwall_straight.obj",
       "4": "hwall_cross.obj",
       "5": "hwall_fork.obj",
@@ -213,6 +214,17 @@
     "@IsoTile3": "wall_column_3.iso.png",
     "@IsoTile4": "wall_column_4.iso.png",
     "@Material": "wall_ab630a6aef4712da35e805ee209123df03015939.jpg"
+  },
+  "wall_column_small.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 22,
+    "@3DMesh": "wall_column_small.mesh",
+    "@3DModel": "wall_column_small.obj",
+    "@IsoTile1": "wall_column_small_1.iso.png",
+    "@IsoTile2": "wall_column_small_2.iso.png",
+    "@IsoTile3": "wall_column_small_3.iso.png",
+    "@IsoTile4": "wall_column_small_4.iso.png",
+    "@Material": "wall_5a96d12cca42a62cb0029b6b327b8bf17bae182b.jpg"
   },
   "wall_diagonal.obj": {
     ":attrs_file": "./attributes.json",
