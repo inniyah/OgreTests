@@ -1,6 +1,6 @@
 {
   ":seq_info": {
-    "models": 23
+    "models": 24
   },
   ":type_lists": {
     "models": {
@@ -19,6 +19,7 @@
       "20": "wall_small4_half.obj",
       "21": "wall_buttress_top.obj",
       "22": "wall_column_small.obj",
+      "23": "wall_small4_base.obj",
       "3": "hwall_straight.obj",
       "4": "hwall_cross.obj",
       "5": "hwall_fork.obj",
@@ -180,7 +181,7 @@
     "@IsoTile2": "wall_big4_2.iso.png",
     "@IsoTile3": "wall_big4_3.iso.png",
     "@IsoTile4": "wall_big4_4.iso.png",
-    "@Material": "wall_6c4e698c139c6c702d41ed9d3c5dc700890688e3.jpg"
+    "@Material": "none_6c4e698c139c6c702d41ed9d3c5dc700890688e3.jpg"
   },
   "wall_buttress.obj": {
     ":attrs_file": "./attributes.json",
@@ -213,7 +214,7 @@
     "@IsoTile2": "wall_column_2.iso.png",
     "@IsoTile3": "wall_column_3.iso.png",
     "@IsoTile4": "wall_column_4.iso.png",
-    "@Material": "wall_ab630a6aef4712da35e805ee209123df03015939.jpg"
+    "@Material": "none_ab630a6aef4712da35e805ee209123df03015939.jpg"
   },
   "wall_column_small.obj": {
     ":attrs_file": "./attributes.json",
@@ -224,7 +225,7 @@
     "@IsoTile2": "wall_column_small_2.iso.png",
     "@IsoTile3": "wall_column_small_3.iso.png",
     "@IsoTile4": "wall_column_small_4.iso.png",
-    "@Material": "wall_5a96d12cca42a62cb0029b6b327b8bf17bae182b.jpg"
+    "@Material": "none_5a96d12cca42a62cb0029b6b327b8bf17bae182b.jpg"
   },
   "wall_diagonal.obj": {
     ":attrs_file": "./attributes.json",
@@ -246,7 +247,7 @@
     "@IsoTile2": "wall_engaged_2.iso.png",
     "@IsoTile3": "wall_engaged_3.iso.png",
     "@IsoTile4": "wall_engaged_4.iso.png",
-    "@Material": "wall_e68dd4d9660ee7bff3a70f7289c10b50b8e75582.jpg"
+    "@Material": "none_e68dd4d9660ee7bff3a70f7289c10b50b8e75582.jpg"
   },
   "wall_small4.obj": {
     ":attrs_file": "./attributes.json",
@@ -257,7 +258,18 @@
     "@IsoTile2": "wall_small4_2.iso.png",
     "@IsoTile3": "wall_small4_3.iso.png",
     "@IsoTile4": "wall_small4_4.iso.png",
-    "@Material": "wall_309205926625d86b98fd0ee0ef6021a9d2a8c43b.jpg"
+    "@Material": "none_309205926625d86b98fd0ee0ef6021a9d2a8c43b.jpg"
+  },
+  "wall_small4_base.obj": {
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 23,
+    "@3DMesh": "wall_small4_base.mesh",
+    "@3DModel": "wall_small4_base.obj",
+    "@IsoTile1": "wall_small4_base_1.iso.png",
+    "@IsoTile2": "wall_small4_base_2.iso.png",
+    "@IsoTile3": "wall_small4_base_3.iso.png",
+    "@IsoTile4": "wall_small4_base_4.iso.png",
+    "@Material": "none_f754bb196d59707b724d5613bba4d5b0ae40229c.jpg"
   },
   "wall_small4_half.obj": {
     ":attrs_file": "./attributes.json",
@@ -268,6 +280,6 @@
     "@IsoTile2": "wall_small4_half_2.iso.png",
     "@IsoTile3": "wall_small4_half_3.iso.png",
     "@IsoTile4": "wall_small4_half_4.iso.png",
-    "@Material": "wall_5eea55be29c5e2c00425fa1cc561ab67b06db088.jpg"
+    "@Material": "none_5eea55be29c5e2c00425fa1cc561ab67b06db088.jpg"
   }
 }

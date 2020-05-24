@@ -329,13 +329,37 @@
     "@Material": "rugs_1f1275b712efff2f949a3047386a2e47e74ff4ef.jpg"
   },
   "StairLanding1.obj": {
-    ":seq_id": 34
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 34,
+    "@3DMesh": "StairLanding1.mesh",
+    "@3DModel": "StairLanding1.obj",
+    "@IsoTile1": "StairLanding1_1.iso.png",
+    "@IsoTile2": "StairLanding1_2.iso.png",
+    "@IsoTile3": "StairLanding1_3.iso.png",
+    "@IsoTile4": "StairLanding1_4.iso.png",
+    "@Material": "rugs_e22a35460463dc684a5615dc2eedfa6f4649b714.jpg"
   },
   "StairLanding2.obj": {
-    ":seq_id": 35
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 35,
+    "@3DMesh": "StairLanding2.mesh",
+    "@3DModel": "StairLanding2.obj",
+    "@IsoTile1": "StairLanding2_1.iso.png",
+    "@IsoTile2": "StairLanding2_2.iso.png",
+    "@IsoTile3": "StairLanding2_3.iso.png",
+    "@IsoTile4": "StairLanding2_4.iso.png",
+    "@Material": "rugs_6c44d7d2ab36bc5e68b3a975e39a788cfeaf9990.jpg"
   },
   "StairLanding3.obj": {
-    ":seq_id": 36
+    ":attrs_file": "./attributes.json",
+    ":seq_id": 36,
+    "@3DMesh": "StairLanding3.mesh",
+    "@3DModel": "StairLanding3.obj",
+    "@IsoTile1": "StairLanding3_1.iso.png",
+    "@IsoTile2": "StairLanding3_2.iso.png",
+    "@IsoTile3": "StairLanding3_3.iso.png",
+    "@IsoTile4": "StairLanding3_4.iso.png",
+    "@Material": "rugs_122f495d508a1846c61898244ad16ada3b1ada2b.jpg"
   },
   "WF_SpiralStairsR1mA.obj": {
     ":attrs_file": "./attributes.json",

@@ -3,7 +3,8 @@
  <tileset firstgid="1" source="../tools/tiled/floors.tsx"/>
  <tileset firstgid="46" source="../tools/tiled/ceilings.tsx"/>
  <tileset firstgid="67" source="../tools/tiled/models.tsx"/>
- <tileset firstgid="240" source="../tools/tiled/stairs.tsx"/>
+ <tileset firstgid="248" source="../tools/tiled/stairs.tsx"/>
+ <tileset firstgid="533" source="../tools/tiled/columns.tsx"/>
  <group id="16" name="Planta 01">
   <layer id="2" name="Suelo 01" width="200" height="200">
    <properties>
@@ -20,7 +21,7 @@
     <property name="tipo" value="w"/>
    </properties>
    <data encoding="base64" compression="zlib">
-   eJzt3Etu1DAYB/D0bj0JnAGxQqwQEgghwQ62fVyitBfgsWHJ4wIcgow0kSrLn5NMPA9Pfj/Jongyk0Tyv85na9p1AAAAAAAAAAAAAAAAAAAAAAAAAHA6bvp2mbTro14RnIYhG1eP+m47GYGNNBuDISOwZqUMyAdrJx8Qkw/WLl2fuk76I7ljrW9xbh7X4EPdfdnFtXk3cqzanXOSjuXN+C7lIpU7Xj44F7Wfh8aey6AlNff7cvuJ0LpaY1rtwbmZ8jz0L/g5x/oVrUvXY2s+D6XrWrJCa6ZmojRXjM0jG563aNEhx6x80JpDPfdY66VFU2qEKc9PuWP2WdvAUrnv+5Xmi9o1QikTc68NasuNz7EM1M5H6bW51wY1RWNtbj52fb7aJYfywaHUykft85dekw9q+hb0ldaLhuf83Hv3nY8l15brg8j3Ll/jjq0XpWtWaUsteb6qfW1fJ1wLDHLj+e/E9+aOm/refX9+7jjPXsy1pjGzpnuljjWNmTXdK3Wsacys6V5ZbqjPfyX9PzPHLum779uXwnVEr9e8jj+d+pzT9NC3uwWvAwAA5yG3ppOrd1sT1ecAAMB523V/EI7pUPvnu+4P2j/n2Na0prOme6WONY2ZNd0rdaxpzKzpXqkjN2Z+L+jbtyXXJh/MMfb989L3y4efd63tpxwT1dhLmvqcOX7M7NuMsScXXffp4ji/jzfn/Nyf++Oj88+9B9iXzZh804/ND0fKx8bT/txvj3h+iKR/P+fQpvyNHzgFx8oHnLqle+9TjrEHTsvMHxCTD4jJB8TkA/LU53B6zB8Qkw+IyQfE5IMWqM+hzPouxOQDYvIBMfmAPPU5lJk/ICYfEJMPiMkH5KnPocz8ATH5gJh8QEw+IE99DmV+l0NMPiAmHxCTD8hTn0OZ9V2IyQfE5ANi8gF56nMoM39ATD4gJh8Qkw/IU59DmfkDYvIBMfmAmHxAnvocyswfEJMPiMkHxC637X3fXvftZd+eb1+73772Zcbnpe951rcXfXvVt3ePzgenbqjPp7Sppn6e+pwWlDJwu+2/m/F5D9v3XI2cD1qwyxxR43zQAvmA2GXyb3RMWqPfB31jY18+aMVQn3fdeD7SGuQh6JuaD/U5LZiSj9rnM3/QCvmA2KHHqnzQiqn7g7n985u+XWf6hxrd/iDn4MfI/zd7hLn9wVx9PvSne4Nj5wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBD+Q8w3Tik
+   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
   </data>
   </layer>
   <layer id="3" name="Techos 01" width="200" height="200">
@@ -49,7 +50,7 @@
     <property name="tipo" value="w"/>
    </properties>
    <data encoding="base64" compression="zlib">
-   eJzt3E+O0zAUB+DM3TgSS5YsuQQIaQQ72IH4cwmOAMw1SCQiQeTnNrLrOPX3SdZoWnVsS+9X9yWaThMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD871li9KLntXH/lnp7u3nsceqjDnteG2OIaq2HGux5bYyh5xrseW3cj1+Zxy7VYOq1t1aytiPWy3n9ntI97jq2n+9XjxdeV8st1vaz4vq4fyN9Hhlpr9QxUs2MtFfqGKlmRtordYxUMyPtlXJrf771o/I83+bxteD5WvTn9Oj7PL4UPA8AANyHka7pjLRXAAAYVS/3B2GP6P55bb3cH3T/nL1GuqYz0l6pY6SaGWmv1DFSzYy0V+oYqWZG2ivlLv3/+TWjtdL16s/Z42nnY0uNvX6Ypk8Px+Xj8zz3x3/m37sHuJWlJt/NtfnhwHy8med+f9D8kLP9/pzWrvmOH+jBUfmA3rW6976lx+YsnB8Qkw+IyQfE5APS9OfQH+cHxOQDYvIBMfngDPTnkOf6LsTkA2LyATH5gDT9OeQ5PyAmHxCTD4jJB6TpzyHP+QEx+YCYfEBMPiBNfw553sshJh8Qkw+IyQek6c8hz/VdiMkHxOQDYvIBafpzyHN+QEw+ICYfEJMPSNOfQ57zA2LyATH5gJh8QJr+HPKcHxCTD4jJB8TkA9LW/vz535/R2Cv3t9a59OecwVKrL6Z27+kt54JSS62+nNrVbMu5oNRSq6+mdjXbci4oVdJnlMwHvVv78yPyoT/nDJwfEJMPiMkHpG37jxb3B/UfnMnThd/PMgcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABc4w9ae5TW
+   eJzt3U+O0zAUB+AMhwBxAf5cghVHYsmSJcdAGsEOdrCDswBzDRKJSBD5OYmSOk78fVI0aqvWtvR+dV+iabsOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/vc6cdSi5rlxfUO9fZjcd9/VUYc1z402RLVWQw3WPDfaUHMN1jw3ruNX5r65Gkw999a2zO2I+XJev7t0jzse08/3o/uZ5+3lFnP7ueP8uL5UPT99VHwaRfjsxVot1UxLa2UfLdVMS2tlHy3VTEtrZbuxP3886Tde7dx/vOhf73nmNece34v+nBq97Gv/Wab+5x4HAACuIXVOZ+/+vBbOXwEAwPXVcn0Q1ih1/byW64Oun7NWS+d0Wlor+2ipZlpaK/toqWZaWiv7SNXMk4v2yvLBGnP/f77kKG3rfPXnrPGw8r6hxj7edd33u+Py8aMf+9s/469dA9zKUJOf+9r8emA+PvVjfzlofMiZfn9OaUu+4wdqcFQ+oHZjb1+aHpuzsH9ATD4gJh8Qkw9I059DfewfEJMPiMkHxOSDM9CfQ57zuxCTD4jJB8TkA9L055Bn/4CYfEBMPiAmH5CmP4c8+wfE5ANi8gEx+YC0qD9P/Tbbkt9rW/o8/Tln4b0cYvIBMfmAmHxAmv4c8pzfhZh8QEw+ICYfkKY/hzz7B8TkA2LyATH5gDT9OeTZPyAmHxCTD4jJB6TpzyHP/gEx+YCYfEBMPiBt7M/f/P0bHWvlXmscS3/OGQy1+rYr955ecizYaqjVd125mi05Fmw11Or7rlzNlhwLttrSZ2wZD2o39udH5EN/zhnYPyAmHxCTD0ib9h8lrg/qPziTh5nbZxkDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlvgDlymRJg==
   </data>
   </layer>
   <layer id="6" name="Techos 02" width="200" height="200" offsetx="0" offsety="-158">
