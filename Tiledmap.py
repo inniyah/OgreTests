@@ -163,12 +163,40 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
 
         # Setup the scene
         #night light
-        scn_mgr.setAmbientLight(Ogre.ColourValue(.3, .3, .3))
-        light=scn_mgr.createLight("MainLight")
-        light.setType(Ogre.Light.LT_DIRECTIONAL);
-        light.setDiffuseColour(Ogre.ColourValue(0, .1, .7));
-        light.setSpecularColour(Ogre.ColourValue(0, 0, .5))
-        light.setDirection(1, -0.5, 0.5)
+        scn_mgr.setAmbientLight(Ogre.ColourValue(.1, .1, .1))
+        
+        dirlight=scn_mgr.createLight("MoonLight1")
+        dirlight.setType(Ogre.Light.LT_DIRECTIONAL);
+        dirlight.setDiffuseColour(Ogre.ColourValue(0, .1, .7));
+        dirlight.setSpecularColour(Ogre.ColourValue(0, 0, .5))
+        dirlight.setDirection(0, -1, -0.7)
+        
+#        spotlight=scn_mgr.createLight("MoonLight2")
+#        spotlight.setType(Ogre.Light.LT_SPOTLIGHT);
+#        spotlight.setDiffuseColour(Ogre.ColourValue(.02, .2, .9));
+#        spotlight.setSpecularColour(Ogre.ColourValue(0, 0, .5))
+#        spotlight.setSpotlightInnerAngle(Ogre.Radian(0.09))
+#        spotlight.setSpotlightOuterAngle(Ogre.Radian(3))
+#        spotlight.setSpotlightFalloff(.0)
+#        spotLightNode = Playernode.createChildSceneNode()
+#        spotLightNode.setPosition(Ogre.Vector3(3, 3, 3))
+#        spotlight.setDirection(0, -1, -0.7)
+#        spotLightNode.attachObject(spotlight)
+        #spotlight.setCastShadows(True)
+        
+        pointLight = scn_mgr.createLight("PointLight")
+        pointLight.setType(Ogre.Light.LT_POINT)
+        pointLight.setDiffuseColour(1, 1, 1)
+        pointLight.setSpecularColour(1, 1, 1)
+        pointLightNode = Playernode.createChildSceneNode()
+        pointLightNode.attachObject(pointLight)
+        pointLightNode.setPosition(0, 1.5, 0)
+        pointLight.setAttenuation(100,1,0.045,0.0075)
+        
+        
+        
+        
+        
         
         #Daylight, esta tecnica de sombreado queda mucho mejor
 #        scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_ADDITIVE)
@@ -183,16 +211,6 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
 #        lightNode = scn_mgr.getRootSceneNode().createChildSceneNode()
 #        lightNode.attachObject(light)
 #        lightNode.setPosition(0, 3, 0)
-
-        pointLight = scn_mgr.createLight("PointLight")
-        pointLight.setType(Ogre.Light.LT_POINT)
-
-        pointLight.setDiffuseColour(0.3, 0.3, 0.3)
-        pointLight.setSpecularColour(0.3, 0.3, 0.3)
-        pointLightNode = scn_mgr.getRootSceneNode().createChildSceneNode()
-        pointLightNode.attachObject(pointLight)
-        #pointLightNode.setPosition(Ogre.Vector3(2, 2, 2))
-        pointLightNode.setPosition(2, 2, 2)
 
         self.mapa=mapa
 
