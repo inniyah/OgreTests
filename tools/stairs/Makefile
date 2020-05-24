@@ -64,14 +64,15 @@ up: $(OBJ_SOURCES:.obj=.up.png)
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile4 $@
 	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
-%.mesh: %.obj ../OgreAssimp/OgreAssimpConverter
-	../OgreAssimp/OgreAssimpConverter -uuid `echo '$(TILES_ID)/$<' | sha1sum | head -n1 | awk '{print $$1;}'` $<
-	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) \
+%.mesh: %.obj ../scripts/objparser.py
+	../scripts/objparser.py $< --mesh $@.xml
+	OgreXMLConverter $@.xml $@
+
+	../scripts/add_metadata.py -v $< -d metadata.json -t $(TILES_ID) \
 		-J $(dir $<)attributes.json -D 3DModel $< -D 3DMesh $@
-	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D Material \
-		`cat "$(dir $@)$(basename $(notdir $@)).material" | \
-			grep '^material[[:space:]]*' | \
-			sed -e 's|material[[:space:]]*||'`
+
+	../scripts/add_metadata.py -v $< -d metadata.json -t $(TILES_ID) -D Material \
+		`grep -e '^ *usemtl ' $< | head -n 1 | sed 's/^[ \t]*//;s/[ \t]*$$//' | tr -s ' ' | cut -d' ' -f2`
 
 %.iso.png: %_1.iso.png %_2.iso.png %_3.iso.png %_4.iso.png
 	mkdir -p tmp
@@ -92,6 +93,7 @@ clean:
 	@rm -fv `find . -maxdepth 1 -name "*.skeleton"`
 	@rm -fv `find . -maxdepth 1 -name "*.skeleton.xml"`
 	@rm -fv `find . -maxdepth 1 -name "*.tsx"`
+	@rm -fv `find . -maxdepth 1 -name "*.log"`
 	@rm -fv `find . -maxdepth 1 -name "tmp_*.png"`
 
 .PHONY: all add-new-objs up clean

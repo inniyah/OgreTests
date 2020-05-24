@@ -64,7 +64,7 @@ up: $(OBJ_SOURCES:.obj=.up.png)
 	../scripts/add_metadata.py $< -d metadata.json -t $(TILES_ID) -D IsoTile4 $@
 	rm "tmp_dir_$(notdir $@)" "tmp_rev_$(notdir $@)"
 
-%.mesh: %.obj ../OgreAssimp/OgreAssimpConverter
+%.mesh: %.obj ../scripts/objparser.py
 	../scripts/objparser.py $< --mesh $@.xml
 	OgreXMLConverter $@.xml $@
 
