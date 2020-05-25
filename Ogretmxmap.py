@@ -89,7 +89,11 @@ class tmxmap:
             for ty in range (0,self.world_map.height):
                 gid=layer.content2D [tx][ty]
                 if gid!=0:
-                    mesh=self.world_map.tiles[gid].properties[self.MESH_PROP]
+                    try:
+                        mesh=self.world_map.tiles[gid].properties[self.MESH_PROP]
+                    except:
+                        mesh="wall.mesh"
+                        print("problems with ",gid, "in ",tx,"-",ty)
                     px=self.INCTILE_X*tx
                     py=self.INCTILE_Y*ty
                     wall=scn_mgr.createEntity(mesh)
@@ -97,7 +101,10 @@ class tmxmap:
                     wallNode1 = scn_mgr.getRootSceneNode().createChildSceneNode()
                     wallNode2=wallNode1.createChildSceneNode()
                     wallNode2.translate(-.5,0,-.5)
-                    wallNode1.yaw(Ogre.Ogre.Radian((float(self.world_map.tiles[gid].properties[self.ROT_PROP]))/180*np.pi),Ogre.Node.TS_WORLD)
+                    try:
+                        wallNode1.yaw(Ogre.Ogre.Radian((float(self.world_map.tiles[gid].properties[self.ROT_PROP]))/180*np.pi),Ogre.Node.TS_WORLD)
+                    except:
+                        pass
                     #wallNode.translate(py+0.5, h, px+0.5)
                     wallNode1.setPosition(px+0.5, h, py+0.5)
                     wallNode2.attachObject(wall)
