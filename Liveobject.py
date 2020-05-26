@@ -115,7 +115,7 @@ class LiveObject(object):
         """ Comprueba la colision en el mapa de una posicion
             True no se puede mover a la posición indicada"""
         h=self.mapa.wallsheight(self,pos[0],pos[1],self.z,self.OFFSET)
-        if h-self.z>0.5:
+        if h-self.z>0.2: #Este es el salto maximo que se puede hacer
             return True
         else:
             return False

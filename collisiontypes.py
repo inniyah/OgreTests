@@ -11,7 +11,7 @@ se definen los distintos tipos de colisiones del mapa
 def solid(objeto,x,y):
     #objeto con el que chocamos y posición del tile en el mapa
     #devuelvo la altura del objeto
-    return 2
+    return 2.0
 
 def nocollision(objeto,x,y):
     return -2
@@ -68,16 +68,24 @@ def stair4_O(objeto,x,y):
     dx=x-int(x)
     return (0.5*(1-dx)+1.5)
 
+def landing1(objeto,x,y):
+    return 0.5
+
+def landing2(objeto,x,y):
+    return 1
+
+def landing3(objeto,x,y):
+    return 1.5
 
 
 
-ROT_DIR={"0":"E","90":"N","180":"O","270":"S"}
+ROT_DIR={"90":"E","180":"S","270":"O","0":"N"}
 COLISION_TYPE = {"NP":solid,"":nocollision,
                  "E1N":stair1_N,"E1S":stair1_S,"E1E":stair1_E,"E1O":stair1_O,
                  "E2N":stair2_N,"E2S":stair2_S,"E2E":stair2_E,"E2O":stair2_O,
                  "E3N":stair3_N,"E3S":stair3_S,"E3E":stair3_E,"E3O":stair3_O,
-                 "E4N":stair4_N,"E4S":stair4_S,"E4E":stair4_E,"E4O":stair4_O
-                 }
+                 "E4N":stair4_N,"E4S":stair4_S,"E4E":stair4_E,"E4O":stair4_O,
+                 "L1":landing1, "L2":landing2, "L3":landing3}
 
 class collision_tiles:
     

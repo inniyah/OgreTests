@@ -114,6 +114,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_MODULATIVE)
         #scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_TEXTURE_ADDITIVE)
         #scn_mgr.setShadowTechnique(Ogre.Ogre.SHADOWTYPE_STENCIL_MODULATIVE)
+        scn_mgr.setShadowDirLightTextureOffset(1)
         scn_mgr.setShadowFarDistance(200)
         #para que los objetos emitan shadow sobre si mismos
         scn_mgr.setShadowTextureSelfShadow(True)
@@ -131,7 +132,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         
         #Creamos el mapa
         #mapa=Ogretmxmap.tmxmap("Maps/cathedral.tmx")
-        mapa=Ogretmxmap.tmxmap("Maps/cathedral.tmx")
+        mapa=Ogretmxmap.tmxmap("resources/tiled/cathedral.tmx")
         mannode=scn_mgr.getRootSceneNode().createChildSceneNode()
         mannode.setPosition(0,0,0)
         mapa.createmap(scn_mgr)
@@ -169,7 +170,7 @@ class Tutorial6(OgreBites.ApplicationContext, OgreBites.InputListener):
         dirlight.setType(Ogre.Light.LT_DIRECTIONAL);
         dirlight.setDiffuseColour(Ogre.ColourValue(0, .1, .7));
         dirlight.setSpecularColour(Ogre.ColourValue(0, 0, .5))
-        dirlight.setDirection(0, -1, -0.7)
+        dirlight.setDirection(-0.5, -0.5, -0.3)
         
 #        spotlight=scn_mgr.createLight("MoonLight2")
 #        spotlight.setType(Ogre.Light.LT_SPOTLIGHT);
